@@ -41,6 +41,8 @@
             overflow-y: auto;
             position: fixed;
             border-right: 1px solid var(--border-color);
+            z-index: 1000;
+            transition: transform 0.3s ease-in-out;
         }
         #sidebar h2 {
             margin-top: 0;
@@ -78,9 +80,10 @@
             color: white;
         }
         #main-content {
-            margin-left: 320px;
+            margin-left: 280px;
             padding: 25px 40px;
-            width: calc(100% - 320px);
+            width: calc(100% - 280px);
+            transition: margin-left 0.3s ease-in-out;
         }
         section {
             background-color: var(--secondary-bg);
@@ -88,7 +91,7 @@
             margin-bottom: 30px;
             border-radius: 12px;
             border: 1px solid var(--border-color);
-            scroll-margin-top: 20px;
+            scroll-margin-top: 80px; /* Adjusted for fixed header */
         }
         h1, h2, h3, h4, h5 {
             color: #1e293b;
@@ -97,10 +100,10 @@
              border-bottom: 1px solid var(--border-color);
              padding-bottom: 10px;
         }
-        h1 { font-size: 2.5rem; }
-        h2 { font-size: 2rem; }
-        h3 { font-size: 1.5rem; }
-        h4 { font-size: 1.25rem; }
+        h1 { font-size: 2.2rem; }
+        h2 { font-size: 1.8rem; }
+        h3 { font-size: 1.4rem; }
+        h4 { font-size: 1.2rem; }
         h5 { font-size: 1.1rem; margin-bottom: 0.5rem; }
 
         pre {
@@ -137,6 +140,7 @@
             font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
             font-size: 14px;
             margin-top: 10px;
+            box-sizing: border-box;
         }
         .exercise-solution {
             display: none;
@@ -207,9 +211,64 @@
             margin-top: 10px;
             background-color: #fafbff;
         }
+
+        /* --- Responsive Styles --- */
+        #menu-toggle {
+            display: none; /* Hidden by default on large screens */
+            position: fixed;
+            top: 15px;
+            left: 15px;
+            z-index: 1001;
+            background-color: var(--sidebar-bg);
+            color: white;
+            border: 1px solid var(--sidebar-hover-bg);
+            width: 40px;
+            height: 40px;
+            padding: 0;
+            font-size: 24px;
+            line-height: 40px;
+            text-align: center;
+        }
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        /* Styles for screens smaller than 992px */
+        @media (max-width: 991px) {
+            #menu-toggle {
+                display: block;
+            }
+            #sidebar {
+                transform: translateX(-100%);
+            }
+            #sidebar.visible {
+                transform: translateX(0);
+            }
+            #main-content {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px;
+            }
+            #main-content h1 {
+                margin-top: 60px;
+            }
+            #overlay.visible {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body>
+    
+    <button id="menu-toggle" aria-label="Toggle Menu">&#9776;</button>
+    <div id="overlay"></div>
 
     <nav id="sidebar">
         <h2>Studiegids</h2>
@@ -2055,153 +2114,185 @@ console.log(add(5, 10)); // 15</code></pre>
     </main>
 
     <script>
-        // --- Sidebar Active Link Logic ---
-        const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('#sidebar a');
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Responsive Sidebar Toggle Logic ---
+            const menuToggle = document.getElementById('menu-toggle');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const sidebarLinks = document.querySelectorAll('#sidebar a');
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    let activeLinkFound = false;
+            function closeSidebar() {
+                sidebar.classList.remove('visible');
+                overlay.classList.remove('visible');
+            }
+
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('visible');
+                overlay.classList.toggle('visible');
+            });
+
+            overlay.addEventListener('click', closeSidebar);
+            
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    // Only close sidebar on mobile view
+                    if (window.innerWidth <= 991) {
+                        closeSidebar();
+                    }
+                });
+            });
+
+
+            // --- Sidebar Active Link Logic (original) ---
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('#sidebar a');
+
+            const observer = new IntersectionObserver((entries) => {
+                let visibleSectionId = '';
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && entry.intersectionRatio > 0) {
+                       visibleSectionId = entry.target.id;
+                    }
+                });
+
+                if(visibleSectionId) {
                     navLinks.forEach(link => {
                         link.classList.remove('active');
-                        if (link.getAttribute('href').substring(1) === entry.target.id) {
+                        if (link.getAttribute('href').substring(1) === visibleSectionId) {
                             link.classList.add('active');
-                            activeLinkFound = true;
                         }
                     });
                 }
+            }, { rootMargin: "-40% 0px -60% 0px" });
+
+            sections.forEach(section => {
+                observer.observe(section);
             });
-        }, { rootMargin: "-50% 0px -50% 0px" });
 
-        sections.forEach(section => {
-            observer.observe(section);
-        });
-
-        // --- Exercise Solution Toggle Logic ---
-        document.querySelectorAll('.solution-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const solutionDiv = button.nextElementSibling.nextElementSibling;
-                if (solutionDiv) {
-                    solutionDiv.style.display = solutionDiv.style.display === 'block' ? 'none' : 'block';
-                }
-            });
-        });
-
-        // --- Exercise Validation Logic ---
-        const validators = {
-            'h1-01': (code) => {
-                const results = [];
-                if (!/<!DOCTYPE\s+html>/i.test(code)) results.push("Doctype ontbreekt of is incorrect.");
-                if (!/<html\s+lang="nl">/i.test(code)) results.push("`lang=\"nl\"` op `<html>` tag ontbreekt.");
-                if (!/<meta\s+charset="UTF-8">/i.test(code)) results.push("Meta charset UTF-8 ontbreekt.");
-                if (!/<meta\s+name="viewport"\s+content="width=device-width,\s*initial-scale=1.0">/i.test(code)) results.push("Viewport meta tag is incorrect.");
-                if (!/<title>.*<\/title>/i.test(code)) results.push("Title tag ontbreekt.");
-                return { success: results.length === 0, messages: results.length ? results : ["Correct!"] };
-            },
-            'h2-01': (code) => {
-                const results = [];
-                if (!/<header>[\s\S]*?<\/header>/i.test(code)) results.push("Header ontbreekt.");
-                if (!/<nav[\s\S]*?>[\s\S]*?<\/nav>/i.test(code)) results.push("Nav ontbreekt.");
-                if (!/<main>[\s\S]*?<\/main>/i.test(code)) results.push("Main ontbreekt.");
-                if (!/<article>[\s\S]*?<\/article>/i.test(code)) results.push("Article ontbreekt.");
-                if (!/<aside>[\s\S]*?<\/aside>/i.test(code)) results.push("Aside ontbreekt.");
-                if (!/<footer>[\s\S]*?<\/footer>/i.test(code)) results.push("Footer ontbreekt.");
-                return { success: results.length === 0, messages: results.length ? results : ["Correcte structuur!"] };
-            },
-            'h4-01': (code) => {
-                const results = [];
-                if (!/<caption>[\s\S]*?<\/caption>/i.test(code)) results.push("Caption ontbreekt.");
-                if ((code.match(/<th\s+scope="col"/gi) || []).length < 2) results.push("Minstens twee kolomkoppen (`th` met `scope=\"col\"`) zijn vereist.");
-                if ((code.match(/<th\s+scope="row"/gi) || []).length < 2) results.push("Minstens twee rijkoppen (`th` met `scope=\"row\"`) zijn vereist.");
-                return { success: results.length === 0, messages: results.length ? results : ["Correct!"] };
-            },
-            'h6-01': (code) => {
-                const results = [];
-                if (!/<label\s+for="email"/i.test(code)) results.push("Label voor e-mail ontbreekt of is incorrect gekoppeld.");
-                if (!/<input[^>]+id="email"/i.test(code)) results.push("Input voor e-mail heeft geen `id=\"email\"`.");
-                if (!/<label\s+for="password"/i.test(code)) results.push("Label voor wachtwoord ontbreekt.");
-                if (!/<input[^>]+id="password"/i.test(code)) results.push("Input voor wachtwoord heeft geen `id=\"password\"`.");
-                if (!/<input[^>]+type="email"[^>]+required/i.test(code)) results.push("E-mail input is niet `required`.");
-                return { success: results.length === 0, messages: results.length ? results : ["Correct!"] };
-            },
-            'c1-01': (code) => {
-                const results = [];
-                if (!/box-sizing:\s*border-box/i.test(code)) results.push("`box-sizing: border-box;` ontbreekt.");
-                if (!/width:\s*200px/i.test(code)) results.push("`width: 200px;` ontbreekt.");
-                return { success: results.length === 0, messages: results.length ? results : ["Correct!"] };
-            },
-            'c3-01': (code) => {
-                const results = [];
-                if (!/display:\s*grid/i.test(code)) results.push("`display: grid;` ontbreekt.");
-                if (!/grid-template-columns:\s*repeat\(\s*auto-fit,\s*minmax\(250px,\s*1fr\)\)/i.test(code.replace(/\s+/g, ' '))) results.push("De `grid-template-columns` regel is incorrect.");
-                return { success: results.length === 0, messages: results.length ? results : ["Correct!"] };
-            },
-            'c7-01': (code) => {
-                const results = [];
-                if (!/@media\s*\(\s*min-width:\s*600px\s*\)/i.test(code)) results.push("De media query conditie is incorrect.");
-                if (!/body\s*\{\s*background-color:\s*lightblue;\s*\}/i.test(code.replace(/\s+/g, ' '))) results.push("De stijlregel binnen de media query is incorrect.");
-                return { success: results.length === 0, messages: results.length ? results : ["Correct!"] };
-            },
-            'j5-01': (code) => {
-                try {
-                    // Reset UI for test
-                    const uiContainer = document.getElementById('ex-j5-01-ui');
-                    const originalHTML = uiContainer.innerHTML;
-                    
-                    const countSpan = uiContainer.querySelector('#clickCount');
-                    countSpan.textContent = '0';
-                    
-                    // Execute user code
-                    const userFunction = new Function(code);
-                    userFunction();
-                    
-                    const btn = uiContainer.querySelector('#counterBtn');
-                    btn.click();
-                    btn.click();
-                    
-                    const finalCount = parseInt(countSpan.textContent, 10);
-                    
-                    // Cleanup
-                    uiContainer.innerHTML = originalHTML;
-
-                    if (finalCount === 2) {
-                        return { success: true, messages: ["Test geslaagd! De teller werkt."] };
-                    } else {
-                        return { success: false, messages: [`Test mislukt. Verwachtte 2, kreeg ${finalCount}.`] };
+            // --- Exercise Solution Toggle Logic (original) ---
+            document.querySelectorAll('.solution-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const solutionDiv = button.nextElementSibling.nextElementSibling;
+                    if (solutionDiv) {
+                        solutionDiv.style.display = solutionDiv.style.display === 'block' ? 'none' : 'block';
                     }
-                } catch (e) {
-                    return { success: false, messages: [`Runtime error: ${e.message}`] };
-                }
-            },
-            't4-01': (code) => {
-                // TypeScript can't be executed directly, so we do a simple string check
-                const results = [];
-                if (!/function\s+getFirstElement\s*<T>/.test(code)) results.push("Functie moet een generic type parameter `<T>` hebben.");
-                if (!/\(arr:\s*T\[\]\)/.test(code)) results.push("Argument `arr` moet van het type `T[]` zijn.");
-                if (!/:\s*T\s*\|\s*undefined/.test(code)) results.push("Return type moet `T | undefined` zijn.");
-                return { success: results.length === 0, messages: results.length ? results : ["Syntaxis ziet er correct uit!"] };
-            }
-        };
+                });
+            });
 
-        document.querySelectorAll('.check-btn').forEach(button => {
-            button.addEventListener('click', () => {
-                const exerciseId = button.dataset.exercise;
-                const textarea = document.getElementById(`ex-${exerciseId}`);
-                const resultDiv = button.nextElementSibling.nextElementSibling;
-                
-                const validator = validators[exerciseId];
-                if (validator && textarea) {
-                    const result = validator(textarea.value);
-                    resultDiv.innerHTML = result.messages.join('<br>');
-                    resultDiv.className = 'validator-result ' + (result.success ? 'success' : 'error');
-                } else {
-                    resultDiv.innerHTML = 'Validator niet gevonden voor deze oefening.';
-                    resultDiv.className = 'validator-result error';
+            // --- Exercise Validation Logic (original) ---
+            const validators = {
+                'h1-01': (code) => {
+                    const results = [];
+                    if (!/<!DOCTYPE\s+html>/i.test(code)) results.push("Doctype ontbreekt of is incorrect.");
+                    if (!/<html\s+lang="nl">/i.test(code)) results.push("`lang=\"nl\"` op `<html>` tag ontbreekt.");
+                    if (!/<meta\s+charset="UTF-8">/i.test(code)) results.push("Meta charset UTF-8 ontbreekt.");
+                    if (!/<meta\s+name="viewport"\s+content="width=device-width,\s*initial-scale=1.0">/i.test(code)) results.push("Viewport meta tag is incorrect.");
+                    if (!/<title>.*<\/title>/i.test(code)) results.push("Title tag ontbreekt.");
+                    return { success: results.length === 0, messages: results.length ? results : ["Correct!"] };
+                },
+                'h2-01': (code) => {
+                    const results = [];
+                    if (!/<header>[\s\S]*?<\/header>/i.test(code)) results.push("Header ontbreekt.");
+                    if (!/<nav[\s\S]*?>[\s\S]*?<\/nav>/i.test(code)) results.push("Nav ontbreekt.");
+                    if (!/<main>[\s\S]*?<\/main>/i.test(code)) results.push("Main ontbreekt.");
+                    if (!/<article>[\s\S]*?<\/article>/i.test(code)) results.push("Article ontbreekt.");
+                    if (!/<aside>[\s\S]*?<\/aside>/i.test(code)) results.push("Aside ontbreekt.");
+                    if (!/<footer>[\s\S]*?<\/footer>/i.test(code)) results.push("Footer ontbreekt.");
+                    return { success: results.length === 0, messages: results.length ? results : ["Correcte structuur!"] };
+                },
+                'h4-01': (code) => {
+                    const results = [];
+                    if (!/<caption>[\s\S]*?<\/caption>/i.test(code)) results.push("Caption ontbreekt.");
+                    if ((code.match(/<th\s+scope="col"/gi) || []).length < 2) results.push("Minstens twee kolomkoppen (`th` met `scope=\"col\"`) zijn vereist.");
+                    if ((code.match(/<th\s+scope="row"/gi) || []).length < 2) results.push("Minstens twee rijkoppen (`th` met `scope=\"row\"`) zijn vereist.");
+                    return { success: results.length === 0, messages: results.length ? results : ["Correct!"] };
+                },
+                'h6-01': (code) => {
+                    const results = [];
+                    if (!/<label\s+for="email"/i.test(code)) results.push("Label voor e-mail ontbreekt of is incorrect gekoppeld.");
+                    if (!/<input[^>]+id="email"/i.test(code)) results.push("Input voor e-mail heeft geen `id=\"email\"`.");
+                    if (!/<label\s+for="password"/i.test(code)) results.push("Label voor wachtwoord ontbreekt.");
+                    if (!/<input[^>]+id="password"/i.test(code)) results.push("Input voor wachtwoord heeft geen `id=\"password\"`.");
+                    if (!/<input[^>]+type="email"[^>]+required/i.test(code)) results.push("E-mail input is niet `required`.");
+                    return { success: results.length === 0, messages: results.length ? results : ["Correct!"] };
+                },
+                'c1-01': (code) => {
+                    const results = [];
+                    if (!/box-sizing:\s*border-box/i.test(code)) results.push("`box-sizing: border-box;` ontbreekt.");
+                    if (!/width:\s*200px/i.test(code)) results.push("`width: 200px;` ontbreekt.");
+                    return { success: results.length === 0, messages: results.length ? results : ["Correct!"] };
+                },
+                'c3-01': (code) => {
+                    const results = [];
+                    if (!/display:\s*grid/i.test(code)) results.push("`display: grid;` ontbreekt.");
+                    if (!/grid-template-columns:\s*repeat\(\s*auto-fit,\s*minmax\(250px,\s*1fr\)\)/i.test(code.replace(/\s+/g, ' '))) results.push("De `grid-template-columns` regel is incorrect.");
+                    return { success: results.length === 0, messages: results.length ? results : ["Correct!"] };
+                },
+                'c7-01': (code) => {
+                    const results = [];
+                    if (!/@media\s*\(\s*min-width:\s*600px\s*\)/i.test(code)) results.push("De media query conditie is incorrect.");
+                    if (!/body\s*\{\s*background-color:\s*lightblue;\s*\}/i.test(code.replace(/\s+/g, ' '))) results.push("De stijlregel binnen de media query is incorrect.");
+                    return { success: results.length === 0, messages: results.length ? results : ["Correct!"] };
+                },
+                'j5-01': (code) => {
+                    try {
+                        // Reset UI for test
+                        const uiContainer = document.getElementById('ex-j5-01-ui');
+                        const originalHTML = uiContainer.innerHTML;
+                        
+                        const countSpan = uiContainer.querySelector('#clickCount');
+                        countSpan.textContent = '0';
+                        
+                        // Execute user code
+                        const userFunction = new Function(code);
+                        userFunction();
+                        
+                        const btn = uiContainer.querySelector('#counterBtn');
+                        btn.click();
+                        btn.click();
+                        
+                        const finalCount = parseInt(countSpan.textContent, 10);
+                        
+                        // Cleanup
+                        uiContainer.innerHTML = originalHTML;
+
+                        if (finalCount === 2) {
+                            return { success: true, messages: ["Test geslaagd! De teller werkt."] };
+                        } else {
+                            return { success: false, messages: [`Test mislukt. Verwachtte 2, kreeg ${finalCount}.`] };
+                        }
+                    } catch (e) {
+                        return { success: false, messages: [`Runtime error: ${e.message}`] };
+                    }
+                },
+                't4-01': (code) => {
+                    // TypeScript can't be executed directly, so we do a simple string check
+                    const results = [];
+                    if (!/function\s+getFirstElement\s*<T>/.test(code)) results.push("Functie moet een generic type parameter `<T>` hebben.");
+                    if (!/\(arr:\s*T\[\]\)/.test(code)) results.push("Argument `arr` moet van het type `T[]` zijn.");
+                    if (!/:\s*T\s*\|\s*undefined/.test(code)) results.push("Return type moet `T | undefined` zijn.");
+                    return { success: results.length === 0, messages: results.length ? results : ["Syntaxis ziet er correct uit!"] };
                 }
+            };
+
+            document.querySelectorAll('.check-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const exerciseId = button.dataset.exercise;
+                    const textarea = document.getElementById(`ex-${exerciseId}`);
+                    const resultDiv = button.nextElementSibling.nextElementSibling;
+                    
+                    const validator = validators[exerciseId];
+                    if (validator && textarea) {
+                        const result = validator(textarea.value);
+                        resultDiv.innerHTML = result.messages.join('<br>');
+                        resultDiv.className = 'validator-result ' + (result.success ? 'success' : 'error');
+                    } else {
+                        resultDiv.innerHTML = 'Validator niet gevonden voor deze oefening.';
+                        resultDiv.className = 'validator-result error';
+                    }
+                });
             });
         });
-
     </script>
 </body>
 </html>

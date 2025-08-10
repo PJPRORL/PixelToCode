@@ -20,6 +20,8 @@
             --success-color: #166534;
             --error-bg: #fee2e2;
             --error-color: #991b1b;
+            --header-height: 64px;
+            --content-max-width: 1200px;
         }
         html {
             scroll-behavior: smooth;
@@ -37,7 +39,9 @@
             background-color: var(--sidebar-bg);
             color: var(--sidebar-text);
             padding: 20px;
-            height: 100vh;
+            height: calc(100vh - var(--header-height));
+            top: var(--header-height);
+            left: 0;
             overflow-y: auto;
             position: fixed;
             border-right: 1px solid var(--border-color);
@@ -81,7 +85,7 @@
         }
         #main-content {
             margin-left: 280px;
-            padding: 25px 40px;
+            padding: calc(var(--header-height) + 16px) 40px 25px 40px;
             width: calc(100% - 280px);
             transition: margin-left 0.3s ease-in-out;
         }
@@ -91,7 +95,7 @@
             margin-bottom: 30px;
             border-radius: 12px;
             border: 1px solid var(--border-color);
-            scroll-margin-top: 80px; /* Adjusted for fixed header */
+            scroll-margin-top: calc(var(--header-height) + 16px);
         }
         h1, h2, h3, h4, h5 {
             color: #1e293b;
@@ -212,13 +216,54 @@
             background-color: #fafbff;
         }
 
+        /* Top navigation bar */
+        #topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            background-color: var(--secondary-bg);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1002;
+        }
+        #topbar .topbar-inner {
+            max-width: var(--content-max-width);
+            margin: 0 auto;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 0 16px;
+        }
+        #topbar .brand {
+            font-weight: 700;
+            color: #1e293b;
+        }
+        #topbar nav a {
+            text-decoration: none;
+            color: var(--text-color);
+            padding: 8px 10px;
+            border-radius: 6px;
+        }
+        #topbar nav a:hover {
+            background-color: var(--primary-bg);
+        }
+
+        /* Centered content container */
+        .container {
+            max-width: var(--content-max-width);
+            margin: 0 auto;
+        }
+
         /* --- Responsive Styles --- */
         #menu-toggle {
             display: none; /* Hidden by default on large screens */
             position: fixed;
             top: 15px;
             left: 15px;
-            z-index: 1001;
+            z-index: 1003;
             background-color: var(--sidebar-bg);
             color: white;
             border: 1px solid var(--sidebar-hover-bg);
@@ -254,21 +299,45 @@
             #main-content {
                 margin-left: 0;
                 width: 100%;
-                padding: 20px;
+                padding: calc(var(--header-height) + 8px) 20px 20px 20px;
             }
-            #main-content h1 {
-                margin-top: 60px;
-            }
+            #topbar nav { display: none; }
             #overlay.visible {
                 display: block;
             }
+        }
+
+        /* Extra small adjustments */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.5rem; }
+            h3 { font-size: 1.25rem; }
+            table { display: block; overflow-x: auto; white-space: nowrap; }
+        }
+
+        /* Very large screens (e.g., TV) */
+        @media (min-width: 1600px) {
+            html { font-size: 18px; }
+            :root { --content-max-width: 1400px; }
         }
     </style>
 </head>
 <body>
     
-    <button id="menu-toggle" aria-label="Toggle Menu">&#9776;</button>
+    <button id="menu-toggle" aria-label="Toggle Menu" aria-controls="sidebar" aria-expanded="false">&#9776;</button>
     <div id="overlay"></div>
+
+    <header id="topbar" role="banner">
+        <div class="topbar-inner">
+            <div class="brand">PixelToCode</div>
+            <nav aria-label="Hoofdnavigatie">
+                <a href="#html">HTML</a>
+                <a href="#css">CSS</a>
+                <a href="#javascript">JavaScript</a>
+                <a href="#typescript">TypeScript</a>
+            </nav>
+        </div>
+    </header>
 
     <nav id="sidebar">
         <h2>Studiegids</h2>
@@ -330,6 +399,7 @@
     </nav>
 
     <main id="main-content">
+        <div class="container">
         <h1>Interactieve Studiegids Webdesign</h1>
         <p>Welkom bij je persoonlijke, interactieve studiegids. Gebruik de navigatie aan de linkerkant om snel door de onderwerpen te bladeren. Elk hoofdstuk bevat theorie, codevoorbeelden en oefeningen om je kennis te testen.</p>
 
@@ -395,6 +465,165 @@
 &lt;/html&gt;</code></pre>
                 </div>
             </div>
+
+            <h4>HTML-tabelstructuur</h4>
+            <ul>
+                <li><code>&lt;table&gt;</code>: Het omhullende element voor tabellen (verplicht).</li>
+                <li><code>&lt;caption&gt;</code>: Optioneel bijschrift boven of onder de tabel.</li>
+                <li><code>&lt;thead&gt;</code>: Header-sectie van de tabelkop.</li>
+                <li><code>&lt;tbody&gt;</code>: Hoofdgedeelte van de tabel.</li>
+                <li><code>&lt;tfoot&gt;</code>: Optionele voettekst (ideaal voor samenvattingen).</li>
+                <li><code>&lt;tr&gt;</code>: Rijelement (table row).</li>
+                <li><code>&lt;th&gt;</code>: Headercel (table header). Vaak met <code>scope</code>.</li>
+                <li><code>&lt;td&gt;</code>: Datacel (table data).</li>
+            </ul>
+            <pre><code>&lt;table&gt;
+    &lt;caption&gt;Voorbeeldtabel&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th scope="col"&gt;Kolom A&lt;/th&gt;
+            &lt;th scope="col"&gt;Kolom B&lt;/th&gt;
+            &lt;th scope="col"&gt;Kolom C&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;th scope="row"&gt;Rij 1&lt;/th&gt;
+            &lt;td&gt;Waarde 1&lt;/td&gt;
+            &lt;td&gt;Waarde 2&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+    &lt;tfoot&gt;
+        &lt;tr&gt;&lt;td colspan="3"&gt;Samenvatting&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tfoot&gt;
+&lt;/table&gt;</code></pre>
+
+            <h4>Kolomsplitsing: <code>colspan</code> & <code>rowspan</code></h4>
+            <p>Laat cellen samenvloeien over meerdere kolommen of rijen met <code>colspan</code> en <code>rowspan</code>.</p>
+            <pre><code>&lt;table&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Product&lt;/th&gt;
+            &lt;th&gt;Q1&lt;/th&gt;
+            &lt;th&gt;Q2&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;th scope="row" rowspan="2"&gt;Appels&lt;/th&gt;
+            &lt;td&gt;120&lt;/td&gt;
+            &lt;td&gt;140&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td colspan="2"&gt;Totaal: 260&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+
+            <h4>Kolomgroepen met <code>&lt;colgroup&gt;</code> & <code>&lt;col&gt;</code></h4>
+            <p>Gebruik <code>&lt;colgroup&gt;</code> en <code>&lt;col&gt;</code> om kolommen te groeperen en gericht te stylen (bijv. breedte, achtergrond).</p>
+            <pre><code>&lt;table&gt;
+    &lt;colgroup&gt;
+        &lt;col style="width: 30%"&gt;
+        &lt;col style="width: 40%"&gt;
+        &lt;col style="width: 30%"&gt;
+    &lt;/colgroup&gt;
+    &lt;thead&gt;...&lt;/thead&gt;
+    &lt;tbody&gt;...&lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+
+            <h4>Margins &amp; Padding</h4>
+            <p>In pure HTML zijn geen attributen zoals <em>cell padding</em> of <em>cell spacing</em>; regel dit via CSS.</p>
+
+            <h4>CSS-attributen</h4>
+            <ul>
+                <li><code>border-spacing</code>: Ruimte tussen cellen (alleen bij <code>border-collapse: separate</code>).</li>
+                <li><code>border-collapse</code>: <code>separate</code> of <code>collapse</code> (bepaalt hoe grenzen samenkomen).</li>
+                <li><code>padding</code>: Binnenruimte in cellen (<code>&lt;td&gt;</code>, <code>&lt;th&gt;</code>).</li>
+                <li><code>margin</code>: Buitenmarge rond de volledige tabel (<code>&lt;table&gt;</code>).</li>
+            </ul>
+            <pre><code>table {
+  border-collapse: collapse;
+  width: 100%;
+}
+th, td {
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+thead { background: #f0f0f0; }
+tr:nth-child(even) { background: #f9f9f9; }</code></pre>
+
+            <h4>HTML-randen (borders)</h4>
+            <ul>
+                <li><code>border</code>: Korte schrijfwijze, bijv. <code>1px solid black</code>.</li>
+                <li><code>border-width</code>, <code>border-style</code>, <code>border-color</code>: Gedetailleerde instellingen per zijde.</li>
+                <li><code>border-collapse</code> en <code>border-spacing</code>: Zie hierboven.</li>
+            </ul>
+
+            <h4>Tabelgrootte &amp; breedte/hoogte</h4>
+            <p>Stel groottes in via CSS of (legacy) HTML-attributen op <code>&lt;table&gt;</code> of cellen (<code>&lt;td&gt;</code>, <code>&lt;th&gt;</code>).</p>
+            <pre><code>&lt;table width="100%"&gt;...&lt;/table&gt;
+&lt;table style="width: 50%; height: 200px"&gt;...&lt;/table&gt;
+/* CSS */
+table { max-width: 100%; }
+th, td { min-width: 120px; }</code></pre>
+
+            <h4>Styling &amp; CSS (Table Styling)</h4>
+            <p>Gebruik elementselectoren (<code>table</code>, <code>thead</code>, <code>tbody</code>, <code>tfoot</code>, <code>tr</code>, <code>td</code>, <code>th</code>), state-selectors (<code>tr:nth-child(even)</code>, <code>tr:hover</code>) en classes/id's voor specifieke regels.</p>
+
+            <h4>Overzicht in tabelvorm</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th scope="col">Categorie</th>
+                        <th scope="col">Element of Attribuut</th>
+                        <th scope="col">Omschrijving</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Structuur</th>
+                        <td><code>&lt;table&gt;</code>, <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;tfoot&gt;</code>, <code>&lt;tr&gt;</code>, <code>&lt;th&gt;</code>, <code>&lt;td&gt;</code>, <code>&lt;caption&gt;</code></td>
+                        <td>Basisstructuur en opmaak</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Kolomsplitsing</th>
+                        <td><code>colspan</code>, <code>rowspan</code></td>
+                        <td>Cellen laten samenvloeien over meerdere kolommen/rijen</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Kolomgroepen</th>
+                        <td><code>&lt;colgroup&gt;</code>, <code>&lt;col&gt;</code></td>
+                        <td>Groeperen van kolommen en styling per kolom mogelijk</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Cellenafstand</th>
+                        <td><code>border-spacing</code>, <code>border-collapse</code></td>
+                        <td>Afstand tussen cellen; layout van grenzen (separate | collapse)</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Padding &amp; Margin</th>
+                        <td><code>padding</code>, <code>margin</code></td>
+                        <td>Ruimte binnen cellen en buiten de tabel</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Randen</th>
+                        <td><code>border</code>, <code>border-width</code>, <code>border-style</code>, <code>border-color</code></td>
+                        <td>Stijl, breedte en kleur van randen</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Afmetingen</th>
+                        <td><code>width</code>, <code>height</code>, <code>min/max</code>-varianten</td>
+                        <td>Controle van grootte van de tabel en cellen</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Styling &amp; CSS</th>
+                        <td>CSS-selectors, classes, <code>nth-child</code>, <code>hover</code> etc.</td>
+                        <td>Geavanceerde styling en dynamische opmaak</td>
+                    </tr>
+                </tbody>
+            </table>
+
         </section>
 
         <section id="html-sections">
@@ -2111,6 +2340,8 @@ console.log(add(5, 10)); // 15</code></pre>
             </table>
         </section>
 
+        </div>
+
     </main>
 
     <script>
@@ -2120,6 +2351,7 @@ console.log(add(5, 10)); // 15</code></pre>
             const sidebar = document.getElementById('sidebar');
             const overlay = document.getElementById('overlay');
             const sidebarLinks = document.querySelectorAll('#sidebar a');
+            const topbar = document.getElementById('topbar');
 
             function closeSidebar() {
                 sidebar.classList.remove('visible');
@@ -2127,11 +2359,16 @@ console.log(add(5, 10)); // 15</code></pre>
             }
 
             menuToggle.addEventListener('click', () => {
+                const willShow = !sidebar.classList.contains('visible');
                 sidebar.classList.toggle('visible');
                 overlay.classList.toggle('visible');
+                menuToggle.setAttribute('aria-expanded', willShow ? 'true' : 'false');
             });
 
-            overlay.addEventListener('click', closeSidebar);
+            overlay.addEventListener('click', () => {
+                closeSidebar();
+                menuToggle.setAttribute('aria-expanded', 'false');
+            });
             
             sidebarLinks.forEach(link => {
                 link.addEventListener('click', () => {
@@ -2140,6 +2377,15 @@ console.log(add(5, 10)); // 15</code></pre>
                         closeSidebar();
                     }
                 });
+            });
+
+            // Ensure sidebar starts hidden on resize if switching to desktop
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 991) {
+                    sidebar.classList.remove('visible');
+                    overlay.classList.remove('visible');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
             });
 
 

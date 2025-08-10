@@ -465,165 +465,6 @@
 &lt;/html&gt;</code></pre>
                 </div>
             </div>
-
-            <h4>HTML-tabelstructuur</h4>
-            <ul>
-                <li><code>&lt;table&gt;</code>: Het omhullende element voor tabellen (verplicht).</li>
-                <li><code>&lt;caption&gt;</code>: Optioneel bijschrift boven of onder de tabel.</li>
-                <li><code>&lt;thead&gt;</code>: Header-sectie van de tabelkop.</li>
-                <li><code>&lt;tbody&gt;</code>: Hoofdgedeelte van de tabel.</li>
-                <li><code>&lt;tfoot&gt;</code>: Optionele voettekst (ideaal voor samenvattingen).</li>
-                <li><code>&lt;tr&gt;</code>: Rijelement (table row).</li>
-                <li><code>&lt;th&gt;</code>: Headercel (table header). Vaak met <code>scope</code>.</li>
-                <li><code>&lt;td&gt;</code>: Datacel (table data).</li>
-            </ul>
-            <pre><code>&lt;table&gt;
-    &lt;caption&gt;Voorbeeldtabel&lt;/caption&gt;
-    &lt;thead&gt;
-        &lt;tr&gt;
-            &lt;th scope="col"&gt;Kolom A&lt;/th&gt;
-            &lt;th scope="col"&gt;Kolom B&lt;/th&gt;
-            &lt;th scope="col"&gt;Kolom C&lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/thead&gt;
-    &lt;tbody&gt;
-        &lt;tr&gt;
-            &lt;th scope="row"&gt;Rij 1&lt;/th&gt;
-            &lt;td&gt;Waarde 1&lt;/td&gt;
-            &lt;td&gt;Waarde 2&lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/tbody&gt;
-    &lt;tfoot&gt;
-        &lt;tr&gt;&lt;td colspan="3"&gt;Samenvatting&lt;/td&gt;&lt;/tr&gt;
-    &lt;/tfoot&gt;
-&lt;/table&gt;</code></pre>
-
-            <h4>Kolomsplitsing: <code>colspan</code> & <code>rowspan</code></h4>
-            <p>Laat cellen samenvloeien over meerdere kolommen of rijen met <code>colspan</code> en <code>rowspan</code>.</p>
-            <pre><code>&lt;table&gt;
-    &lt;thead&gt;
-        &lt;tr&gt;
-            &lt;th&gt;Product&lt;/th&gt;
-            &lt;th&gt;Q1&lt;/th&gt;
-            &lt;th&gt;Q2&lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/thead&gt;
-    &lt;tbody&gt;
-        &lt;tr&gt;
-            &lt;th scope="row" rowspan="2"&gt;Appels&lt;/th&gt;
-            &lt;td&gt;120&lt;/td&gt;
-            &lt;td&gt;140&lt;/td&gt;
-        &lt;/tr&gt;
-        &lt;tr&gt;
-            &lt;td colspan="2"&gt;Totaal: 260&lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/tbody&gt;
-&lt;/table&gt;</code></pre>
-
-            <h4>Kolomgroepen met <code>&lt;colgroup&gt;</code> & <code>&lt;col&gt;</code></h4>
-            <p>Gebruik <code>&lt;colgroup&gt;</code> en <code>&lt;col&gt;</code> om kolommen te groeperen en gericht te stylen (bijv. breedte, achtergrond).</p>
-            <pre><code>&lt;table&gt;
-    &lt;colgroup&gt;
-        &lt;col style="width: 30%"&gt;
-        &lt;col style="width: 40%"&gt;
-        &lt;col style="width: 30%"&gt;
-    &lt;/colgroup&gt;
-    &lt;thead&gt;...&lt;/thead&gt;
-    &lt;tbody&gt;...&lt;/tbody&gt;
-&lt;/table&gt;</code></pre>
-
-            <h4>Margins &amp; Padding</h4>
-            <p>In pure HTML zijn geen attributen zoals <em>cell padding</em> of <em>cell spacing</em>; regel dit via CSS.</p>
-
-            <h4>CSS-attributen</h4>
-            <ul>
-                <li><code>border-spacing</code>: Ruimte tussen cellen (alleen bij <code>border-collapse: separate</code>).</li>
-                <li><code>border-collapse</code>: <code>separate</code> of <code>collapse</code> (bepaalt hoe grenzen samenkomen).</li>
-                <li><code>padding</code>: Binnenruimte in cellen (<code>&lt;td&gt;</code>, <code>&lt;th&gt;</code>).</li>
-                <li><code>margin</code>: Buitenmarge rond de volledige tabel (<code>&lt;table&gt;</code>).</li>
-            </ul>
-            <pre><code>table {
-  border-collapse: collapse;
-  width: 100%;
-}
-th, td {
-  padding: 8px;
-  border: 1px solid #ccc;
-}
-thead { background: #f0f0f0; }
-tr:nth-child(even) { background: #f9f9f9; }</code></pre>
-
-            <h4>HTML-randen (borders)</h4>
-            <ul>
-                <li><code>border</code>: Korte schrijfwijze, bijv. <code>1px solid black</code>.</li>
-                <li><code>border-width</code>, <code>border-style</code>, <code>border-color</code>: Gedetailleerde instellingen per zijde.</li>
-                <li><code>border-collapse</code> en <code>border-spacing</code>: Zie hierboven.</li>
-            </ul>
-
-            <h4>Tabelgrootte &amp; breedte/hoogte</h4>
-            <p>Stel groottes in via CSS of (legacy) HTML-attributen op <code>&lt;table&gt;</code> of cellen (<code>&lt;td&gt;</code>, <code>&lt;th&gt;</code>).</p>
-            <pre><code>&lt;table width="100%"&gt;...&lt;/table&gt;
-&lt;table style="width: 50%; height: 200px"&gt;...&lt;/table&gt;
-/* CSS */
-table { max-width: 100%; }
-th, td { min-width: 120px; }</code></pre>
-
-            <h4>Styling &amp; CSS (Table Styling)</h4>
-            <p>Gebruik elementselectoren (<code>table</code>, <code>thead</code>, <code>tbody</code>, <code>tfoot</code>, <code>tr</code>, <code>td</code>, <code>th</code>), state-selectors (<code>tr:nth-child(even)</code>, <code>tr:hover</code>) en classes/id's voor specifieke regels.</p>
-
-            <h4>Overzicht in tabelvorm</h4>
-            <table>
-                <thead>
-                    <tr>
-                        <th scope="col">Categorie</th>
-                        <th scope="col">Element of Attribuut</th>
-                        <th scope="col">Omschrijving</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">Structuur</th>
-                        <td><code>&lt;table&gt;</code>, <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;tfoot&gt;</code>, <code>&lt;tr&gt;</code>, <code>&lt;th&gt;</code>, <code>&lt;td&gt;</code>, <code>&lt;caption&gt;</code></td>
-                        <td>Basisstructuur en opmaak</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Kolomsplitsing</th>
-                        <td><code>colspan</code>, <code>rowspan</code></td>
-                        <td>Cellen laten samenvloeien over meerdere kolommen/rijen</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Kolomgroepen</th>
-                        <td><code>&lt;colgroup&gt;</code>, <code>&lt;col&gt;</code></td>
-                        <td>Groeperen van kolommen en styling per kolom mogelijk</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Cellenafstand</th>
-                        <td><code>border-spacing</code>, <code>border-collapse</code></td>
-                        <td>Afstand tussen cellen; layout van grenzen (separate | collapse)</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Padding &amp; Margin</th>
-                        <td><code>padding</code>, <code>margin</code></td>
-                        <td>Ruimte binnen cellen en buiten de tabel</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Randen</th>
-                        <td><code>border</code>, <code>border-width</code>, <code>border-style</code>, <code>border-color</code></td>
-                        <td>Stijl, breedte en kleur van randen</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Afmetingen</th>
-                        <td><code>width</code>, <code>height</code>, <code>min/max</code>-varianten</td>
-                        <td>Controle van grootte van de tabel en cellen</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Styling &amp; CSS</th>
-                        <td>CSS-selectors, classes, <code>nth-child</code>, <code>hover</code> etc.</td>
-                        <td>Geavanceerde styling en dynamische opmaak</td>
-                    </tr>
-                </tbody>
-            </table>
-
         </section>
 
         <section id="html-sections">
@@ -697,33 +538,554 @@ th, td { min-width: 120px; }</code></pre>
         <section id="html-lists-tables">
             <h3>Lijsten & Tabellen</h3>
             <h4>Lijsten</h4>
-            <ul>
-                <li><code>&lt;ul&gt;</code>: Ongeordende lijst (unordered list).</li>
-                <li><code>&lt;ol&gt;</code>: Geordende lijst (ordered list). Attributen: `start`, `reversed`, `type`.</li>
-                <li><code>&lt;li&gt;</code>: Lijstitem (list item).</li>
-                <li><code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code>, <code>&lt;dd&gt;</code>: Definitielijst, term en beschrijving.</li>
-            </ul>
-            <pre><code>&lt;ul&gt;
-    &lt;li&gt;Item 1&lt;/li&gt;
-    &lt;li&gt;Item 2&lt;/li&gt;
-&lt;/ul&gt;</code></pre>
-            <h4>Tabellen</h4>
-            <p>Gebruik tabellen voor het weergeven van tabeldata. Voor toegankelijkheid zijn `<caption>` en het `scope` attribuut belangrijk.</p>
+            <p>Lijsten worden gebruikt om gerelateerde items te groeperen. HTML biedt verschillende soorten lijsten voor verschillende doeleinden.</p>
+            
+            <h5>HTML Lijst-elementen</h5>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Element</th>
+                        <th>Omschrijving</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>&lt;ul&gt;</code></td>
+                        <td><strong>Unordered list</strong>: maakt een on­geordende lijst met opsommingstekens (bullets).</td>
+                    </tr>
+                    <tr>
+                        <td><code>&lt;ol&gt;</code></td>
+                        <td><strong>Ordered list</strong>: maakt een geordende lijst met nummers of letters.</td>
+                    </tr>
+                    <tr>
+                        <td><code>&lt;li&gt;</code></td>
+                        <td><strong>List item</strong>: een lijstitem binnen <code>&lt;ul&gt;</code> of <code>&lt;ol&gt;</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>&lt;dl&gt;</code></td>
+                        <td><strong>Description list</strong>: maakt een lijst van termen en beschrijvingen.</td>
+                    </tr>
+                    <tr>
+                        <td><code>&lt;dt&gt;</code></td>
+                        <td><strong>Description term</strong>: geeft de term aan in een <code>&lt;dl&gt;</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><code>&lt;dd&gt;</code></td>
+                        <td><strong>Description detail</strong>: geeft de beschrijving van de term in een <code>&lt;dl&gt;</code>.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h5>HTML Lijst-attributen</h5>
+            <p>Je kunt het gedrag van geordende lijsten aanpassen met de volgende attributen:</p>
+            <table>
+                <caption>Attributen voor <code>&lt;ol&gt;</code></caption>
+                <thead>
+                    <tr>
+                        <th>Attribuut</th>
+                        <th>Waarden</th>
+                        <th>Beschrijving</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>type</code></td>
+                        <td><code>1</code>, <code>A</code>, <code>a</code>, <code>I</code>, <code>i</code></td>
+                        <td>Bepaalt het nummeringstype van de lijst.</td>
+                    </tr>
+                    <tr>
+                        <td><code>start</code></td>
+                        <td>Getal</td>
+                        <td>Het startnummer voor de nummering.</td>
+                    </tr>
+                    <tr>
+                        <td><code>reversed</code></td>
+                        <td>(geen waarde)</td>
+                        <td>Keert de nummeringsvolgorde om.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <table>
+                 <caption>Attribuut voor <code>&lt;li&gt;</code> (binnen een <code>&lt;ol&gt;</code>)</caption>
+                <thead>
+                    <tr>
+                        <th>Attribuut</th>
+                        <th>Waarden</th>
+                        <th>Beschrijving</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>value</code></td>
+                        <td>Getal</td>
+                        <td>Wijzigt de nummering van één specifiek item en de volgende items.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h5>CSS-eigenschappen voor lijsten</h5>
+            <p>Voor de styling van lijsten gebruik je CSS. Hiermee heb je volledige controle over het uiterlijk van de markers (bullets en nummers).</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Eigenschap</th>
+                        <th>Beschrijving</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>list-style-type</code></td>
+                        <td>Bepaalt het type opsommingsteken (bv. <code>disc</code>, <code>square</code>, <code>decimal</code>, <code>lower-roman</code>).</td>
+                    </tr>
+                    <tr>
+                        <td><code>list-style-position</code></td>
+                        <td>Plaatst de marker <code>inside</code> of <code>outside</code> de tekstblok van het lijstitem.</td>
+                    </tr>
+                    <tr>
+                        <td><code>list-style-image</code></td>
+                        <td>Vervangt de marker door een afbeelding.</td>
+                    </tr>
+                    <tr>
+                        <td><code>list-style</code></td>
+                        <td>Een shorthand om de bovenstaande drie eigenschappen in één regel te combineren.</td>
+                    </tr>
+                    <tr>
+                        <td><code>::marker</code></td>
+                        <td>Een pseudo-element om de marker zelf direct te stijlen (kleur, grootte, etc.).</td>
+                    </tr>
+                    <tr>
+                        <td><code>counter-reset</code> & <code>counter-increment</code></td>
+                        <td>Gebruikt voor geavanceerde, op maat gemaakte nummering die verder gaat dan de standaardopties.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h5>Voorbeelden van Lijst-styling</h5>
+            <h6>1. Ongeordende lijst met CSS-styling</h6>
+            <pre><code>&lt;ul class="custom-list"&gt;
+  &lt;li&gt;Koffie&lt;/li&gt;
+  &lt;li&gt;Thee&lt;/li&gt;
+  &lt;li&gt;Melk&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;style&gt;
+.custom-list {
+  list-style-type: square;
+  list-style-position: inside;
+}
+&lt;/style&gt;</code></pre>
+            <div class="live-example">
+                <style>
+                .custom-list {
+                  list-style-type: square;
+                  list-style-position: inside;
+                }
+                </style>
+                <ul class="custom-list">
+                  <li>Koffie</li>
+                  <li>Thee</li>
+                  <li>Melk</li>
+                </ul>
+            </div>
+
+            <h6>2. Geordende lijst met aangepaste marker</h6>
+            <pre><code>&lt;ol class="styled-list"&gt;
+  &lt;li&gt;HTML&lt;/li&gt;
+  &lt;li&gt;CSS&lt;/li&gt;
+  &lt;li&gt;JavaScript&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;style&gt;
+.styled-list li::marker {
+  color: red;
+  font-weight: bold;
+}
+&lt;/style&gt;</code></pre>
+            <div class="live-example">
+                <style>
+                .styled-list li::marker {
+                  color: red;
+                  font-weight: bold;
+                }
+                </style>
+                <ol class="styled-list">
+                  <li>HTML</li>
+                  <li>CSS</li>
+                  <li>JavaScript</li>
+                </ol>
+            </div>
+            
+            <h6>3. Volledig aangepaste genummerde lijst via CSS-counters</h6>
+            <pre><code>&lt;ol class="custom-counter"&gt;
+  &lt;li&gt;Stap één&lt;/li&gt;
+  &lt;li&gt;Stap twee&lt;/li&gt;
+  &lt;li&gt;Stap drie&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;style&gt;
+.custom-counter {
+  counter-reset: step;
+  list-style: none;
+  padding-left: 0;
+}
+.custom-counter li {
+  counter-increment: step;
+}
+.custom-counter li::before {
+  content: counter(step) ") ";
+  font-weight: bold;
+  color: blue;
+  margin-right: 5px;
+}
+&lt;/style&gt;</code></pre>
+            <div class="live-example">
+                <style>
+                .custom-counter {
+                  counter-reset: step;
+                  list-style: none;
+                  padding-left: 0;
+                }
+                .custom-counter li {
+                  counter-increment: step;
+                }
+                .custom-counter li::before {
+                  content: counter(step) ") ";
+                  font-weight: bold;
+                  color: blue;
+                  margin-right: 5px;
+                }
+                </style>
+                <ol class="custom-counter">
+                  <li>Stap één</li>
+                  <li>Stap twee</li>
+                  <li>Stap drie</li>
+                </ol>
+            </div>
+            
+            <h4 style="margin-top: 2rem;">HTML Tabellen: Structuur en Semantiek</h4>
+            <p>HTML-tabellen worden gebruikt om data in rijen en kolommen te presenteren. Een correcte structuur is essentieel voor zowel de weergave als de toegankelijkheid. De basiselementen zijn <code>&lt;table&gt;</code>, <code>&lt;tr&gt;</code> (rij), <code>&lt;td&gt;</code> (datacel) en <code>&lt;th&gt;</code> (kopcel).</p>
             <pre><code>&lt;table&gt;
-    &lt;caption&gt;Maandelijkse uitgaven&lt;/caption&gt;
-    &lt;thead&gt;
-        &lt;tr&gt;
-            &lt;th scope="col"&gt;Categorie&lt;/th&gt;
-            &lt;th scope="col"&gt;Bedrag&lt;/th&gt;
-        &lt;/tr&gt;
-    &lt;/thead&gt;
-    &lt;tbody&gt;
-        &lt;tr&gt;
-            &lt;th scope="row"&gt;Huur&lt;/th&gt;
-            &lt;td&gt;€1000&lt;/td&gt;
-        &lt;/tr&gt;
-    &lt;/tbody&gt;
+  &lt;caption&gt;Openingstijden&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th scope="col"&gt;Dag&lt;/th&gt;
+      &lt;th scope="col"&gt;Voormiddag&lt;/th&gt;
+      &lt;th scope="col"&gt;Namiddag&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th scope="row"&gt;Maandag - Vrijdag&lt;/th&gt;
+      &lt;td&gt;09:00 - 12:00&lt;/td&gt;
+      &lt;td&gt;13:00 - 17:00&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th scope="row"&gt;Zaterdag&lt;/th&gt;
+      &lt;td&gt;10:00 - 12:00&lt;/td&gt;
+      &lt;td&gt;Gesloten&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
 &lt;/table&gt;</code></pre>
+            <div class="live-example">
+                <table>
+                  <caption>Openingstijden</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Dag</th>
+                      <th scope="col">Voormiddag</th>
+                      <th scope="col">Namiddag</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th scope="row">Maandag - Vrijdag</th>
+                      <td>09:00 - 12:00</td>
+                      <td>13:00 - 17:00</td>
+                    </tr>
+                    <tr>
+                      <th scope="row">Zaterdag</th>
+                      <td>10:00 - 12:00</td>
+                      <td>Gesloten</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+
+            <h5>Table Headers (Kopcellen)</h5>
+            <p>Kopcellen (<code>&lt;th&gt;</code>) zijn cruciaal. Ze geven context aan de data in een kolom of rij. Het <code>scope</code>-attribuut (met waarden <code>col</code> voor kolom of <code>row</code> voor rij) verbindt de kop expliciet met de cellen, wat van onschatbare waarde is voor schermlezers.</p>
+
+            <h5>Colspan & Rowspan</h5>
+            <p>Met <code>colspan</code> en <code>rowspan</code> kun je cellen over meerdere kolommen of rijen laten uitstrekken. Dit is handig voor het groeperen van gerelateerde informatie en het creëren van complexere tabelstructuren.</p>
+            <pre><code>&lt;table&gt;
+  &lt;caption&gt;Resultaten per kwartaal&lt;/caption&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th rowspan="2"&gt;Product&lt;/th&gt;
+      &lt;th colspan="2"&gt;Eerste Helft&lt;/th&gt;
+      &lt;th colspan="2"&gt;Tweede Helft&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Q1&lt;/th&gt;
+      &lt;th&gt;Q2&lt;/th&gt;
+      &lt;th&gt;Q3&lt;/th&gt;
+      &lt;th&gt;Q4&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Laptop X&lt;/th&gt;
+      &lt;td&gt;150&lt;/td&gt;
+      &lt;td&gt;200&lt;/td&gt;
+      &lt;td&gt;220&lt;/td&gt;
+      &lt;td&gt;250&lt;/td&gt;
+    &lt;/tr&gt;
+     &lt;tr&gt;
+      &lt;th&gt;Totaal&lt;/th&gt;
+      &lt;td colspan="4"&gt;820 stuks verkocht&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+            <div class="live-example">
+                <table>
+                  <caption>Resultaten per kwartaal</caption>
+                  <thead>
+                    <tr>
+                      <th rowspan="2">Product</th>
+                      <th colspan="2">Eerste Helft</th>
+                      <th colspan="2">Tweede Helft</th>
+                    </tr>
+                    <tr>
+                      <th>Q1</th>
+                      <th>Q2</th>
+                      <th>Q3</th>
+                      <th>Q4</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>Laptop X</th>
+                      <td>150</td>
+                      <td>200</td>
+                      <td>220</td>
+                      <td>250</td>
+                    </tr>
+                     <tr>
+                      <th>Totaal</th>
+                      <td colspan="4">820 stuks verkocht</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+
+            <h5>Padding & Spacing (via CSS)</h5>
+            <p>De ruimte binnen en tussen tabelcellen wordt volledig beheerd door CSS. <code>padding</code> creëert ruimte binnen een cel (tussen de inhoud en de rand), terwijl <code>border-spacing</code> de ruimte tussen de cellen zelf definieert. Let op: <code>border-spacing</code> werkt alleen als <code>border-collapse</code> is ingesteld op <code>separate</code>.</p>
+            <pre><code>table.spaced-out {
+  border-collapse: separate;
+  border-spacing: 10px 5px; /* 10px horizontaal, 5px verticaal */
+}
+
+table.spaced-out th,
+table.spaced-out td {
+  padding: 15px;
+  border: 1px solid var(--accent-color);
+}</code></pre>
+            <div class="live-example">
+                <style>
+                    table.spaced-out {
+                      border-collapse: separate;
+                      border-spacing: 10px 5px;
+                      width: 100%;
+                    }
+                    table.spaced-out th,
+                    table.spaced-out td {
+                      padding: 15px;
+                      border: 1px solid var(--accent-color);
+                    }
+                </style>
+                <table class="spaced-out">
+                    <thead><tr><th>Header 1</th><th>Header 2</th></tr></thead>
+                    <tbody><tr><td>Data 1</td><td>Data 2</td></tr></tbody>
+                </table>
+            </div>
+
+            <h5>HTML Borders (via CSS)</h5>
+            <p>Randen worden ook met CSS toegepast. De meest voorkomende aanpak is het gebruik van <code>border-collapse: collapse;</code> op de <code>&lt;table&gt;</code>, waardoor de randen van aangrenzende cellen samenvloeien tot één enkele rand. Vervolgens definieer je de stijl van de rand op de <code>&lt;th&gt;</code> en <code>&lt;td&gt;</code> elementen.</p>
+            <pre><code>table.clean-border {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table.clean-border th,
+table.clean-border td {
+  border: 1px solid var(--border-color);
+  padding: 12px;
+}</code></pre>
+            <div class="live-example">
+                <style>
+                    table.clean-border {
+                      border-collapse: collapse;
+                      width: 100%;
+                    }
+                    table.clean-border th,
+                    table.clean-border td {
+                      border: 1px solid var(--border-color);
+                      padding: 12px;
+                    }
+                </style>
+                <table class="clean-border">
+                    <thead><tr><th>Header 1</th><th>Header 2</th></tr></thead>
+                    <tbody><tr><td>Data 1</td><td>Data 2</td></tr></tbody>
+                </table>
+            </div>
+            
+            <h5>HTML Sizes (via CSS)</h5>
+            <p>De afmetingen van een tabel en de kolommen moeten met CSS worden ingesteld voor een flexibel en responsive ontwerp. Je kunt een vaste breedte instellen (bv. in <code>px</code>), maar het is beter om relatieve eenheden zoals percentages (<code>%</code>) of <code>fr</code>-eenheden (in CSS Grid) te gebruiken. Dit zorgt ervoor dat de tabel zich aanpast aan verschillende schermformaten.</p>
+            <pre><code>table.responsive-size {
+  width: 100%; /* Tabel vult de container */
+  table-layout: fixed; /* Kolombreedtes worden bepaald door de eerste rij */
+}
+
+table.responsive-size th:first-child {
+  width: 50%; /* De eerste kolom neemt de helft van de ruimte in */
+}
+
+table.responsive-size th:not(:first-child) {
+  width: 25%; /* De andere twee kolommen nemen elk een kwart in */
+}</code></pre>
+            <div class="live-example">
+                <style>
+                    table.responsive-size {
+                      width: 100%;
+                      table-layout: fixed;
+                    }
+                    table.responsive-size th, table.responsive-size td {
+                        border: 1px solid var(--border-color);
+                        padding: 8px;
+                    }
+                    table.responsive-size th:first-child {
+                      width: 50%;
+                    }
+                    table.responsive-size th:not(:first-child) {
+                      width: 25%;
+                    }
+                </style>
+                <table class="responsive-size">
+                    <thead><tr><th>Product (50%)</th><th>Prijs (25%)</th><th>Voorraad (25%)</th></tr></thead>
+                    <tbody><tr><td>Item A</td><td>€20</td><td>100</td></tr></tbody>
+                </table>
+            </div>
+
+            <h5>Table Colgroup</h5>
+            <p>Met <code>&lt;colgroup&gt;</code> en <code>&lt;col&gt;</code> kun je stijlen toepassen op volledige kolommen zonder elke cel afzonderlijk te moeten targeten. Dit is vooral handig voor het instellen van achtergrondkleuren of breedtes. Plaats <code>&lt;colgroup&gt;</code> direct na de <code>&lt;caption&gt;</code> en voor de <code>&lt;thead&gt;</code>.</p>
+            <pre><code>&lt;table&gt;
+  &lt;caption&gt;Styling met Colgroup&lt;/caption&gt;
+  &lt;colgroup&gt;
+    &lt;col span="1"&gt; &lt;!-- Geen speciale stijl --&gt;
+    &lt;col style="background-color: #eff6ff;"&gt; &lt;!-- Blauwachtige achtergrond --&gt;
+    &lt;col style="background-color: #f0fdf4;"&gt; &lt;!-- Groenachtige achtergrond --&gt;
+  &lt;/colgroup&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Naam&lt;/th&gt;
+      &lt;th&gt;Score A&lt;/th&gt;
+      &lt;th&gt;Score B&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Team 1&lt;/th&gt;
+      &lt;td&gt;85&lt;/td&gt;
+      &lt;td&gt;92&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+            <div class="live-example">
+                <table>
+                  <caption>Styling met Colgroup</caption>
+                  <colgroup>
+                    <col span="1">
+                    <col style="background-color: #eff6ff;">
+                    <col style="background-color: #f0fdf4;">
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th>Naam</th>
+                      <th>Score A</th>
+                      <th>Score B</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <th>Team 1</th>
+                      <td>85</td>
+                      <td>92</td>
+                    </tr>
+                    <tr>
+                      <th>Team 2</th>
+                      <td>88</td>
+                      <td>90</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+
+            <h5>Table Styling</h5>
+            <p>Voor geavanceerde styling kun je de kracht van CSS-selectors gebruiken. Denk aan het markeren van rijen wanneer de gebruiker eroverheen zweeft (<code>:hover</code>) of het afwisselen van rijkleuren (<code>:nth-child</code>) voor betere leesbaarheid. Dit maakt je tabellen niet alleen mooier, maar ook gebruiksvriendelijker.</p>
+            <pre><code>table.stylish-table {
+  border-collapse: collapse;
+  width: 100%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.stylish-table th {
+  background-color: var(--sidebar-bg);
+  color: white;
+  font-weight: 600;
+}
+
+.stylish-table tr:nth-child(even) {
+  background-color: var(--primary-bg);
+}
+
+.stylish-table tr:hover {
+  background-color: #dbeafe; /* Lichtblauwe highlight bij hover */
+  cursor: pointer;
+}</code></pre>
+            <div class="live-example">
+                <style>
+                    table.stylish-table {
+                      border-collapse: collapse;
+                      width: 100%;
+                      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                      border: none; /* remove default borders */
+                    }
+                    .stylish-table th, .stylish-table td {
+                        border: none;
+                        padding: 12px;
+                    }
+                    .stylish-table th {
+                      background-color: var(--sidebar-bg);
+                      color: white;
+                      font-weight: 600;
+                    }
+                    .stylish-table tr:nth-child(even) {
+                      background-color: var(--primary-bg);
+                    }
+                    .stylish-table tr:hover {
+                      background-color: #dbeafe;
+                      cursor: pointer;
+                    }
+                </style>
+                <table class="stylish-table">
+                    <thead><tr><th>Product</th><th>Status</th></tr></thead>
+                    <tbody>
+                        <tr><td>Laptop Pro</td><td>Op voorraad</td></tr>
+                        <tr><td>Muis Basic</td><td>Niet op voorraad</td></tr>
+                        <tr><td>Keyboard Plus</td><td>Op voorraad</td></tr>
+                    </tbody>
+                </table>
+            </div>
+
             <div class="exercise">
                 <h4>Oefening H4-01: Toegankelijke tabel</h4>
                 <p>Maak een tabel met een titel (caption), een kop (thead) met twee kolomkoppen (th met `scope="col"`) en een body (tbody) met twee rijen. De eerste cel van elke rij moet een rijkop zijn (th met `scope="row"`).</p>
@@ -737,7 +1099,7 @@ th, td { min-width: 120px; }</code></pre>
     &lt;thead&gt;
         &lt;tr&gt;
             &lt;th scope="col"&gt;Vak&lt;/th&gt;
-            &lt;th scope="col"gt;Docent&lt;/th&gt;
+            &lt;th scope="col"&gt;Docent&lt;/th&gt;
         &lt;/tr&gt;
     &lt;/thead&gt;
     &lt;tbody&gt;
@@ -757,30 +1119,100 @@ th, td { min-width: 120px; }</code></pre>
 
         <section id="html-media">
             <h3>Media & Inbedding</h3>
-            
-            <h4><code>&lt;img&gt;</code></h4>
-            <p>Toont een afbeelding. `alt` is verplicht voor toegankelijkheid. `width` en `height` helpen browser-reflows te voorkomen. `loading="lazy"` laadt de afbeelding pas als deze in de buurt van de viewport komt.</p>
-            <pre><code>&lt;img src="kat.jpg" alt="Een schattige kat" width="400" height="300" loading="lazy"&gt;</code></pre>
-            
-            <h4><code>&lt;picture&gt;</code> & <code>&lt;source&gt;</code></h4>
-            <p>Biedt meer controle voor responsive afbeeldingen (art direction) of voor het aanbieden van moderne formaten zoals WebP of AVIF met een fallback.</p>
-            <pre><code>&lt;picture&gt;
-    &lt;source srcset="foto.avif" type="image/avif"&gt;
-    &lt;source srcset="foto.webp" type="image/webp"&gt;
-    &lt;img src="foto.jpg" alt="Beschrijving" width="800" height="600"&gt;
-&lt;/picture&gt;</code></pre>
+            <p>Moderne webpagina's zijn zelden alleen tekst. Met HTML kun je eenvoudig afbeeldingen, video, audio en zelfs complete andere webpagina's insluiten om je content te verrijken.</p>
 
-            <h4><code>&lt;video&gt;</code> & <code>&lt;audio&gt;</code></h4>
-            <p>Voor het insluiten van video en audio. Gebruik het `controls` attribuut om de standaard bedieningselementen van de browser te tonen.</p>
-            <pre><code>&lt;video src="film.mp4" controls width="640" height="360"&gt;
-    Sorry, je browser ondersteunt geen ingesloten video's.
+            <h4><code>&lt;img&gt;</code>: Afbeeldingen</h4>
+            <p>Het <code>&lt;img&gt;</code>-element is de standaardmanier om een afbeelding te tonen. Het is een leeg element, wat betekent dat het geen sluittag heeft. De belangrijkste attributen zijn:</p>
+            <ul>
+                <li><code>src</code> (source): Het pad naar het afbeeldingsbestand. Dit is verplicht.</li>
+                <li><code>alt</code> (alternative text): Een beschrijving van de afbeelding. Essentieel voor toegankelijkheid (schermlezers) en SEO. Dit is ook verplicht.</li>
+                <li><code>width</code> en <code>height</code>: De afmetingen van de afbeelding in pixels. Het opgeven hiervan helpt de browser om ruimte te reserveren, wat het verspringen van de layout (layout shift) tijdens het laden voorkomt.</li>
+                <li><code>loading="lazy"</code>: Een moderne optimalisatie die de browser instrueert om de afbeelding pas te laden als deze in de buurt van de viewport komt.</li>
+            </ul>
+            <pre><code>&lt;img 
+  src="https://placehold.co/400x250/3b82f6/ffffff?text=Mijn+Afbeelding" 
+  alt="Een blauwe placeholder afbeelding met witte tekst" 
+  width="400" 
+  height="250" 
+  loading="lazy"&gt;</code></pre>
+            <div class="live-example">
+                <img src="https://placehold.co/400x250/3b82f6/ffffff?text=Mijn+Afbeelding" alt="Een blauwe placeholder afbeelding met witte tekst" width="400" height="250" loading="lazy" style="max-width: 100%; height: auto;">
+            </div>
+
+            <h4><code>&lt;picture&gt;</code> & <code>&lt;source&gt;</code>: Geavanceerde Afbeeldingen</h4>
+            <p>Het <code>&lt;picture&gt;</code>-element geeft je meer controle over welke afbeelding wordt getoond. Het werkt als een container voor meerdere <code>&lt;source&gt;</code>-elementen en één <code>&lt;img&gt;</code>-element als fallback. Dit is nuttig voor twee hoofddoelen:</p>
+            <ol>
+                <li><strong>Art Direction:</strong> Verschillende afbeeldingen tonen op basis van de schermgrootte (bv. een brede afbeelding op desktop en een bijgesneden, vierkante versie op mobiel).</li>
+                <li><strong>Moderne Formaten:</strong> Efficiëntere afbeeldingsformaten zoals WebP of AVIF aanbieden aan browsers die deze ondersteunen, met een JPG of PNG als fallback voor oudere browsers.</li>
+            </ol>
+            <pre><code>&lt;picture&gt;
+  &lt;!-- Toon deze bron als de browser AVIF ondersteunt --&gt;
+  &lt;source srcset="https://placehold.co/800x400/16a34a/ffffff?text=Modern+AVIF" type="image/avif"&gt;
+  &lt;!-- Toon anders deze bron als de browser WebP ondersteunt --&gt;
+  &lt;source srcset="https://placehold.co/800x400/f97316/ffffff?text=Modern+WebP" type="image/webp"&gt;
+  &lt;!-- Fallback voor oudere browsers --&gt;
+  &lt;img src="https://placehold.co/800x400/be123c/ffffff?text=Standaard+JPG" alt="Placeholder" width="800" height="400"&gt;
+&lt;/picture&gt;</code></pre>
+            <div class="live-example">
+                <picture>
+                  <source srcset="https://placehold.co/800x400/16a34a/ffffff?text=Modern+AVIF" type="image/avif">
+                  <source srcset="https://placehold.co/800x400/f97316/ffffff?text=Modern+WebP" type="image/webp">
+                  <img src="https://placehold.co/800x400/be123c/ffffff?text=Standaard+JPG" alt="Placeholder" width="800" height="400" style="max-width: 100%; height: auto;">
+                </picture>
+            </div>
+
+            <h4><code>&lt;video&gt;</code> & <code>&lt;audio&gt;</code>: Multimedia</h4>
+            <p>Met <code>&lt;video&gt;</code> en <code>&lt;audio&gt;</code> kun je mediabestanden direct in je pagina insluiten zonder afhankelijk te zijn van externe plugins. Belangrijke attributen zijn:</p>
+            <ul>
+                <li><code>controls</code>: Toont de standaard afspeelbediening van de browser (play, pauze, volume, etc.).</li>
+                <li><code>autoplay</code>: Start het afspelen automatisch. Let op: de meeste browsers vereisen dat het <code>muted</code> attribuut ook aanwezig is om <code>autoplay</code> te laten werken.</li>
+                <li><code>muted</code>: Demt het geluid.</li>
+                <li><code>loop</code>: Herhaalt de media automatisch na het einde.</li>
+                <li><code>poster</code>: (Alleen voor <code>&lt;video&gt;</code>) Een afbeelding die wordt getoond voordat de video wordt afgespeeld.</li>
+            </ul>
+            <p>Net als bij <code>&lt;picture&gt;</code>, kun je meerdere <code>&lt;source&gt;</code>-elementen gebruiken om verschillende bestandsformaten aan te bieden.</p>
+            <pre><code>&lt;video controls width="100%" poster="https://placehold.co/640x360/1e293b/ffffff?text=Video+Poster"&gt;
+  &lt;source src="movie.webm" type="video/webm"&gt;
+  &lt;source src="movie.mp4" type="video/mp4"&gt;
+  Sorry, je browser ondersteunt geen ingesloten video's.
 &lt;/video&gt;
 
-&lt;audio src="muziek.mp3" controls&gt;&lt;/audio&gt;</code></pre>
+&lt;audio controls&gt;
+  &lt;source src="sound.opus" type="audio/opus"&gt;
+  &lt;source src="sound.mp3" type="audio/mpeg"&gt;
+  Sorry, je browser ondersteunt geen ingesloten audio.
+&lt;/audio&gt;</code></pre>
+             <div class="live-example">
+                <video controls width="100%" poster="https://placehold.co/640x360/1e293b/ffffff?text=Video+Poster" style="max-width: 100%; height: auto;">
+                  <!-- Omdat we geen echte videobronnen hebben, is alleen de poster zichtbaar -->
+                  Sorry, je browser ondersteunt geen ingesloten video's.
+                </video>
+                <br><br>
+                <audio controls style="width: 100%;">
+                  <!-- Omdat we geen echte audiobronnen hebben, is alleen de player zichtbaar -->
+                  Sorry, je browser ondersteunt geen ingesloten audio.
+                </audio>
+            </div>
 
-            <h4><code>&lt;iframe&gt;</code></h4>
-            <p>Sluit een andere webpagina in. Geef altijd een `title` attribuut voor toegankelijkheid.</p>
-            <pre><code>&lt;iframe src="https://www.openstreetmap.org/export/embed.html" title="Kaart van OpenStreetMap"&gt;&lt;/iframe&gt;</code></pre>
+            <h4><code>&lt;iframe&gt;</code>: Ingesloten content</h4>
+            <p>Een <code>&lt;iframe&gt;</code> (Inline Frame) maakt een genest browservenster binnen je eigen pagina. Hiermee kun je content van een volledig andere website insluiten, zoals een YouTube-video, een Google Maps-kaart of een social media feed.</p>
+            <ul>
+                <li><code>src</code>: De URL van de pagina die je wilt insluiten.</li>
+                <li><code>title</code>: Een beschrijving van de inhoud van de iframe. Dit is zeer belangrijk voor toegankelijkheid.</li>
+                <li><code>width</code> en <code>height</code>: De afmetingen van het iframe-venster.</li>
+                <li><code>allowfullscreen</code>: Staat de inhoud van de iframe toe om in volledig scherm te worden weergegeven.</li>
+                <li><code>sandbox</code>: Een beveiligingsattribuut om de rechten van de ingesloten content te beperken (bv. het uitvoeren van scripts of het openen van pop-ups).</li>
+            </ul>
+            <pre><code>&lt;iframe 
+  src="https://www.openstreetmap.org/export/embed.html?bbox=4.6,51.3,4.7,51.4" 
+  width="100%" 
+  height="350" 
+  style="border:1px solid black;" 
+  title="Een interactieve kaart van een regio"&gt;
+&lt;/iframe&gt;</code></pre>
+            <div class="live-example">
+                <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=4.9883,51.213,5.007,51.219" width="100%" height="350" style="border:1px solid black;" title="Een interactieve kaart van een regio"></iframe>
+            </div>
         </section>
 
         <section id="html-forms">
@@ -1925,7 +2357,7 @@ dialog::backdrop {
             <p>Data wordt opgeslagen in variabelen. Er zijn drie manieren om ze te declareren:</p>
             <ul>
                 <li><code>let</code>: Voor variabelen waarvan de waarde kan veranderen. Block-scoped.</li>
-                <li><code>const</code>: Voor constanten waarvan de waarde niet opnieuw toegewezen kan worden. Block-scoped.</li>
+                <li><code>const</code>: Voor constanten waarvan de waarde niet opnieuw toegewesen kan worden. Block-scoped.</li>
                 <li><code>var</code>: De oudere manier. Function-scoped. Vermijd deze in moderne JS.</li>
             </ul>
             <pre><code>let age = 30;

@@ -516,23 +516,79 @@
 
         <section id="html-text">
             <h3>Tekst & Inline Semantiek</h3>
-            <p>Elementen voor het structureren van tekst op een gedetailleerder niveau.</p>
-            <ul>
-                <li><code>&lt;p&gt;</code>: Een paragraaf.</li>
-                <li><code>&lt;a href="..."&gt;</code>: Een hyperlink. Gebruik `rel="noopener"` voor links die in een nieuw tabblad openen.</li>
-                <li><code>&lt;em&gt;</code>: Nadruk (emphasis), vaak cursief weergegeven.</li>
-                <li><code>&lt;strong&gt;</code>: Sterke belangrijkheid, vaak vet weergegeven.</li>
-                <li><code>&lt;span&gt;</code>: Een generieke inline container, handig voor styling met CSS.</li>
-                <li><code>&lt;br&gt;</code>: Een regeleinde.</li>
-                <li><code>&lt;q&gt;</code>: Een kort, inline citaat.</li>
-                <li><code>&lt;blockquote&gt;</code>: Een lang citaat, als een blok weergegeven.</li>
-                <li><code>&lt;code&gt;</code>: Een stukje computercode.</li>
-                <li><code>&lt;pre&gt;</code>: Vooraf opgemaakte tekst, behoudt witruimte en regeleinden. Vaak gebruikt in combinatie met `<code>`.</li>
-                <li><code>&lt;time datetime="..."&gt;</code>: Een machine-leesbare datum/tijd.</li>
-            </ul>
-             <pre><code>&lt;p&gt;Dit is &lt;strong&gt;belangrijke&lt;/strong&gt; tekst. Bezoek &lt;a href="#"&gt;onze site&lt;/a&gt;.&lt;/p&gt;
-&lt;blockquote&gt;Dit is een citaat.&lt;/blockquote&gt;
-&lt;pre&gt;&lt;code&gt;const x = 10;&lt;/code&gt;&lt;/pre&gt;</code></pre>
+            <p>Deze elementen geven betekenis aan specifieke stukjes tekst binnen een groter blok, zoals een paragraaf. Dit is cruciaal voor SEO, toegankelijkheid en de standaard styling van de browser.</p>
+
+            <h4><code>&lt;p&gt;</code>: Paragraaf</h4>
+            <p>Het <code>&lt;p&gt;</code>-element groepeert een alinea tekst. Browsers voegen doorgaans een witruimte (marge) boven en onder elke paragraaf toe om ze visueel te scheiden.</p>
+            <pre><code>&lt;p&gt;Dit is de eerste paragraaf. Het bevat meerdere zinnen die samen een logisch geheel vormen.&lt;/p&gt;
+&lt;p&gt;Dit is een tweede, afzonderlijke paragraaf.&lt;/p&gt;</code></pre>
+            <div class="live-example">
+                <p>Dit is de eerste paragraaf. Het bevat meerdere zinnen die samen een logisch geheel vormen.</p>
+                <p>Dit is een tweede, afzonderlijke paragraaf.</p>
+            </div>
+
+            <h4><code>&lt;a&gt;</code>: Anker (Hyperlink)</h4>
+            <p>Het anker-element (<code>&lt;a&gt;</code>) maakt een hyperlink naar andere webpagina's, bestanden, locaties binnen dezelfde pagina, of e-mailadressen. Het <code>href</code>-attribuut is essentieel en bevat de bestemming van de link.</p>
+            <pre><code>&lt;p&gt;Bezoek onze &lt;a href="#"&gt;homepage&lt;/a&gt; of stuur ons een &lt;a href="mailto:info@example.com"&gt;e-mail&lt;/a&gt;.&lt;/p&gt;</code></pre>
+            <div class="live-example">
+                <p>Bezoek onze <a href="#">homepage</a> of stuur ons een <a href="mailto:info@example.com">e-mail</a>.</p>
+            </div>
+
+            <h4><code>&lt;strong&gt;</code> & <code>&lt;em&gt;</code>: Belangrijkheid en Nadruk</h4>
+            <p>Deze elementen voegen semantische betekenis toe. <code>&lt;strong&gt;</code> markeert tekst die van groot belang is (bv. een waarschuwing). <code>&lt;em&gt;</code> (emphasis) legt nadruk op een woord of zin, wat de betekenis kan veranderen. Visueel worden ze vaak als <strong>vet</strong> en <em>cursief</em> weergegeven.</p>
+            <pre><code>&lt;p&gt;&lt;strong&gt;Waarschuwing:&lt;/strong&gt; raak de draden niet aan.&lt;/p&gt;
+&lt;p&gt;Ik ben &lt;em&gt;zeer&lt;/em&gt; benieuwd naar het resultaat.&lt;/p&gt;</code></pre>
+            <div class="live-example">
+                <p><strong>Waarschuwing:</strong> raak de draden niet aan.</p>
+                <p>Ik ben <em>zeer</em> benieuwd naar het resultaat.</p>
+            </div>
+
+            <h4><code>&lt;span&gt;</code>: Generieke Inline Container</h4>
+            <p>De <code>&lt;span&gt;</code> is een inline-element zonder enige semantische betekenis. Het is puur bedoeld als een 'haakje' om een specifiek stukje tekst te kunnen stijlen met CSS of te manipuleren met JavaScript, zonder de betekenis van de tekst te veranderen.</p>
+            <pre><code>&lt;p&gt;Dit is normale tekst, maar &lt;span style="color: red; font-weight: bold;"&gt;dit stukje&lt;/span&gt; is rood en vet gemaakt met een span.&lt;/p&gt;</code></pre>
+            <div class="live-example">
+                <p>Dit is normale tekst, maar <span style="color: red; font-weight: bold;">dit stukje</span> is rood en vet gemaakt met een span.</p>
+            </div>
+
+            <h4><code>&lt;br&gt;</code>: Regeleinde</h4>
+            <p>Het <code>&lt;br&gt;</code> (break) element forceert een regeleinde. Het is een leeg element. Gebruik het spaarzaam, bijvoorbeeld in adressen of gedichten waar de regeleindes belangrijk zijn. Gebruik geen <code>&lt;br&gt;</code> om witruimte tussen paragrafen te creëren; gebruik daarvoor CSS margins.</p>
+            <pre><code>&lt;p&gt;Mijn Adres:&lt;br&gt;Voorbeeldstraat 123&lt;br&gt;1000 Brussel&lt;/p&gt;</code></pre>
+            <div class="live-example">
+                <p>Mijn Adres:<br>Voorbeeldstraat 123<br>1000 Brussel</p>
+            </div>
+
+            <h4><code>&lt;q&gt;</code> & <code>&lt;blockquote&gt;</code>: Citaten</h4>
+            <p>Gebruik <code>&lt;q&gt;</code> voor korte, inline citaten. Browsers plaatsen hier automatisch aanhalingstekens omheen. Voor langere citaten die een eigen alinea vormen, gebruik je <code>&lt;blockquote&gt;</code>. Dit element wordt door browsers meestal ingesprongen weergegeven.</p>
+            <pre><code>&lt;p&gt;De spreker zei, &lt;q&gt;Dit is een korte, maar krachtige boodschap.&lt;/q&gt;&lt;/p&gt;
+&lt;blockquote cite="http://example.com"&gt;
+  Dit is een langer citaat dat een volledig blok tekst beslaat. Het wordt vaak gebruikt voor getuigenissen of belangrijke passages uit een andere bron.
+&lt;/blockquote&gt;</code></pre>
+            <div class="live-example">
+                <p>De spreker zei, <q>Dit is een korte, maar krachtige boodschap.</q></p>
+                <blockquote cite="http://example.com">
+                  Dit is een langer citaat dat een volledig blok tekst beslaat. Het wordt vaak gebruikt voor getuigenissen of belangrijke passages uit een andere bron.
+                </blockquote>
+            </div>
+
+            <h4><code>&lt;code&gt;</code> & <code>&lt;pre&gt;</code>: Computercode</h4>
+            <p>Het <code>&lt;code&gt;</code>-element wordt gebruikt om een stukje computercode te markeren. Voor codeblokken van meerdere regels, waarbij witruimte en regeleindes behouden moeten blijven, plaats je het <code>&lt;code&gt;</code>-element binnen een <code>&lt;pre&gt;</code> (preformatted text) element.</p>
+            <pre><code>&lt;p&gt;Gebruik de functie &lt;code&gt;getElementById()&lt;/code&gt; om een element te selecteren.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;function hello() {
+  console.log("Hello, world!");
+}&lt;/code&gt;&lt;/pre&gt;</code></pre>
+            <div class="live-example">
+                <p>Gebruik de functie <code>getElementById()</code> om een element te selecteren.</p>
+                <pre><code>function hello() {
+  console.log("Hello, world!");
+}</code></pre>
+            </div>
+
+            <h4><code>&lt;time&gt;</code>: Datum en Tijd</h4>
+            <p>Het <code>&lt;time&gt;</code>-element geeft een machine-leesbare vorm van een datum of tijd. Dit helpt zoekmachines en andere computersystemen om de datum correct te interpreteren. Het <code>datetime</code>-attribuut bevat de gestandaardiseerde waarde.</p>
+            <pre><code>&lt;p&gt;De vergadering is gepland op &lt;time datetime="2025-10-26 10:00"&gt;26 oktober om 10:00 uur&lt;/time&gt;.&lt;/p&gt;</code></pre>
+            <div class="live-example">
+                <p>De vergadering is gepland op <time datetime="2025-10-26 10:00">26 oktober om 10:00 uur</time>.</p>
+            </div>
         </section>
 
         <section id="html-lists-tables">

@@ -1,0 +1,2100 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactieve Studiegids: Webdesign</title>
+    <style>
+        :root {
+            --primary-bg: #f4f7f9;
+            --secondary-bg: #ffffff;
+            --sidebar-bg: #1e293b;
+            --sidebar-text: #cbd5e1;
+            --sidebar-hover-bg: #334155;
+            --sidebar-active-bg: #475569;
+            --text-color: #0f172a;
+            --accent-color: #3b82f6;
+            --border-color: #e2e8f0;
+            --code-bg: #f1f5f9;
+            --success-bg: #dcfce7;
+            --success-color: #166534;
+            --error-bg: #fee2e2;
+            --error-color: #991b1b;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+            line-height: 1.7;
+            margin: 0;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            display: flex;
+        }
+        #sidebar {
+            width: 280px;
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            padding: 20px;
+            height: 100vh;
+            overflow-y: auto;
+            position: fixed;
+            border-right: 1px solid var(--border-color);
+        }
+        #sidebar h2 {
+            margin-top: 0;
+            color: var(--secondary-bg);
+            font-size: 1.5rem;
+        }
+        #sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        #sidebar > ul > li > a {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 15px;
+        }
+        #sidebar ul ul {
+            padding-left: 15px;
+            border-left: 1px solid #475569;
+            margin-left: 5px;
+        }
+        #sidebar a {
+            text-decoration: none;
+            color: var(--sidebar-text);
+            display: block;
+            padding: 8px 10px;
+            border-radius: 6px;
+            transition: background-color 0.2s ease;
+        }
+        #sidebar a:hover {
+            background-color: var(--sidebar-hover-bg);
+        }
+        #sidebar a.active {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        #main-content {
+            margin-left: 320px;
+            padding: 25px 40px;
+            width: calc(100% - 320px);
+        }
+        section {
+            background-color: var(--secondary-bg);
+            padding: 25px;
+            margin-bottom: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            scroll-margin-top: 20px;
+        }
+        h1, h2, h3, h4, h5 {
+            color: #1e293b;
+        }
+        h1, h2, h3 {
+             border-bottom: 1px solid var(--border-color);
+             padding-bottom: 10px;
+        }
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 2rem; }
+        h3 { font-size: 1.5rem; }
+        h4 { font-size: 1.25rem; }
+        h5 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+
+        pre {
+            background-color: var(--code-bg);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+            margin-top: 10px;
+        }
+        code {
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            background-color: var(--code-bg);
+            padding: 3px 6px;
+            border-radius: 4px;
+        }
+        pre > code {
+            padding: 0;
+            background: none;
+        }
+        .exercise {
+            border: 1px dashed var(--accent-color);
+            padding: 20px;
+            margin-top: 25px;
+            border-radius: 8px;
+            background-color: #fafcff;
+        }
+        .exercise textarea {
+            width: 100%;
+            min-height: 150px;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            padding: 10px;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .exercise-solution {
+            display: none;
+            margin-top: 15px;
+            border-left: 3px solid var(--accent-color);
+            padding-left: 15px;
+            background-color: #f8f9fa;
+        }
+        .validator-result {
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-weight: 500;
+        }
+        .validator-result.success {
+            background-color: var(--success-bg);
+            color: var(--success-color);
+        }
+        .validator-result.error {
+            background-color: var(--error-bg);
+            color: var(--error-color);
+        }
+        button {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-right: 10px;
+            font-weight: 500;
+            transition: background-color 0.2s ease;
+        }
+        button:hover {
+            background-color: #2563eb;
+        }
+        button.secondary {
+            background-color: #64748b;
+        }
+        button.secondary:hover {
+            background-color: #475569;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: var(--primary-bg);
+        }
+        blockquote {
+            border-left: 4px solid var(--accent-color);
+            padding-left: 15px;
+            margin-left: 0;
+            font-style: italic;
+            color: #475569;
+        }
+        .live-example {
+            border: 1px solid var(--border-color);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            background-color: #fafbff;
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="sidebar">
+        <h2>Studiegids</h2>
+        <ul>
+            <li><a href="#html">HTML</a>
+                <ul>
+                    <li><a href="#html-doc-meta">Document & Metadata</a></li>
+                    <li><a href="#html-sections">Secties & Semantiek</a></li>
+                    <li><a href="#html-text">Tekst & Inline</a></li>
+                    <li><a href="#html-lists-tables">Lijsten & Tabellen</a></li>
+                    <li><a href="#html-media">Media & Inbedding</a></li>
+                    <li><a href="#html-forms">Formulieren</a></li>
+                    <li><a href="#html-interactive">Interactieve Elementen</a></li>
+                    <li><a href="#html-actuele-elementen">Actuele Elementen</a></li>
+                    <li><a href="#html-actuele-attributen">Actuele Attributen</a></li>
+                    <li><a href="#html-aria">ARIA</a></li>
+                    <li><a href="#html-cheatsheet">Cheatsheet</a></li>
+                </ul>
+            </li>
+            <li><a href="#css">CSS</a>
+                <ul>
+                    <li><a href="#css-basics">Basis & Selectors</a></li>
+                    <li><a href="#css-pseudo-classes">Pseudo-classes</a></li>
+                    <li><a href="#css-pseudo-elements">Pseudo-elements</a></li>
+                    <li><a href="#css-box-model">Box Model & Sizing</a></li>
+                    <li><a href="#css-layout">Layout (Flex & Grid)</a></li>
+                    <li><a href="#css-typography">Typografie & Tekst</a></li>
+                    <li><a href="#css-backgrounds">Achtergronden & Effecten</a></li>
+                    <li><a href="#css-motion">Transities & Animaties</a></li>
+                    <li><a href="#css-responsive">Responsive Design</a></li>
+                    <li><a href="#css-cheatsheet">Cheatsheet</a></li>
+                </ul>
+            </li>
+            <li><a href="#javascript">JavaScript</a>
+                <ul>
+                    <li><a href="#js-basics">Basis (Variabelen, Types)</a></li>
+                    <li><a href="#js-flow">Control Flow</a></li>
+                    <li><a href="#js-functions">Functies & Scope</a></li>
+                    <li><a href="#js-data-structures">Arrays & Objecten</a></li>
+                    <li><a href="#js-dom">DOM Manipulatie</a></li>
+                    <li><a href="#js-events">Events</a></li>
+                    <li><a href="#js-async">Asynchroon (Promises, Async/Await)</a></li>
+                    <li><a href="#js-es6">ES6+ Features</a></li>
+                    <li><a href="#js-cheatsheet">Cheatsheet</a></li>
+                </ul>
+            </li>
+            <li><a href="#typescript">TypeScript</a>
+                <ul>
+                    <li><a href="#ts-intro">Introductie & Setup</a></li>
+                    <li><a href="#ts-types">Types (Basis & Geavanceerd)</a></li>
+                    <li><a href="#ts-interfaces">Interfaces & Classes</a></li>
+                    <li><a href="#ts-enums">Enums & Generics</a></li>
+                    <li><a href="#ts-modules">Modules</a></li>
+                    <li><a href="#ts-cheatsheet">Cheatsheet</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+
+    <main id="main-content">
+        <h1>Interactieve Studiegids Webdesign</h1>
+        <p>Welkom bij je persoonlijke, interactieve studiegids. Gebruik de navigatie aan de linkerkant om snel door de onderwerpen te bladeren. Elk hoofdstuk bevat theorie, codevoorbeelden en oefeningen om je kennis te testen.</p>
+
+        <!-- ====================================================================== -->
+        <!-- ============================= HTML =================================== -->
+        <!-- ====================================================================== -->
+        <section id="html">
+            <h2>HTML: HyperText Markup Language</h2>
+            <p>HTML vormt de ruggengraat van elke webpagina. Het definieert de structuur en de semantische betekenis van de content.</p>
+        </section>
+
+        <section id="html-doc-meta">
+            <h3>Document & Metadata</h3>
+            <p>Deze elementen definiëren de algemene eigenschappen van een HTML-document.</p>
+            
+            <h4><code>&lt;!DOCTYPE html&gt;</code></h4>
+            <p>Activeert de "standards mode" in browsers. Dit moet altijd de allereerste regel van je document zijn.</p>
+            
+            <h4><code>&lt;html&gt;</code></h4>
+            <p>Het root-element van de pagina. Het `lang` attribuut is cruciaal voor toegankelijkheid en SEO.</p>
+            <pre><code>&lt;html lang="nl"&gt;...&lt;/html&gt;</code></pre>
+
+            <h4><code>&lt;head&gt;</code></h4>
+            <p>Bevat alle metadata: scripts, stylesheets, en andere informatie die niet direct op de pagina zichtbaar is.</p>
+
+            <h4><code>&lt;title&gt;</code></h4>
+            <p>De titel van de pagina, zichtbaar in de browser-tab en in zoekmachineresultaten. Vereist in elk document.</p>
+            <pre><code>&lt;title&gt;Mijn Studiegids Webdesign&lt;/title&gt;</code></pre>
+
+            <h4><code>&lt;meta&gt;</code></h4>
+            <p>Voor diverse metadata zoals tekenset, viewport-instellingen voor mobiele apparaten, en paginabeschrijving.</p>
+            <pre><code>&lt;meta charset="UTF-8"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+&lt;meta name="description" content="Een korte beschrijving van de pagina."&gt;</code></pre>
+
+            <h4><code>&lt;link&gt;</code></h4>
+            <p>Linkt naar externe bronnen, voornamelijk stylesheets, maar ook voor iconen, fonts, en PWA-manifesten.</p>
+            <pre><code>&lt;link rel="stylesheet" href="styles.css"&gt;
+&lt;link rel="icon" href="/favicon.ico"&gt;</code></pre>
+
+            <h4><code>&lt;script&gt;</code> & <code>&lt;noscript&gt;</code></h4>
+            <p>Laadt en executeert JavaScript. Het `defer` attribuut stelt de executie uit tot na het parsen van de HTML. `async` laadt en voert uit zodra mogelijk. `noscript` toont een fallback als JavaScript uitgeschakeld is.</p>
+            <pre><code>&lt;script src="app.js" defer&gt;&lt;/script&gt;
+&lt;noscript&gt;JavaScript is vereist voor deze site.&lt;/noscript&gt;</code></pre>
+
+            <div class="exercise">
+                <h4>Oefening H1-01: Documentkop opzetten</h4>
+                <p>Maak een correcte HTML5-documentkop met een doctype, Nederlandse taal, UTF-8 charset, een mobielvriendelijke viewport en een titel.</p>
+                <textarea id="ex-h1-01" placeholder="Plaats hier je volledige HTML-structuur..."></textarea>
+                <button class="check-btn" data-exercise="h1-01">Controleer</button>
+                <button class="solution-btn secondary">Toon Oplossing</button>
+                <div class="validator-result"></div>
+                <div class="exercise-solution">
+                    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="nl"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Mijn Oefenpagina&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="html-sections">
+            <h3>Secties & Semantiek</h3>
+            <p>Semantische HTML gebruikt elementen die hun betekenis duidelijk maken, wat goed is voor toegankelijkheid (schermlezers) en SEO.</p>
+            <ul>
+                <li><code>&lt;body&gt;</code>: Bevat alle zichtbare content.</li>
+                <li><code>&lt;header&gt;</code>: Introductiecontent of navigatiehulpmiddelen. Kan per document of per sectie/artikel gebruikt worden.</li>
+                <li><code>&lt;nav&gt;</code>: Een sectie met navigatielinks. Geef het een `aria-label` als er meerdere zijn.</li>
+                <li><code>&lt;main&gt;</code>: De unieke, centrale content van de pagina. Er mag maar één `&lt;main&gt;` element per pagina zijn.</li>
+                <li><code>&lt;section&gt;</code>: Een thematische groepering van content, typisch met een kop.</li>
+                <li><code>&lt;article&gt;</code>: Zelfstandige, op zichzelf staande content (bv. een blogpost, nieuwsartikel).</li>
+                <li><code>&lt;aside&gt;</code>: Content die indirect gerelateerd is aan de hoofdcontent (bv. een sidebar).</li>
+                <li><code>&lt;footer&gt;</code>: Voettekst voor een document of sectie (bv. auteur, copyright).</li>
+                <li><code>&lt;address&gt;</code>: Contactinformatie voor het dichtstbijzijnde artikel of de body.</li>
+                <li><code>&lt;h1&gt;</code> - <code>&lt;h6&gt;</code>: Koppen voor het structureren van content. Gebruik ze hiërarchisch.</li>
+            </ul>
+            <div class="exercise">
+                <h4>Oefening H2-01: Semantische layout</h4>
+                <p>Structureer een eenvoudige blogpostpagina met een header, navigatie, hoofdcontent met een artikel, een sidebar en een footer.</p>
+                <textarea id="ex-h2-01" placeholder="Plaats hier je body-structuur..."></textarea>
+                <button class="check-btn" data-exercise="h2-01">Controleer</button>
+                <button class="solution-btn secondary">Toon Oplossing</button>
+                <div class="validator-result"></div>
+                <div class="exercise-solution">
+                    <pre><code>&lt;header&gt;
+    &lt;h1&gt;Mijn Blog&lt;/h1&gt;
+&lt;/header&gt;
+&lt;nav aria-label="Hoofdnavigatie"&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;a href="#"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/nav&gt;
+&lt;main&gt;
+    &lt;article&gt;
+        &lt;h2&gt;Titel van de post&lt;/h2&gt;
+        &lt;p&gt;Inhoud van de post...&lt;/p&gt;
+    &lt;/article&gt;
+&lt;/main&gt;
+&lt;aside&gt;
+    &lt;h3&gt;Over de auteur&lt;/h3&gt;
+&lt;/aside&gt;
+&lt;footer&gt;
+    &lt;p&gt;&copy; 2025&lt;/p&gt;
+&lt;/footer&gt;</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="html-text">
+            <h3>Tekst & Inline Semantiek</h3>
+            <p>Elementen voor het structureren van tekst op een gedetailleerder niveau.</p>
+            <ul>
+                <li><code>&lt;p&gt;</code>: Een paragraaf.</li>
+                <li><code>&lt;a href="..."&gt;</code>: Een hyperlink. Gebruik `rel="noopener"` voor links die in een nieuw tabblad openen.</li>
+                <li><code>&lt;em&gt;</code>: Nadruk (emphasis), vaak cursief weergegeven.</li>
+                <li><code>&lt;strong&gt;</code>: Sterke belangrijkheid, vaak vet weergegeven.</li>
+                <li><code>&lt;span&gt;</code>: Een generieke inline container, handig voor styling met CSS.</li>
+                <li><code>&lt;br&gt;</code>: Een regeleinde.</li>
+                <li><code>&lt;q&gt;</code>: Een kort, inline citaat.</li>
+                <li><code>&lt;blockquote&gt;</code>: Een lang citaat, als een blok weergegeven.</li>
+                <li><code>&lt;code&gt;</code>: Een stukje computercode.</li>
+                <li><code>&lt;pre&gt;</code>: Vooraf opgemaakte tekst, behoudt witruimte en regeleinden. Vaak gebruikt in combinatie met `<code>`.</li>
+                <li><code>&lt;time datetime="..."&gt;</code>: Een machine-leesbare datum/tijd.</li>
+            </ul>
+             <pre><code>&lt;p&gt;Dit is &lt;strong&gt;belangrijke&lt;/strong&gt; tekst. Bezoek &lt;a href="#"&gt;onze site&lt;/a&gt;.&lt;/p&gt;
+&lt;blockquote&gt;Dit is een citaat.&lt;/blockquote&gt;
+&lt;pre&gt;&lt;code&gt;const x = 10;&lt;/code&gt;&lt;/pre&gt;</code></pre>
+        </section>
+
+        <section id="html-lists-tables">
+            <h3>Lijsten & Tabellen</h3>
+            <h4>Lijsten</h4>
+            <ul>
+                <li><code>&lt;ul&gt;</code>: Ongeordende lijst (unordered list).</li>
+                <li><code>&lt;ol&gt;</code>: Geordende lijst (ordered list). Attributen: `start`, `reversed`, `type`.</li>
+                <li><code>&lt;li&gt;</code>: Lijstitem (list item).</li>
+                <li><code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code>, <code>&lt;dd&gt;</code>: Definitielijst, term en beschrijving.</li>
+            </ul>
+            <pre><code>&lt;ul&gt;
+    &lt;li&gt;Item 1&lt;/li&gt;
+    &lt;li&gt;Item 2&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+            <h4>Tabellen</h4>
+            <p>Gebruik tabellen voor het weergeven van tabeldata. Voor toegankelijkheid zijn `<caption>` en het `scope` attribuut belangrijk.</p>
+            <pre><code>&lt;table&gt;
+    &lt;caption&gt;Maandelijkse uitgaven&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th scope="col"&gt;Categorie&lt;/th&gt;
+            &lt;th scope="col"&gt;Bedrag&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;th scope="row"&gt;Huur&lt;/th&gt;
+            &lt;td&gt;€1000&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+            <div class="exercise">
+                <h4>Oefening H4-01: Toegankelijke tabel</h4>
+                <p>Maak een tabel met een titel (caption), een kop (thead) met twee kolomkoppen (th met `scope="col"`) en een body (tbody) met twee rijen. De eerste cel van elke rij moet een rijkop zijn (th met `scope="row"`).</p>
+                <textarea id="ex-h4-01" placeholder="Plaats hier je tabel..."></textarea>
+                <button class="check-btn" data-exercise="h4-01">Controleer</button>
+                <button class="solution-btn secondary">Toon Oplossing</button>
+                <div class="validator-result"></div>
+                <div class="exercise-solution">
+                    <pre><code>&lt;table&gt;
+    &lt;caption&gt;Cursusplanning&lt;/caption&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th scope="col"&gt;Vak&lt;/th&gt;
+            &lt;th scope="col"gt;Docent&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;th scope="row"&gt;HTML&lt;/th&gt;
+            &lt;td&gt;Dhr. De Vries&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;th scope="row"&gt;CSS&lt;/th&gt;
+            &lt;td&gt;Mevr. Jansen&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="html-media">
+            <h3>Media & Inbedding</h3>
+            
+            <h4><code>&lt;img&gt;</code></h4>
+            <p>Toont een afbeelding. `alt` is verplicht voor toegankelijkheid. `width` en `height` helpen browser-reflows te voorkomen. `loading="lazy"` laadt de afbeelding pas als deze in de buurt van de viewport komt.</p>
+            <pre><code>&lt;img src="kat.jpg" alt="Een schattige kat" width="400" height="300" loading="lazy"&gt;</code></pre>
+            
+            <h4><code>&lt;picture&gt;</code> & <code>&lt;source&gt;</code></h4>
+            <p>Biedt meer controle voor responsive afbeeldingen (art direction) of voor het aanbieden van moderne formaten zoals WebP of AVIF met een fallback.</p>
+            <pre><code>&lt;picture&gt;
+    &lt;source srcset="foto.avif" type="image/avif"&gt;
+    &lt;source srcset="foto.webp" type="image/webp"&gt;
+    &lt;img src="foto.jpg" alt="Beschrijving" width="800" height="600"&gt;
+&lt;/picture&gt;</code></pre>
+
+            <h4><code>&lt;video&gt;</code> & <code>&lt;audio&gt;</code></h4>
+            <p>Voor het insluiten van video en audio. Gebruik het `controls` attribuut om de standaard bedieningselementen van de browser te tonen.</p>
+            <pre><code>&lt;video src="film.mp4" controls width="640" height="360"&gt;
+    Sorry, je browser ondersteunt geen ingesloten video's.
+&lt;/video&gt;
+
+&lt;audio src="muziek.mp3" controls&gt;&lt;/audio&gt;</code></pre>
+
+            <h4><code>&lt;iframe&gt;</code></h4>
+            <p>Sluit een andere webpagina in. Geef altijd een `title` attribuut voor toegankelijkheid.</p>
+            <pre><code>&lt;iframe src="https://www.openstreetmap.org/export/embed.html" title="Kaart van OpenStreetMap"&gt;&lt;/iframe&gt;</code></pre>
+        </section>
+
+        <section id="html-forms">
+            <h3>Formulieren</h3>
+            <p>Formulieren zijn essentieel voor gebruikersinteractie. Een correct gebruik van `label` en input-types is cruciaal.</p>
+            
+            <h4>Kern-elementen</h4>
+            <ul>
+                <li><code>&lt;form&gt;</code>: De container voor het formulier. Attributen: `action` (URL voor verzenden), `method` (`GET` of `POST`).</li>
+                <li><code>&lt;label for="..."&gt;</code>: Koppelt een label aan een formulierelement. De `for` waarde moet overeenkomen met de `id` van het input-element.</li>
+                <li><code>&lt;input&gt;</code>: Het meest veelzijdige element. Het `type` attribuut is essentieel.</li>
+                <li><code>&lt;textarea&gt;</code>: Voor tekstinvoer over meerdere regels.</li>
+                <li><code>&lt;select&gt;</code> & <code>&lt;option&gt;</code>: Voor een dropdown-menu.</li>
+                <li><code>&lt;button type="..."&gt;</code>: Een knop. `type` kan `submit`, `reset`, of `button` zijn.</li>
+                <li><code>&lt;fieldset&gt;</code> & <code>&lt;legend&gt;</code>: Groepeert gerelateerde velden, met een titel voor de groep.</li>
+            </ul>
+
+            <h4>Input Types</h4>
+            <p>Enkele veelgebruikte `type` waarden voor `&lt;input&gt;`:</p>
+            <ul>
+                <li>`text`: Standaard tekstveld.</li>
+                <li>`password`: Verbergt de invoer.</li>
+                <li>`email`: Valideert op een e-mailformaat.</li>
+                <li>`number`: Voor numerieke invoer.</li>
+                <li>`date`: Een datumkiezer.</li>
+                <li>`checkbox`: Een aanvinkvakje (meerdere keuzes mogelijk).</li>
+                <li>`radio`: Een keuzerondje (één keuze binnen een groep met dezelfde `name`).</li>
+                <li>`submit`: Een knop om het formulier te verzenden.</li>
+            </ul>
+
+            <div class="exercise">
+                <h4>Oefening H6-01: Login formulier</h4>
+                <p>Maak een eenvoudig login-formulier met velden voor e-mail en wachtwoord. Zorg ervoor dat elk veld een correct gekoppeld `label` heeft en dat het e-mailveld `required` is.</p>
+                <textarea id="ex-h6-01" placeholder="Plaats hier je formulier..."></textarea>
+                <button class="check-btn" data-exercise="h6-01">Controleer</button>
+                <button class="solution-btn secondary">Toon Oplossing</button>
+                <div class="validator-result"></div>
+                <div class="exercise-solution">
+                    <pre><code>&lt;form action="/login" method="post"&gt;
+    &lt;div&gt;
+        &lt;label for="email"&gt;E-mailadres:&lt;/label&gt;
+        &lt;input type="email" id="email" name="user_email" required&gt;
+    &lt;/div&gt;
+    &lt;div&gt;
+        &lt;label for="password"&gt;Wachtwoord:&lt;/label&gt;
+        &lt;input type="password" id="password" name="user_password"&gt;
+    &lt;/div&gt;
+    &lt;button type="submit"&gt;Inloggen&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="html-interactive">
+            <h3>Interactieve Elementen</h3>
+            <ul>
+                <li><code>&lt;details&gt;</code> & <code>&lt;summary&gt;</code>: Creëert een uitklapbaar "accordeon"-widget. De `summary` is de altijd zichtbare titel.</li>
+                <li><code>&lt;dialog&gt;</code>: Een dialoogvenster of pop-up. Kan modaal gemaakt worden met JavaScript (`.showModal()`).</li>
+                <li><code>&lt;canvas&gt;</code>: Een tekengebied dat via JavaScript gemanipuleerd kan worden voor grafieken, animaties of games.</li>
+            </ul>
+            <pre><code>&lt;details&gt;
+    &lt;summary&gt;Klik hier voor meer info&lt;/summary&gt;
+    &lt;p&gt;Dit is de verborgen informatie.&lt;/p&gt;
+&lt;/details&gt;
+
+&lt;dialog id="myDialog"&gt;
+  &lt;p&gt;Dit is een dialoogvenster.&lt;/p&gt;
+  &lt;button onclick="document.getElementById('myDialog').close()"&gt;Sluiten&lt;/button&gt;
+&lt;/dialog&gt;
+&lt;button onclick="document.getElementById('myDialog').showModal()"&gt;Toon dialoog&lt;/button&gt;</code></pre>
+        </section>
+
+        <section id="html-actuele-elementen">
+            <h3>Actuele HTML-elementen</h3>
+            <p>Moderne HTML biedt een rijke set aan semantische elementen die helpen om de structuur en betekenis van je webpagina duidelijk te maken voor browsers, zoekmachines en hulptechnologieën.</p>
+            
+            <h4><code>&lt;article&gt;</code></h4>
+            <p>Gebruik dit voor op zichzelf staande content die onafhankelijk van de rest van de site kan worden gelezen en verspreid, zoals een blogpost, nieuwsartikel of forumreactie.</p>
+            <pre><code>&lt;article&gt;
+  &lt;h2&gt;Titel van het blogartikel&lt;/h2&gt;
+  &lt;p&gt;De inhoud van het artikel...&lt;/p&gt;
+  &lt;footer&gt;Gepost op &lt;time datetime="2025-08-10"&gt;10 augustus 2025&lt;/time&gt;&lt;/footer&gt;
+&lt;/article&gt;</code></pre>
+            <div class="live-example">
+                <article style="border: 1px solid var(--border-color); padding: 10px; border-radius: 5px;">
+                  <h2>Titel van het blogartikel</h2>
+                  <p>De inhoud van het artikel...</p>
+                  <footer>Gepost op <time datetime="2025-08-10">10 augustus 2025</time></footer>
+                </article>
+            </div>
+
+            <h4><code>&lt;section&gt;</code></h4>
+            <p>Groepeert thematisch gerelateerde content. Een <code>&lt;section&gt;</code> heeft doorgaans een eigen kop (<code>&lt;h1&gt;</code>-<code>&lt;h6&gt;</code>).</p>
+            <pre><code>&lt;section&gt;
+  &lt;h2&gt;Over ons&lt;/h2&gt;
+  &lt;p&gt;Informatie over het bedrijf.&lt;/p&gt;
+&lt;/section&gt;</code></pre>
+            <div class="live-example">
+                <section style="border: 1px solid var(--border-color); padding: 10px; border-radius: 5px;">
+                  <h2>Over ons</h2>
+                  <p>Informatie over het bedrijf.</p>
+                </section>
+            </div>
+
+            <h4><code>&lt;nav&gt;</code></h4>
+            <p>Bedoeld voor de belangrijkste navigatieblokken op je site, zoals het hoofdmenu.</p>
+            <pre><code>&lt;nav aria-label="Hoofdnavigatie"&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="/home"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/contact"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+            <div class="live-example">
+                <nav>
+                  <ul style="list-style: none; padding: 0; display: flex; gap: 15px;">
+                    <li><a href="#html-actuele-elementen">Home</a></li>
+                    <li><a href="#html-actuele-elementen">Contact</a></li>
+                  </ul>
+                </nav>
+            </div>
+
+            <h4><code>&lt;details&gt;</code> en <code>&lt;summary&gt;</code></h4>
+            <p>Creëert een interactief "accordeon"-widget waarmee gebruikers informatie kunnen tonen en verbergen. De <code>&lt;summary&gt;</code> is de altijd zichtbare titel.</p>
+            <pre><code>&lt;details&gt;
+  &lt;summary&gt;Bekijk de specificaties&lt;/summary&gt;
+  &lt;p&gt;Processor: Snel, Geheugen: Veel.&lt;/p&gt;
+&lt;/details&gt;</code></pre>
+            <div class="live-example">
+                <details>
+                  <summary>Bekijk de specificaties</summary>
+                  <p>Processor: Snel, Geheugen: Veel.</p>
+                </details>
+            </div>
+
+            <h4><code>&lt;dialog&gt;</code></h4>
+            <p>Representeert een dialoogvenster, pop-up of ander interactief component dat boven de rest van de pagina wordt weergegeven.</p>
+            <pre><code>&lt;dialog id="liveDialog"&gt;
+  &lt;p&gt;Weet je zeker dat je wilt doorgaan?&lt;/p&gt;
+  &lt;button onclick="liveDialog.close()"&gt;Annuleren&lt;/button&gt;
+  &lt;button onclick="liveDialog.close()"&gt;OK&lt;/button&gt;
+&lt;/dialog&gt;
+&lt;button onclick="liveDialog.showModal()"&gt;Open dialoog&lt;/button&gt;</code></pre>
+            <div class="live-example">
+                <dialog id="liveDialog">
+                  <p>Weet je zeker dat je wilt doorgaan?</p>
+                  <form method="dialog">
+                    <button>Annuleren</button>
+                    <button>OK</button>
+                  </form>
+                </dialog>
+                <button onclick="document.getElementById('liveDialog').showModal()">Open dialoog</button>
+            </div>
+
+            <h4><code>&lt;figure&gt;</code> en <code>&lt;figcaption&gt;</code></h4>
+            <p>Wordt gebruikt om content zoals afbeeldingen, diagrammen of codefragmenten te groeperen met een bijschrift (<code>&lt;figcaption&gt;</code>).</p>
+            <pre><code>&lt;figure&gt;
+  &lt;img src="https://placehold.co/200x100" alt="Verkoopcijfers Q3"&gt;
+  &lt;figcaption&gt;Fig. 1: Verkoopcijfers voor het derde kwartaal.&lt;/figcaption&gt;
+&lt;/figure&gt;</code></pre>
+            <div class="live-example">
+                <figure>
+                  <img src="https://placehold.co/200x100/e2e8f0/334155?text=Grafiek" alt="Verkoopcijfers Q3">
+                  <figcaption>Fig. 1: Verkoopcijfers voor het derde kwartaal.</figcaption>
+                </figure>
+            </div>
+
+            <h4><code>&lt;progress&gt;</code> en <code>&lt;meter&gt;</code></h4>
+            <p><code>&lt;progress&gt;</code> toont de voortgang van een taak. <code>&lt;meter&gt;</code> representeert een scalaire meting binnen een bekend bereik (zoals schijfgebruik).</p>
+            <pre><code>&lt;label for="file"&gt;Bestand downloaden:&lt;/label&gt;
+&lt;progress id="file" value="70" max="100"&gt; 70% &lt;/progress&gt;
+
+&lt;label for="disk"&gt;Schijfgebruik:&lt;/label&gt;
+&lt;meter id="disk" value="0.6"&gt;60%&lt;/meter&gt;</code></pre>
+            <div class="live-example">
+                <label for="file-live">Bestand downloaden:</label>
+                <progress id="file-live" value="70" max="100"> 70% </progress>
+                <br>
+                <label for="disk-live">Schijfgebruik:</label>
+                <meter id="disk-live" value="0.6">60%</meter>
+            </div>
+
+            <h4>Te vermijden verouderde (deprecated) elementen</h4>
+            <p>Vermijd verouderde tags die voor styling werden gebruikt. Gebruik CSS voor presentatie. Voorbeelden van te vermijden tags zijn:</p>
+            <p><code>&lt;applet&gt;</code>, <code>&lt;center&gt;</code>, <code>&lt;font&gt;</code>, <code>&lt;dir&gt;</code>, <code>&lt;strike&gt;</code>, <code>&lt;big&gt;</code>.</p>
+        </section>
+
+        <section id="html-actuele-attributen">
+            <h3>Actuele HTML-attributen</h3>
+            <p>Attributen geven extra informatie over HTML-elementen en worden altijd in de start-tag gespecificeerd. Ze bestaan meestal uit een naam/waarde-paar zoals <code>name="value"</code>.</p>
+    
+            <h4>Globale Attributen</h4>
+            <p>Globale attributen kunnen op vrijwel elk HTML-element worden toegepast.</p>
+            
+            <h5><code>class</code> en <code>id</code></h5>
+            <p><code>id</code> geeft een element een unieke identificatie. <code>class</code> wijst een of meer klassen toe voor styling en scripting. Een <code>id</code> moet uniek zijn op de hele pagina; een <code>class</code> kan hergebruikt worden.</p>
+            <pre><code>&lt;div id="main-content" class="container dark-theme"&gt;...&lt;/div&gt;</code></pre>
+            <div class="live-example">
+                <div id="main-content-example" class="container-example dark-theme-example" style="border: 1px solid var(--border-color); padding: 10px;">Dit div-element heeft id="main-content-example" en class="container-example dark-theme-example".</div>
+            </div>
+
+            <h5><code>style</code></h5>
+            <p>Voegt inline CSS-stijlen toe direct aan een element. Gebruik dit met mate; externe stylesheets zijn over het algemeen beter voor onderhoud.</p>
+            <pre><code>&lt;p style="color: red; font-weight: bold;"&gt;Deze tekst is rood en vet.&lt;/p&gt;</code></pre>
+            <div class="live-example">
+                <p style="color: red; font-weight: bold;">Deze tekst is rood en vet.</p>
+            </div>
+
+            <h5><code>title</code></h5>
+            <p>Biedt extra, adviserende informatie over een element. Browsers tonen dit vaak als een tooltip wanneer je met de muis over het element beweegt.</p>
+            <pre><code>&lt;button title="Klik hier om het formulier te verzenden"&gt;Verstuur&lt;/button&gt;</code></pre>
+            <div class="live-example">
+                <button title="Klik hier om het formulier te verzenden">Verstuur</button>
+            </div>
+
+            <h5><code>lang</code> en <code>dir</code></h5>
+            <p><code>lang</code> specificeert de taal van de inhoud van een element. <code>dir</code> specificeert de tekstrichting (<code>ltr</code> voor links-naar-rechts, <code>rtl</code> voor rechts-naar-links).</p>
+            <pre><code>&lt;p lang="fr"&gt;Bonjour le monde!&lt;/p&gt;</code></pre>
+            <div class="live-example">
+                <p lang="fr">Bonjour le monde!</p>
+                <p dir="rtl">.مرحبا بالعالم</p>
+            </div>
+
+            <h5><code>hidden</code></h5>
+            <p>Een booleaans attribuut dat aangeeft dat een element nog niet (of niet langer) relevant is. De browser zal het element niet weergeven.</p>
+            <pre><code>&lt;p hidden&gt;Deze paragraaf is verborgen.&lt;/p&gt;</code></pre>
+            <div class="live-example">
+                <p>Er is een verborgen paragraaf na deze zin (bekijk de broncode).</p>
+                <p hidden>Deze paragraaf is verborgen.</p>
+            </div>
+
+            <h5><code>tabindex</code></h5>
+            <p>Beïnvloedt de navigatievolgorde met het toetsenbord (Tab-toets). Een waarde van <code>0</code> maakt een element focusseerbaar in de natuurlijke volgorde. Een negatieve waarde (bv. <code>-1</code>) maakt het focusseerbaar via script, maar niet via de Tab-toets.</p>
+            <pre><code>&lt;div tabindex="0"&gt;Dit element kan focus krijgen.&lt;/div&gt;</code></pre>
+            <div class="live-example">
+                <p>Probeer met de Tab-toets naar de volgende box te navigeren.</p>
+                <div tabindex="0" style="border: 1px solid #ccc; padding: 10px; outline: none;" onfocus="this.style.borderColor='var(--accent-color)'" onblur="this.style.borderColor='#ccc'">Dit element kan focus krijgen.</div>
+            </div>
+
+            <h5><code>contenteditable</code></h5>
+            <p>Geeft aan dat de gebruiker de inhoud van het element direct in de browser kan bewerken.</p>
+            <pre><code>&lt;p contenteditable="true"&gt;Je kunt deze tekst aanpassen.&lt;/p&gt;</code></pre>
+            <div class="live-example">
+                <p contenteditable="true" style="border: 1px dashed #ccc; padding: 5px;">Je kunt deze tekst aanpassen.</p>
+            </div>
+
+            <h5><code>data-*</code></h5>
+            <p>Hiermee kun je aangepaste data-attributen toevoegen om willekeurige informatie op te slaan, die je later kunt gebruiken met JavaScript.</p>
+            <pre><code>&lt;div data-user-id="12345" data-role="admin"&gt;Gebruikersinformatie&lt;/div&gt;</code></pre>
+            <div class="live-example">
+                <div data-user-id="12345" data-role="admin">Dit element bevat custom data-attributen (niet zichtbaar, maar bruikbaar voor JS).</div>
+            </div>
+
+            <h4>Veelgebruikte specifieke attributen</h4>
+            
+            <h5><code>href</code>, <code>src</code>, en <code>alt</code></h5>
+            <p><code>href</code> (hypertext reference) specificeert de URL voor een link (<code>&lt;a&gt;</code>). <code>src</code> (source) specificeert de bron voor media-elementen zoals <code>&lt;img&gt;</code>, <code>&lt;script&gt;</code>, en <code>&lt;video&gt;</code>. <code>alt</code> (alternative text) biedt een tekstueel alternatief voor een afbeelding, wat cruciaal is voor toegankelijkheid.</p>
+            <pre><code>&lt;a href="/about"&gt;Over ons&lt;/a&gt;
+&lt;img src="logo.png" alt="Logo van het bedrijf"&gt;</code></pre>
+            <div class="live-example">
+                <a href="#html-actuele-attributen">Dit is een link.</a>
+                <br>
+                <img src="https://placehold.co/150x50/e2e8f0/334155?text=Logo" alt="Logo van het bedrijf">
+            </div>
+
+            <h5><code>placeholder</code>, <code>required</code>, <code>disabled</code></h5>
+            <p>Deze attributen worden vaak gebruikt in formulieren. <code>placeholder</code> toont een hint in een invoerveld. <code>required</code> geeft aan dat een veld ingevuld moet worden. <code>disabled</code> schakelt een invoerveld uit.</p>
+            <pre><code>&lt;input type="email" placeholder="naam@voorbeeld.com" required&gt;
+&lt;button type="submit" disabled&gt;Verstuur (uitgeschakeld)&lt;/button&gt;</code></pre>
+            <div class="live-example">
+                <input type="email" placeholder="naam@voorbeeld.com" required style="padding: 5px; border: 1px solid #ccc; border-radius: 3px;">
+                <button type="submit" disabled>Verstuur (uitgeschakeld)</button>
+            </div>
+
+            <h5><code>async</code> en <code>defer</code></h5>
+            <p>Deze booleaanse attributen voor het <code>&lt;script&gt;</code>-element beïnvloeden hoe een extern script wordt geladen en uitgevoerd. <code>defer</code> voert het script uit nadat de pagina is geparsed. <code>async</code> voert het uit zodra het is gedownload, wat de paginaparsing kan onderbreken.</p>
+            <pre><code>&lt;script src="analytics.js" async&gt;&lt;/script&gt;
+&lt;script src="app.js" defer&gt;&lt;/script&gt;</code></pre>
+        </section>
+
+        <section id="html-aria">
+            <h3>ARIA (Accessible Rich Internet Applications)</h3>
+            <p>ARIA-attributen helpen om de toegankelijkheid van dynamische webapplicaties te verbeteren, vooral voor gebruikers van schermlezers. Gebruik het waar native HTML semantiek tekortschiet.</p>
+            <ul>
+                <li><code>role</code>: Definieert de rol van een element (bv. `role="button"`, `role="navigation"`).</li>
+                <li><code>aria-label</code>: Geeft een toegankelijke naam aan een element zonder zichtbare tekst.</li>
+                <li><code>aria-labelledby</code>: Verwijst naar de `id` van een ander element dat als label dient.</li>
+                <li><code>aria-hidden="true"</code>: Verbergt een element voor toegankelijkheidstechnologie.</li>
+                <li><code>aria-expanded="true/false"</code>: Geeft aan of een uitklapbaar element open of gesloten is.</li>
+            </ul>
+            <pre><code>&lt;button aria-label="Sluit venster"&gt;X&lt;/button&gt;
+&lt;div role="tabpanel" aria-labelledby="tab1"&gt;...&lt;/div&gt;</code></pre>
+        </section>
+        
+        <section id="html-cheatsheet">
+            <h3>HTML Cheatsheet</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Categorie</th>
+                        <th>Elementen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Structuur</strong></td>
+                        <td><code>&lt;!DOCTYPE html&gt;</code>, <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, <code>&lt;body&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;aside&gt;</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tekst</strong></td>
+                        <td><code>&lt;h1&gt;</code>-<code>&lt;h6&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;span&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;strong&gt;</code>, <code>&lt;em&gt;</code>, <code>&lt;blockquote&gt;</code>, <code>&lt;code&gt;</code>, <code>&lt;pre&gt;</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Lijsten</strong></td>
+                        <td><code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>, <code>&lt;li&gt;</code>, <code>&lt;dl&gt;</code>, <code>&lt;dt&gt;</code>, <code>&lt;dd&gt;</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tabellen</strong></td>
+                        <td><code>&lt;table&gt;</code>, <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, <code>&lt;tr&gt;</code>, <code>&lt;th&gt;</code>, <code>&lt;td&gt;</code>, <code>&lt;caption&gt;</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Media</strong></td>
+                        <td><code>&lt;img&gt;</code>, <code>&lt;video&gt;</code>, <code>&lt;audio&gt;</code>, <code>&lt;picture&gt;</code>, <code>&lt;source&gt;</code>, <code>&lt;iframe&gt;</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Formulieren</strong></td>
+                        <td><code>&lt;form&gt;</code>, <code>&lt;label&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code>, <code>&lt;select&gt;</code>, <code>&lt;option&gt;</code>, <code>&lt;button&gt;</code>, <code>&lt;fieldset&gt;</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- ============================== CSS =================================== -->
+        <!-- ====================================================================== -->
+        <section id="css">
+            <h2>CSS: Cascading Style Sheets</h2>
+            <p>CSS is verantwoordelijk voor de presentatie en styling van je HTML-document. Het bepaalt hoe elementen eruitzien, van kleuren en lettertypen tot complexe layouts.</p>
+        </section>
+
+        <section id="css-basics">
+            <h3>Basis & Selectors</h3>
+            <p>CSS wordt toegepast via regels. Een regel bestaat uit een selector en een declaratieblok.</p>
+            <pre><code>selector {
+    property: value;
+}</code></pre>
+            
+            <h4>Selectors</h4>
+            <ul>
+                <li><strong>Type Selector</strong>: Selecteert op elementnaam (<code>p</code>, <code>div</code>).</li>
+                <li><strong>Class Selector</strong>: Selecteert op class-attribuut (<code>.mijn-klasse</code>).</li>
+                <li><strong>ID Selector</strong>: Selecteert op id-attribuut (<code>#mijn-id</code>). Uniek per pagina.</li>
+                <li><strong>Attribute Selector</strong>: Selecteert op aanwezigheid of waarde van een attribuut (<code>[type="text"]</code>).</li>
+                <li><strong>Pseudo-classes</strong>: Selecteert op een bepaalde staat (<code>:hover</code>, <code>:focus</code>, <code>:nth-child(n)</code>).</li>
+                <li><strong>Pseudo-elements</strong>: Stijlt een deel van een element (<code>::before</code>, <code>::after</code>, <code>::first-letter</code>).</li>
+                <li><strong>Combinators</strong>: <code>div p</code> (descendant), <code>div > p</code> (child), <code>h2 + p</code> (adjacent sibling), <code>h2 ~ p</code> (general sibling).</li>
+            </ul>
+
+            <h4>De Cascade & Specificiteit</h4>
+            <p>De "cascade" bepaalt welke stijlregel wint als er meerdere van toepassing zijn. De volgorde is:
+                1. Belangrijkheid (`!important`)
+                2. Specificiteit (ID > Class/Attribute/Pseudo-class > Type/Pseudo-element)
+                3. Volgorde in de broncode (de laatste wint).
+            </p>
+        </section>
+
+        <section id="css-pseudo-classes">
+            <h3>CSS Pseudo-classes — betekenis & gebruik</h3>
+            <p>Een pseudo-class wordt toegevoegd aan een selector om een element te selecteren in een bepaalde staat of positie, zoals wanneer je er met je muis over beweegt, of wanneer het het eerste of laatste kind van een ander element is.</p>
+        
+            <h4>Structureel & document</h4>
+            <h5><code>:root</code></h5>
+            <p>Selecteert het hoogste element in de DOM-tree. In HTML is dit altijd het <code>&lt;html&gt;</code>-element. Het is de ideale plek om globale CSS-variabelen te definiëren die je in je hele stylesheet wilt gebruiken.</p>
+            <pre><code>:root {
+  --main-font-size: 16px;
+  --primary-color: #3b82f6;
+}
+
+body {
+  font-size: var(--main-font-size);
+  color: var(--primary-color);
+}</code></pre>
+            <div class="live-example">
+                <style>
+                    .example-root {
+                        color: var(--accent-color);
+                        font-weight: bold;
+                    }
+                </style>
+                <p class="example-root">Deze tekst gebruikt de accentkleur die globaal is gedefinieerd in :root.</p>
+            </div>
+
+            <h5><code>:empty</code></h5>
+            <p>Selecteert elk element dat geen kinderen heeft. Dit omvat ook tekstelementen of zelfs witruimte. Het is handig om lege elementen te verbergen die anders ongewenste ruimte zouden innemen.</p>
+            <pre><code>/* Verberg een lege alert-box */
+.alert:empty {
+  display: none;
+}</code></pre>
+            <div class="live-example">
+                <style>
+                    .alert-box { border: 1px solid #ccc; padding: 10px; margin-top: 5px; }
+                    .alert-box:empty { display: none; }
+                </style>
+                <div class="alert-box">Ik ben een alert.</div>
+                <div class="alert-box"></div>
+                <p>De tweede (lege) alert-box hierboven is verborgen met <code>:empty</code>.</p>
+            </div>
+
+            <h5><code>:first-child</code> / <code>:last-child</code> / <code>:only-child</code></h5>
+            <p>Deze selecteren elementen op basis van hun positie binnen een ouder-element. <code>:first-child</code> selecteert het eerste kind, <code>:last-child</code> het laatste, en <code>:only-child</code> een element dat het enige kind is.</p>
+            <pre><code>/* Geen border-top voor het eerste item */
+.list-item:first-child {
+  border-top: none;
+}
+
+/* Een andere achtergrond voor het laatste item */
+.list-item:last-child {
+  background-color: #f0f0f0;
+}
+
+/* Speciale styling als er maar één item is */
+.list-item:only-child {
+  font-weight: bold;
+}</code></pre>
+            <div class="live-example">
+                <style>
+                    .example-list .item:first-child { font-weight: bold; color: #3b82f6; }
+                    .example-list .item:last-child { font-style: italic; color: #8b5cf6; }
+                    .example-list-single .item:only-child { border: 1px solid #10b981; padding: 5px; }
+                </style>
+                <div class="example-list">
+                    <p class="item">Eerste item (vet en blauw)</p>
+                    <p class="item">Tweede item</p>
+                    <p class="item">Laatste item (cursief en paars)</p>
+                </div>
+                <div class="example-list-single">
+                    <p class="item">Enig kind (met een rand)</p>
+                </div>
+            </div>
+
+            <h5><code>:nth-child(n)</code></h5>
+            <p>De "nth-child" selector is zeer krachtig. Je kunt elementen selecteren op basis van hun positie met een formule (an+b) of sleutelwoorden zoals <code>even</code> (2n) en <code>odd</code> (2n+1). Dit is perfect voor "zebra-striping" in tabellen of lijsten.</p>
+            <pre><code>/* Geef elke even rij in een tabel een lichte achtergrond */
+tbody tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+/* Selecteer het derde lijstitem */
+li:nth-child(3) {
+  color: var(--accent-color);
+}</code></pre>
+            <div class="live-example">
+                <style>
+                    .nth-example li:nth-child(odd) { background-color: #eff6ff; }
+                </style>
+                <ul class="nth-example">
+                    <li>Item 1 (oneven)</li>
+                    <li>Item 2</li>
+                    <li>Item 3 (oneven)</li>
+                    <li>Item 4</li>
+                </ul>
+            </div>
+
+            <h5><code>:first-of-type</code> / <code>:last-of-type</code></h5>
+            <p>Deze lijken op <code>:first-child</code>, maar ze selecteren het eerste of laatste element van een specifiek *type* binnen een ouder. Dit is handig als de elementen gemengd zijn.</p>
+            <pre><code>article div:first-of-type {
+  /* Stijlt de eerste div in het artikel, zelfs als een h2 ervoor staat */
+  font-style: italic;
+}
+
+article p:last-of-type {
+  /* Stijlt de laatste paragraaf in het artikel */
+  margin-bottom: 0;
+}</code></pre>
+            <div class="live-example">
+                <style>
+                    .oftype-example p:first-of-type { font-weight: bold; }
+                </style>
+                <div class="oftype-example">
+                    <h4>Titel</h4>
+                    <p>Dit is de eerste paragraaf (vet).</p>
+                    <p>Dit is de tweede paragraaf.</p>
+                </div>
+            </div>
+
+            <h4>Links & locaties</h4>
+            <h5><code>:link</code> / <code>:visited</code></h5>
+            <p><code>:link</code> stijlt een hyperlink die nog niet is bezocht. <code>:visited</code> stijlt een link die de gebruiker al heeft bezocht. Vanwege privacyredenen zijn de stijlen die je op <code>:visited</code> kunt toepassen beperkt (voornamelijk kleur).</p>
+            <pre><code>a:link {
+  color: #3b82f6; /* Blauw voor onbezochte links */
+}
+
+a:visited {
+  color: #8b5cf6; /* Paars voor bezochte links */
+}</code></pre>
+            <div class="live-example">
+                 <p>Klik op de link. Een onbezochte link is blauw, een bezochte is paars.</p>
+                 <a href="#css-pseudo-classes">Voorbeeld link</a>
+            </div>
+
+            <h5><code>:any-link</code></h5>
+            <p>Dit is een handige shorthand die zowel <code>:link</code> als <code>:visited</code> selecteert. Hiermee kun je gemeenschappelijke stijlen instellen voor alle links, ongeacht hun bezochte status.</p>
+            <pre><code>/* Geef alle links een onderlijning bij hover */
+nav a:any-link:hover {
+  text-decoration: underline;
+}</code></pre>
+            <div class="live-example">
+                <style>
+                    .anylink-example a:any-link { font-family: serif; }
+                </style>
+                <p class="anylink-example">Deze <a href="#css-pseudo-classes">link</a> heeft een serif lettertype, ongeacht of hij bezocht is.</p>
+            </div>
+
+            <h5><code>:target</code></h5>
+            <p>Selecteert het element waarvan de <code>id</code> overeenkomt met de fragment-identifier in de URL (de tekst na de '#'). Dit wordt vaak gebruikt om een specifiek deel van een pagina te markeren of om "CSS-only" tabs te maken.</p>
+            <pre><code>/* Markeer een sectie wanneer ernaar gelinkt wordt */
+section:target {
+  background-color: #fefce8; /* Lichtgeel */
+  border-left: 4px solid #facc15;
+}</code></pre>
+            <div class="live-example">
+                <p><a href="#target-example">Klik hier</a> om de onderstaande box te "targeten".</p>
+                <div id="target-example" style="padding: 10px; border: 1px solid #ccc; transition: all 0.3s;">Deze box zal van stijl veranderen.</div>
+                <style>#target-example:target { background: #fefce8; border-color: #facc15; }</style>
+            </div>
+
+            <h4>Interactie & focus</h4>
+            <h5><code>:hover</code> / <code>:active</code></h5>
+            <p><code>:hover</code> wordt actief wanneer de gebruiker met de muis over een element beweegt. <code>:active</code> is voor de korte periode dat een element wordt aangeklikt.</p>
+            <pre><code>button {
+  transition: transform 0.1s ease;
+}
+
+button:hover {
+  background-color: #2563eb; /* Donkerder blauw */
+}
+
+button:active {
+  transform: scale(0.95); /* Maak de knop kleiner bij klikken */
+}</code></pre>
+            <div class="live-example">
+                <style>
+                    .interaction-btn { background-color: #3b82f6; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; transition: all 0.2s; }
+                    .interaction-btn:hover { background-color: #2563eb; }
+                    .interaction-btn:active { transform: scale(0.95); background-color: #1d4ed8; }
+                </style>
+                <button class="interaction-btn">Beweeg & Klik</button>
+            </div>
+
+            <h5><code>:focus</code> / <code>:focus-visible</code> / <code>:focus-within</code></h5>
+            <p><code>:focus</code> stijlt een element dat focus heeft (bv. een inputveld waarin je typt). <code>:focus-visible</code> is een slimmere versie die de focusstijl meestal alleen toont bij toetsenbordnavigatie. <code>:focus-within</code> stijlt een *ouderelement* als een van zijn *kinderen* de focus heeft.</p>
+            <pre><code>/* Stijl een input wanneer het focus heeft */
+input:focus {
+  outline: 2px solid var(--accent-color);
+  border-color: transparent;
+}
+
+/* Stijl het hele formulier-item als de input focus heeft */
+.form-group:focus-within {
+  background-color: #eff6ff;
+}</code></pre>
+            <div class="live-example">
+                <style>
+                    .focus-example-group { padding: 10px; border: 1px solid #ccc; border-radius: 5px; transition: background-color 0.3s; }
+                    .focus-example-group:focus-within { background-color: #eff6ff; border-color: #93c5fd; }
+                    .focus-example-group input { border: 1px solid #ccc; padding: 5px; border-radius: 3px; }
+                    .focus-example-group input:focus { outline: none; }
+                </style>
+                <div class="focus-example-group">
+                    <label for="focus-input">Klik hier: </label>
+                    <input type="text" id="focus-input" placeholder="Typ iets...">
+                </div>
+            </div>
+
+            <h4>Formulieren & UI</h4>
+            <h5><code>:checked</code></h5>
+            <p>Selecteert een checkbox of radio-button die is aangevinkt.</p>
+            <pre><code>/* Stijl het label naast een aangevinkte checkbox */
+input[type="checkbox"]:checked + label {
+  text-decoration: line-through;
+  color: #6b7280;
+}</code></pre>
+            <div class="live-example">
+                <style>
+                    .checked-example input:checked + label { text-decoration: line-through; color: #6b7280; }
+                </style>
+                <div class="checked-example">
+                    <input type="checkbox" id="task1">
+                    <label for="task1">Taak 1</label>
+                </div>
+            </div>
+
+            <h5><code>:disabled</code> / <code>:enabled</code></h5>
+            <p>Selecteert formulierelementen die respectievelijk uit- of ingeschakeld zijn. Dit is handig om visueel duidelijk te maken dat een veld niet kan worden gebruikt.</p>
+            <pre><code>input:disabled {
+  background-color: #e5e7eb;
+  cursor: not-allowed;
+}</code></pre>
+            <div class="live-example">
+                <style>
+                    .disabled-example input:disabled { background-color: #e5e7eb; cursor: not-allowed; }
+                </style>
+                <div class="disabled-example">
+                    <input type="text" value="Je kunt hier niet typen" disabled>
+                </div>
+            </div>
+
+            <h5><code>:required</code> / <code>:optional</code></h5>
+            <p>Selecteert formuliervelden die respectievelijk het <code>required</code> attribuut hebben of niet.</p>
+            <pre><code>/* Voeg een asterisk toe aan het label van een verplicht veld */
+label.for-required::after {
+  content: ' *';
+  color: #ef4444;
+}</code></pre>
+            <div class="live-example">
+                <style>
+                    .required-example input:required { border-left: 3px solid #f87171; }
+                    .required-example input:optional { border-left: 3px solid #a3e635; }
+                </style>
+                <div class="required-example">
+                    <p>Naam (verplicht):</p>
+                    <input type="text" required>
+                    <p>Hobby (optioneel):</p>
+                    <input type="text">
+                </div>
+            </div>
+
+            <h5><code>:valid</code> / <code>:invalid</code></h5>
+            <p>Stijlt een input-element op basis van de ingebouwde HTML5-validatie. Een <code>&lt;input type="email"&gt;</code> is bijvoorbeeld <code>:invalid</code> totdat er een geldig e-mailadres is ingevoerd.</p>
+            <pre><code>input:invalid {
+  border-color: #ef4444; /* Rode rand voor ongeldige invoer */
+}
+
+input:valid {
+  border-color: #22c55e; /* Groene rand voor geldige invoer */
+}</code></pre>
+            <div class="live-example">
+                <style>
+                    .validation-example input:invalid { border-color: #ef4444; }
+                    .validation-example input:valid { border-color: #22c55e; }
+                </style>
+                <div class="validation-example">
+                    <p>Voer een e-mailadres in:</p>
+                    <input type="email" placeholder="naam@voorbeeld.com">
+                </div>
+            </div>
+
+            <h4>Relationeel</h4>
+            <h5><code>:not(selector)</code></h5>
+            <p>De "negatie" pseudo-class. Het selecteert elk element dat *niet* overeenkomt met de selector tussen de haakjes.</p>
+            <pre><code>/* Geef alle navigatielinks een stijl, behalve de actieve */
+nav a:not(.active) {
+  opacity: 0.7;
+}</code></pre>
+            <div class="live-example">
+                <style>
+                    .not-example p:not(.highlight) { color: #9ca3af; }
+                </style>
+                <div class="not-example">
+                    <p>Grijze tekst.</p>
+                    <p class="highlight">Normale tekst.</p>
+                    <p>Grijze tekst.</p>
+                </div>
+            </div>
+
+            <h5><code>:has(selector)</code></h5>
+            <p>De langverwachte "parent selector". Het selecteert een element als het een of meer kinderen bevat die overeenkomen met de selector tussen de haakjes. Dit opent veel nieuwe mogelijkheden.</p>
+            <pre><code>/* Stijl een 'figure' element anders als het een 'figcaption' bevat */
+figure:has(figcaption) {
+  border: 1px solid var(--border-color);
+  padding: 1rem;
+}</code></pre>
+            <div class="live-example">
+                <style>
+                    .has-example .card:has(img) { background-color: #f3f4f6; }
+                </style>
+                <div class="has-example">
+                    <div class="card" style="padding: 10px; border: 1px solid #ccc; margin-bottom: 5px;">
+                        <p>Kaart zonder afbeelding.</p>
+                    </div>
+                    <div class="card" style="padding: 10px; border: 1px solid #ccc;">
+                        <img src="https://placehold.co/100x50/e2e8f0/334155?text=Img" alt="placeholder">
+                        <p>Deze kaart heeft een afbeelding en krijgt een achtergrondkleur.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="css-pseudo-elements">
+            <h3>CSS Pseudo-elements — betekenis & gebruik</h3>
+            <p>Een pseudo-element (te herkennen aan de dubbele punt <code>::</code>) gedraagt zich als een extra element dat je in de DOM invoegt en kunt stijlen met CSS, zonder dat je de HTML hoeft aan te passen.</p>
+            
+            <h5><code>::before</code> / <code>::after</code></h5>
+            <p>Dit zijn de meest gebruikte pseudo-elementen. Ze voegen content toe respectievelijk *vóór* of *ná* de content van het geselecteerde element. De <code>content</code> eigenschap is vereist, maar kan leeg zijn (<code>content: '';</code>) als je het alleen voor styling gebruikt (bv. als vorm of achtergrondlaag).</p>
+            <pre><code>/* Voeg een citaat-icoon toe voor een blockquote */
+blockquote::before {
+  content: '“';
+  font-size: 3em;
+  color: var(--accent-color);
+  float: left;
+  margin-right: 0.2em;
+}</code></pre>
+            <div class="live-example">
+                <style>
+                    .before-example::before { content: '► '; color: var(--accent-color); }
+                </style>
+                <p class="before-example">Deze regel heeft een pijl ervoor.</p>
+            </div>
+
+            <h5><code>::first-letter</code></h5>
+            <p>Selecteert de eerste letter van de eerste regel van een block-level element. Perfect voor het maken van een "drop cap" (een grote, gestileerde beginletter).</p>
+            <pre><code>article p:first-of-type::first-letter {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #1e293b;
+  margin-right: 0.1em;
+  float: left;
+}</code></pre>
+            <div class="live-example">
+                <style>
+                    .first-letter-example::first-letter { font-size: 2em; color: var(--accent-color); font-weight: bold; }
+                </style>
+                <p class="first-letter-example">De eerste letter van deze paragraaf is groot en gekleurd.</p>
+            </div>
+
+            <h5><code>::first-line</code></h5>
+            <p>Selecteert de eerste opgemaakte regel van een block-level element. De lengte van deze regel hangt af van de breedte van het element, de lettergrootte, etc.</p>
+            <pre><code>p::first-line {
+  font-variant: small-caps;
+  font-weight: 600;
+}</code></pre>
+            <div class="live-example">
+                <style>
+                    .first-line-example::first-line { font-weight: bold; }
+                </style>
+                <p class="first-line-example">De eerste regel van deze tekst is vet. Als je het venster smaller of breder maakt, zie je dat de stijl zich aanpast aan wat de eerste regel is.</p>
+            </div>
+
+            <h5><code>::marker</code></h5>
+            <p>Stijlt de marker (de bullet of het nummer) van een lijstitem (<code>&lt;li&gt;</code>). Dit geeft je eindelijk controle over de kleur, grootte en zelfs de content van de opsommingstekens.</p>
+            <pre><code>ul li::marker {
+  color: var(--accent-color);
+  font-size: 1.2em;
+}
+
+/* Je kunt zelfs de bullet vervangen */
+ol li::marker {
+  content: '✔ ';
+  color: #22c55e;
+}</code></pre>
+            <div class="live-example">
+                <style>
+                    .marker-example li::marker { content: '✅ '; }
+                </style>
+                <ul class="marker-example">
+                    <li>Item met custom marker</li>
+                    <li>Nog een item</li>
+                </ul>
+            </div>
+
+            <h5><code>::selection</code></h5>
+            <p>Stijlt het gedeelte van de tekst dat door de gebruiker is geselecteerd (gemarkeerd met de muis of het toetsenbord). Je kunt voornamelijk de kleur en achtergrondkleur aanpassen.</p>
+            <pre><code>::selection {
+  background-color: var(--accent-color);
+  color: white;
+}</code></pre>
+            <div class="live-example">
+                 <style>
+                    .selection-example::selection { background-color: #fde047; color: #1e293b; }
+                </style>
+                <p class="selection-example">Selecteer deze tekst om de aangepaste selectiekleur te zien.</p>
+            </div>
+
+            <h5><code>::placeholder</code></h5>
+            <p>Hiermee kun je de placeholder-tekst in een <code>&lt;input&gt;</code> of <code>&lt;textarea&gt;</code> stijlen.</p>
+            <pre><code>input::placeholder {
+  color: #9ca3af;
+  font-style: italic;
+  opacity: 1; /* Firefox heeft dit nodig */
+}</code></pre>
+            <div class="live-example">
+                <style>
+                    .placeholder-example::placeholder { color: #fb7185; font-style: italic; }
+                </style>
+                <input type="text" class="placeholder-example" placeholder="Dit is een gestijlde placeholder">
+            </div>
+            
+            <h5><code>::backdrop</code></h5>
+            <p>Wanneer een element in fullscreen-modus wordt gezet (zoals een <code>&lt;video&gt;</code>) of wanneer een <code>&lt;dialog&gt;</code> modaal wordt geopend, wordt er een <code>::backdrop</code>-laag getoond achter het element en boven de rest van de pagina. Met dit pseudo-element kun je die laag stijlen.</p>
+            <pre><code>/* Geef de achtergrond van een modaal dialoogvenster een donkere, semi-transparante kleur */
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+}</code></pre>
+            <div class="live-example">
+                <style>
+                    #backdrop-dialog::backdrop { background-color: rgba(13, 98, 255, 0.2); backdrop-filter: blur(2px); }
+                </style>
+                <button onclick="document.getElementById('backdrop-dialog').showModal()">Toon Dialoog</button>
+                <dialog id="backdrop-dialog">
+                  <p>De achtergrond (backdrop) van dit dialoogvenster is gestijld.</p>
+                  <button onclick="document.getElementById('backdrop-dialog').close()">Sluiten</button>
+                </dialog>
+            </div>
+        </section>
+
+        <section id="css-box-model">
+            <h3>Box Model & Sizing</h3>
+            <p>Elk HTML-element kan worden gezien als een doos. Het CSS box model beschrijft hoe deze doos is opgebouwd.</p>
+            <ul>
+                <li><code>content</code>: De daadwerkelijke inhoud (tekst, afbeelding).</li>
+                <li><code>padding</code>: De binnenmarge, ruimte tussen de content en de border.</li>
+                <li><code>border</code>: De rand rond de padding en content.</li>
+                <li><code>margin</code>: De buitenmarge, ruimte rondom het element.</li>
+            </ul>
+            
+            <h4><code>box-sizing</code></h4>
+            <p>Deze eigenschap bepaalt hoe de totale breedte en hoogte van een element wordt berekend.</p>
+            <ul>
+                <li><code>content-box</code> (default): `width` en `height` zijn alleen van toepassing op de content. Padding en border komen erbij.</li>
+                <li><code>border-box</code>: `width` en `height` omvatten de content, padding én border. Dit is vaak intuïtiever om mee te werken.</li>
+            </ul>
+            <pre><code>*, *::before, *::after {
+    box-sizing: border-box;
+}</code></pre>
+            <div class="exercise">
+                <h4>Oefening C1-01: Box Model</h4>
+                <p>Maak een `div` met de class `box`. Geef het een breedte van 200px, een border van 5px solid black, en 20px padding. Zorg ervoor dat de totale breedte van de `div` (inclusief border en padding) exact 200px is.</p>
+                <textarea id="ex-c1-01" placeholder="Plaats hier je CSS-regel..."></textarea>
+                <button class="check-btn" data-exercise="c1-01">Controleer</button>
+                <button class="solution-btn secondary">Toon Oplossing</button>
+                <div class="validator-result"></div>
+                <div class="exercise-solution">
+                    <pre><code>.box {
+    box-sizing: border-box;
+    width: 200px;
+    border: 5px solid black;
+    padding: 20px;
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="css-layout">
+            <h3>Layout (Flexbox & Grid)</h3>
+            
+            <h4>Flexbox</h4>
+            <p>Een eendimensionaal layoutsysteem, ideaal voor het uitlijnen van items in een rij of kolom.</p>
+            <ul>
+                <li><strong>Container eigenschappen</strong>:
+                    <ul>
+                        <li><code>display: flex;</code>: Activeert flexbox.</li>
+                        <li><code>flex-direction: row | column;</code>: Bepaalt de hoofdas.</li>
+                        <li><code>justify-content</code>: Uitlijning op de hoofdas (bv. <code>center</code>, <code>space-between</code>).</li>
+                        <li><code>align-items</code>: Uitlijning op de kruisas (bv. <code>center</code>, <code>stretch</code>).</li>
+                        <li><code>gap</code>: Ruimte tussen de flex-items.</li>
+                    </ul>
+                </li>
+                <li><strong>Item eigenschappen</strong>:
+                    <ul>
+                        <li><code>flex-grow</code>, <code>flex-shrink</code>, <code>flex-basis</code>: Bepalen hoe items groeien, krimpen en hun basisgrootte hebben. Vaak gebruikt via de `flex` shorthand.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h4>Grid</h4>
+            <p>Een tweedimensionaal layoutsysteem, perfect voor complexe layouts met zowel rijen als kolommen.</p>
+            <ul>
+                <li><strong>Container eigenschappen</strong>:
+                    <ul>
+                        <li><code>display: grid;</code>: Activeert grid.</li>
+                        <li><code>grid-template-columns</code> & <code>grid-template-rows</code>: Definieert de kolommen en rijen (bv. <code>1fr 1fr 2fr</code>, <code>repeat(3, 1fr)</code>).</li>
+                        <li><code>gap</code>: Ruimte tussen de grid-cellen.</li>
+                    </ul>
+                </li>
+                <li><strong>Item eigenschappen</strong>:
+                    <ul>
+                        <li><code>grid-column</code> & <code>grid-row</code>: Bepaalt over welke gridlijnen een item zich uitstrekt.</li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="exercise">
+                <h4>Oefening C3-01: Responsive Grid</h4>
+                <p>Maak een container met de class `card-container` die `display: grid` gebruikt. Zorg ervoor dat de kolommen zich automatisch aanpassen: ze moeten minimaal 250px breed zijn en de beschikbare ruimte opvullen. Gebruik `repeat`, `auto-fit`, en `minmax`.</p>
+                <textarea id="ex-c3-01" placeholder="Plaats hier je CSS-regel..."></textarea>
+                <button class="check-btn" data-exercise="c3-01">Controleer</button>
+                <button class="solution-btn secondary">Toon Oplossing</button>
+                <div class="validator-result"></div>
+                <div class="exercise-solution">
+                    <pre><code>.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}</code></pre>
+                </div>
+            </div>
+        </section>
+        
+        <section id="css-typography">
+            <h3>Typografie & Tekst</h3>
+            <ul>
+                <li><code>font-family</code>: Specificeert het lettertype.</li>
+                <li><code>font-size</code>: De grootte van de tekst (gebruik `rem` voor schaalbaarheid).</li>
+                <li><code>font-weight</code>: De dikte van de letters (bv. `400` voor normaal, `700` voor vet).</li>
+                <li><code>line-height</code>: De regelhoogte, voor betere leesbaarheid.</li>
+                <li><code>color</code>: De tekstkleur.</li>
+                <li><code>text-align</code>: Horizontale uitlijning (`left`, `center`, `right`).</li>
+                <li><code>text-decoration</code>: Onderlijning, doorhaling, etc.</li>
+            </ul>
+        </section>
+
+        <section id="css-backgrounds">
+            <h3>Achtergronden & Effecten</h3>
+            <ul>
+                <li><code>background-color</code>: Een effen achtergrondkleur.</li>
+                <li><code>background-image</code>: Een afbeelding of gradient als achtergrond.</li>
+                <li><code>background-size</code>: Hoe de achtergrondafbeelding wordt geschaald (bv. `cover`, `contain`).</li>
+                <li><code>background-position</code>: Positie van de achtergrondafbeelding.</li>
+                <li><code>border-radius</code>: Ronde hoeken.</li>
+                <li><code>box-shadow</code>: Een schaduw rondom een element.</li>
+                <li><code>filter</code>: Visuele effecten zoals `blur()` of `grayscale()`.</li>
+                <li><code>opacity</code>: De transparantie van een element.</li>
+            </ul>
+        </section>
+
+        <section id="css-motion">
+            <h3>Transities & Animaties</h3>
+            <h4>Transities</h4>
+            <p>Maakt een geleidelijke overgang van de ene staat naar de andere (bv. bij `:hover`).</p>
+            <pre><code>.button {
+    transition: background-color 0.3s ease;
+}
+.button:hover {
+    background-color: blue;
+}</code></pre>
+            
+            <h4>Animaties</h4>
+            <p>Voor complexere, op keyframes gebaseerde animaties.</p>
+            <pre><code>@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+.element {
+    animation: fadeIn 1s ease-in-out;
+}</code></pre>
+        </section>
+
+        <section id="css-responsive">
+            <h3>Responsive Design</h3>
+            <p>Zorgt ervoor dat je website er goed uitziet op alle apparaten, van mobiel tot desktop. Media queries zijn hier de sleutel.</p>
+            <pre><code>/* Stijlen voor mobiel (mobile-first) */
+.container {
+    width: 100%;
+}
+
+/* Stijlen voor schermen groter dan 768px */
+@media (min-width: 768px) {
+    .container {
+        width: 750px;
+        margin: 0 auto;
+    }
+}</code></pre>
+            <div class="exercise">
+                <h4>Oefening C7-01: Media Query</h4>
+                <p>Schrijf een media query die de achtergrondkleur van de `body` verandert naar `lightblue` op schermen die 600px of breder zijn.</p>
+                <textarea id="ex-c7-01" placeholder="Plaats hier je CSS-regel..."></textarea>
+                <button class="check-btn" data-exercise="c7-01">Controleer</button>
+                <button class="solution-btn secondary">Toon Oplossing</button>
+                <div class="validator-result"></div>
+                <div class="exercise-solution">
+                    <pre><code>@media (min-width: 600px) {
+    body {
+        background-color: lightblue;
+    }
+}</code></pre>
+                </div>
+            </div>
+        </section>
+        
+        <section id="css-cheatsheet">
+            <h3>CSS Cheatsheet</h3>
+             <table>
+                <thead>
+                    <tr>
+                        <th>Categorie</th>
+                        <th>Eigenschappen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Selectors</strong></td>
+                        <td><code>element</code>, <code>.class</code>, <code>#id</code>, <code>[attr]</code>, <code>:hover</code>, <code>::before</code>, <code>></code>, <code>+</code>, <code>~</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Box Model</strong></td>
+                        <td><code>margin</code>, <code>border</code>, <code>padding</code>, <code>width</code>, <code>height</code>, <code>box-sizing</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Typografie</strong></td>
+                        <td><code>font-family</code>, <code>font-size</code>, <code>font-weight</code>, <code>line-height</code>, <code>color</code>, <code>text-align</code></td>
+                    </tr>
+                     <tr>
+                        <td><strong>Layout</strong></td>
+                        <td><code>display: flex | grid</code>, <code>position</code>, <code>float</code>, <code>clear</code>, <code>z-index</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Flexbox</strong></td>
+                        <td><code>flex-direction</code>, <code>justify-content</code>, <code>align-items</code>, <code>gap</code>, <code>flex</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Grid</strong></td>
+                        <td><code>grid-template-columns</code>, <code>grid-template-rows</code>, <code>gap</code>, <code>grid-column</code>, <code>grid-row</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Effecten</strong></td>
+                        <td><code>transition</code>, <code>transform</code>, <code>animation</code>, <code>box-shadow</code>, <code>border-radius</code>, <code>filter</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Responsive</strong></td>
+                        <td><code>@media</code>, <code>min-width</code>, <code>max-width</code>, `(prefers-color-scheme)`</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- =========================== JAVASCRIPT =============================== -->
+        <!-- ====================================================================== -->
+        <section id="javascript">
+            <h2>JavaScript</h2>
+            <p>JavaScript is de programmeertaal van het web. Het maakt webpagina's interactief en dynamisch.</p>
+        </section>
+
+        <section id="js-basics">
+            <h3>Basis (Variabelen, Types)</h3>
+            <h4>Variabelen</h4>
+            <p>Data wordt opgeslagen in variabelen. Er zijn drie manieren om ze te declareren:</p>
+            <ul>
+                <li><code>let</code>: Voor variabelen waarvan de waarde kan veranderen. Block-scoped.</li>
+                <li><code>const</code>: Voor constanten waarvan de waarde niet opnieuw toegewezen kan worden. Block-scoped.</li>
+                <li><code>var</code>: De oudere manier. Function-scoped. Vermijd deze in moderne JS.</li>
+            </ul>
+            <pre><code>let age = 30;
+const name = "Alice";</code></pre>
+            
+            <h4>Datatypes</h4>
+            <ul>
+                <li><strong>Primitieve types</strong>: <code>String</code>, <code>Number</code>, <code>Boolean</code>, <code>null</code>, <code>undefined</code>, <code>Symbol</code>, <code>BigInt</code>.</li>
+                <li><strong>Complexe types</strong>: <code>Object</code> (inclusief <code>Array</code> en <code>Function</code>).</li>
+            </ul>
+        </section>
+
+        <section id="js-flow">
+            <h3>Control Flow</h3>
+            <p>Hiermee bestuur je de flow van je programma.</p>
+            <h4>Conditionals</h4>
+            <pre><code>const score = 85;
+if (score >= 80) {
+    console.log("Goed gedaan!");
+} else if (score >= 60) {
+    console.log("Voldoende.");
+} else {
+    console.log("Onvoldoende.");
+}</code></pre>
+            <h4>Loops</h4>
+            <pre><code>// For loop
+for (let i = 0; i < 5; i++) {
+    console.log(i);
+}
+
+// While loop
+let count = 0;
+while (count < 5) {
+    console.log(count);
+    count++;
+}
+
+// For...of loop (voor iterables zoals arrays)
+const colors = ['rood', 'groen', 'blauw'];
+for (const color of colors) {
+    console.log(color);
+}</code></pre>
+        </section>
+
+        <section id="js-functions">
+            <h3>Functies & Scope</h3>
+            <p>Functies zijn herbruikbare blokken code.</p>
+            <pre><code>// Functie declaratie
+function greet(name) {
+    return `Hallo, ${name}!`;
+}
+
+// Arrow functie (ES6)
+const add = (a, b) => {
+    return a + b;
+};
+
+// Concise arrow functie
+const multiply = (a, b) => a * b;
+
+console.log(greet("Bob")); // "Hallo, Bob!"
+console.log(add(2, 3));    // 5</code></pre>
+            <h4>Scope</h4>
+            <p>Scope bepaalt de zichtbaarheid en levensduur van variabelen. JavaScript heeft globale scope, functie scope, en (met `let` en `const`) blok scope.</p>
+        </section>
+
+        <section id="js-data-structures">
+            <h3>Arrays & Objecten</h3>
+            <h4>Arrays</h4>
+            <p>Geordende lijsten van waarden.</p>
+            <pre><code>const fruits = ["appel", "banaan", "kers"];
+console.log(fruits[1]); // "banaan"
+
+fruits.push("dadel"); // Voegt toe aan het einde
+fruits.pop();         // Verwijdert het laatste element
+
+// Itereren met forEach
+fruits.forEach(fruit => {
+    console.log(fruit);
+});
+
+// Een nieuwe array maken met map
+const upperFruits = fruits.map(fruit => fruit.toUpperCase());
+// ["APPEL", "BANAAN", "KERS"]</code></pre>
+            
+            <h4>Objecten</h4>
+            <p>Collecties van key-value paren.</p>
+            <pre><code>const person = {
+    firstName: "John",
+    lastName: "Doe",
+    age: 42,
+    greet: function() {
+        console.log(`Hallo, ik ben ${this.firstName}`);
+    }
+};
+
+console.log(person.firstName); // "John"
+console.log(person['lastName']); // "Doe"
+person.greet(); // "Hallo, ik ben John"</code></pre>
+        </section>
+
+        <section id="js-dom">
+            <h3>DOM Manipulatie</h3>
+            <p>De Document Object Model (DOM) is een programmeerinterface voor webdocumenten. Met JavaScript kun je de DOM manipuleren: elementen toevoegen, verwijderen en veranderen.</p>
+            <pre><code>// Element selecteren
+const heading = document.getElementById('main-heading');
+const paragraphs = document.querySelectorAll('.intro-p');
+
+// Eigenschappen veranderen
+heading.textContent = 'Nieuwe Titel';
+heading.style.color = 'blue';
+
+// Element creëren en toevoegen
+const newDiv = document.createElement('div');
+newDiv.textContent = 'Dit is een nieuw element.';
+document.body.appendChild(newDiv);</code></pre>
+        </section>
+
+        <section id="js-events">
+            <h3>Events</h3>
+            <p>Events zijn acties die gebeuren in de browser, zoals een klik op een knop of het laden van een pagina. Met `addEventListener` kun je "luisteren" naar deze events en er code aan koppelen.</p>
+            <pre><code>const button = document.querySelector('#myButton');
+
+button.addEventListener('click', () => {
+    alert('Knop geklikt!');
+});</code></pre>
+            <div class="exercise">
+                <h4>Oefening J5-01: Click Counter</h4>
+                <p>Maak een simpele teller. De HTML bevat een knop en een paragraaf. Elke keer als op de knop wordt geklikt, moet het getal in de paragraaf met één omhoog gaan.</p>
+                <div id="ex-j5-01-ui" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px;">
+                    <button id="counterBtn">Klik op mij</button>
+                    <p>Aantal klikken: <span id="clickCount">0</span></p>
+                </div>
+                <textarea id="ex-j5-01" placeholder="Plaats hier je JavaScript-code..."></textarea>
+                <button class="check-btn" data-exercise="j5-01">Controleer</button>
+                <button class="solution-btn secondary">Toon Oplossing</button>
+                <div class="validator-result"></div>
+                <div class="exercise-solution">
+                    <pre><code>const counterBtn = document.getElementById('counterBtn');
+const clickCountSpan = document.getElementById('clickCount');
+
+let count = 0;
+
+counterBtn.addEventListener('click', () => {
+    count++;
+    clickCountSpan.textContent = count;
+});</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="js-async">
+            <h3>Asynchroon (Promises, Async/Await)</h3>
+            <p>JavaScript is single-threaded, maar kan asynchrone operaties uitvoeren (zoals data ophalen van een server) zonder de hoofdthread te blokkeren.</p>
+            <h4>Promises</h4>
+            <p>Een Promise is een object dat een uiteindelijke voltooiing (of mislukking) van een asynchrone operatie vertegenwoordigt.</p>
+            <pre><code>fetch('https://api.example.com/data')
+    .then(response => response.json())
+    .then(data => {
+        console.log(data);
+    })
+    .catch(error => {
+        console.error('Fout:', error);
+    });</code></pre>
+            
+            <h4>Async/Await</h4>
+            <p>Een modernere, meer leesbare syntaxis voor het werken met Promises.</p>
+            <pre><code>async function fetchData() {
+    try {
+        const response = await fetch('https://api.example.com/data');
+        const data = await response.json();
+        console.log(data);
+    } catch (error) {
+        console.error('Fout:', error);
+    }
+}
+
+fetchData();</code></pre>
+        </section>
+
+        <section id="js-es6">
+            <h3>ES6+ Features</h3>
+            <p>Moderne JavaScript (ECMAScript 2015 en later) heeft veel nuttige features toegevoegd.</p>
+            <ul>
+                <li><strong>Arrow Functions</strong>: `(a, b) => a + b;`</li>
+                <li><strong>Template Literals</strong>: `` `Hallo, ${name}!` ``</li>
+                <li><strong>Destructuring</strong>: `const { name, age } = person;` of `const [a, b] = myArray;`</li>
+                <li><strong>Spread & Rest Operators</strong>: `...`</li>
+                <li><strong>Classes</strong>: Syntactische suiker over het prototype-gebaseerde overervingssysteem.</li>
+                <li><strong>Modules</strong>: `import` en `export`.</li>
+            </ul>
+        </section>
+        
+        <section id="js-cheatsheet">
+            <h3>JavaScript Cheatsheet</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Categorie</th>
+                        <th>Syntaxis & Voorbeelden</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Variabelen</strong></td>
+                        <td><code>let myVar = 10;</code>, <code>const PI = 3.14;</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Functies</strong></td>
+                        <td><code>function hi() {}</code>, <code>const hi = () => {}</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Conditionals</strong></td>
+                        <td><code>if (x > 0) {} else {}</code>, <code>switch(val) {}</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Loops</strong></td>
+                        <td><code>for(let i=0;..){}</code>, <code>while(cond){}</code>, <code>for(const item of arr){}</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Arrays</strong></td>
+                        <td><code>[1, 2, 3]</code>, <code>.push()</code>, <code>.map()</code>, <code>.filter()</code>, <code>.forEach()</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Objecten</strong></td>
+                        <td><code>{ key: 'value' }</code>, <code>Object.keys()</code>, destructuring <code>const {key} = obj</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>DOM</strong></td>
+                        <td><code>document.querySelector()</code>, <code>.addEventListener()</code>, <code>.createElement()</code>, <code>.textContent</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Async</strong></td>
+                        <td><code>new Promise()</code>, <code>.then().catch()</code>, <code>async function() {}</code>, <code>await</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ====================================================================== -->
+        <!-- =========================== TYPESCRIPT =============================== -->
+        <!-- ====================================================================== -->
+        <section id="typescript">
+            <h2>TypeScript</h2>
+            <p>TypeScript is een "superset" van JavaScript, ontwikkeld door Microsoft. Het voegt statische typering toe aan de taal. Dit helpt om fouten vroegtijdig te vinden (tijdens het ontwikkelen in plaats van tijdens runtime) en maakt het werken met grote codebases eenvoudiger.</p>
+        </section>
+
+        <section id="ts-intro">
+            <h3>Introductie & Setup</h3>
+            <p>TypeScript-code wordt gecompileerd naar JavaScript. Je kunt de TypeScript-compiler installeren via npm (Node Package Manager):</p>
+            <pre><code>npm install -g typescript</code></pre>
+            <p>Vervolgens compileer je een `.ts` bestand naar een `.js` bestand met het commando:</p>
+            <pre><code>tsc mijnscript.ts</code></pre>
+        </section>
+        
+        <section id="ts-types">
+            <h3>Types (Basis & Geavanceerd)</h3>
+            <p>De kern van TypeScript is het toevoegen van types aan variabelen, functieparameters en returnwaardes.</p>
+            <h4>Basistypes</h4>
+            <pre><code>let isDone: boolean = false;
+let decimal: number = 6;
+let color: string = "blue";
+let list: number[] = [1, 2, 3];
+let person: [string, number] = ["Alice", 30]; // Tuple</code></pre>
+            
+            <h4>Speciale Types</h4>
+            <ul>
+                <li><code>any</code>: Schakelt type-checking uit. Gebruik dit spaarzaam.</li>
+                <li><code>unknown</code>: Een type-veilige tegenhanger van `any`. Je moet het type controleren voordat je er iets mee doet.</li>
+                <li><code>void</code>: Voor functies die niets retourneren.</li>
+                <li><code>null</code> en <code>undefined</code>: Subtypes van alle andere types.</li>
+            </ul>
+            
+            <h4>Geavanceerde Types</h4>
+            <ul>
+                <li><strong>Union Type</strong>: Een waarde kan een van meerdere types zijn. `let id: string | number;`</li>
+                <li><strong>Intersection Type</strong>: Combineert meerdere types tot één. `type Draggable & Resizable`</li>
+                <li><strong>Type Aliases</strong>: Een nieuwe naam voor een type. `type UserID = string | number;`</li>
+            </ul>
+        </section>
+
+        <section id="ts-interfaces">
+            <h3>Interfaces & Classes</h3>
+            <h4>Interfaces</h4>
+            <p>Een interface definieert de "vorm" van een object. Het is een krachtige manier om contracten in je code vast te leggen.</p>
+            <pre><code>interface User {
+    readonly id: number;
+    name: string;
+    age?: number; // Optionele property
+}
+
+function printUser(user: User) {
+    console.log(`User ${user.name} (ID: ${user.id})`);
+}
+
+let myUser: User = { id: 1, name: "Bob" };
+printUser(myUser);</code></pre>
+            
+            <h4>Classes</h4>
+            <p>TypeScript ondersteunt classes, net als moderne JavaScript, maar met type-annotaties.</p>
+            <pre><code>class Animal {
+    private name: string; // Alleen toegankelijk binnen de class
+
+    constructor(theName: string) {
+        this.name = theName;
+    }
+
+    public move(distanceInMeters: number = 0) {
+        console.log(`${this.name} moved ${distanceInMeters}m.`);
+    }
+}</code></pre>
+        </section>
+        
+        <section id="ts-enums">
+            <h3>Enums & Generics</h3>
+            <h4>Enums</h4>
+            <p>Een manier om een set van benoemde constanten te definiëren.</p>
+            <pre><code>enum Color {
+    Red,    // 0
+    Green,  // 1
+    Blue    // 2
+}
+let c: Color = Color.Green;</code></pre>
+            
+            <h4>Generics</h4>
+            <p>Hiermee kun je herbruikbare componenten maken die met verschillende types kunnen werken.</p>
+            <pre><code>function identity&lt;T&gt;(arg: T): T {
+    return arg;
+}
+
+let output1 = identity&lt;string&gt;("myString");
+let output2 = identity&lt;number&gt;(100);</code></pre>
+             <div class="exercise">
+                <h4>Oefening T4-01: Generic Function</h4>
+                <p>Schrijf een generic function `getFirstElement` die het eerste element van een array teruggeeft. De functie moet werken voor arrays van elk type.</p>
+                <textarea id="ex-t4-01" placeholder="Plaats hier je TypeScript-functie..."></textarea>
+                <button class="check-btn" data-exercise="t4-01">Controleer</button>
+                <button class="solution-btn secondary">Toon Oplossing</button>
+                <div class="validator-result"></div>
+                <div class="exercise-solution">
+                    <pre><code>function getFirstElement&lt;T&gt;(arr: T[]): T | undefined {
+    return arr[0];
+}
+
+// Voorbeeld gebruik:
+const stringArray = ["a", "b", "c"];
+const numberArray = [1, 2, 3];
+
+const firstString = getFirstElement(stringArray); // Type is string | undefined
+const firstNumber = getFirstElement(numberArray); // Type is number | undefined</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="ts-modules">
+            <h3>Modules</h3>
+            <p>Net als in JavaScript, kun je je code organiseren in modules. TypeScript gebruikt `import` en `export`.</p>
+            <pre><code>// --- file: math.ts ---
+export function add(a: number, b: number): number {
+    return a + b;
+}
+
+// --- file: app.ts ---
+import { add } from './math';
+
+console.log(add(5, 10)); // 15</code></pre>
+        </section>
+        
+        <section id="ts-cheatsheet">
+            <h3>TypeScript Cheatsheet</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Concept</th>
+                        <th>Syntaxis & Voorbeeld</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Basis Types</strong></td>
+                        <td><code>let name: string;</code>, <code>let age: number;</code>, <code>let active: boolean;</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Arrays & Tuples</strong></td>
+                        <td><code>let list: number[];</code>, <code>let tuple: [string, number];</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Interfaces</strong></td>
+                        <td><code>interface Person { name: string; }</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Classes</strong></td>
+                        <td><code>class Animal { constructor(public name: string) {} }</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Functies</strong></td>
+                        <td><code>function greet(name: string): string { return `Hi ${name}`; }</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Union Types</strong></td>
+                        <td><code>let id: string | number;</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Generics</strong></td>
+                        <td><code>function identity&lt;T&gt;(arg: T): T { return arg; }</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Enums</strong></td>
+                        <td><code>enum Color { Red, Green, Blue }</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <script>
+        // --- Sidebar Active Link Logic ---
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('#sidebar a');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    let activeLinkFound = false;
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href').substring(1) === entry.target.id) {
+                            link.classList.add('active');
+                            activeLinkFound = true;
+                        }
+                    });
+                }
+            });
+        }, { rootMargin: "-50% 0px -50% 0px" });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+
+        // --- Exercise Solution Toggle Logic ---
+        document.querySelectorAll('.solution-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const solutionDiv = button.nextElementSibling.nextElementSibling;
+                if (solutionDiv) {
+                    solutionDiv.style.display = solutionDiv.style.display === 'block' ? 'none' : 'block';
+                }
+            });
+        });
+
+        // --- Exercise Validation Logic ---
+        const validators = {
+            'h1-01': (code) => {
+                const results = [];
+                if (!/<!DOCTYPE\s+html>/i.test(code)) results.push("Doctype ontbreekt of is incorrect.");
+                if (!/<html\s+lang="nl">/i.test(code)) results.push("`lang=\"nl\"` op `<html>` tag ontbreekt.");
+                if (!/<meta\s+charset="UTF-8">/i.test(code)) results.push("Meta charset UTF-8 ontbreekt.");
+                if (!/<meta\s+name="viewport"\s+content="width=device-width,\s*initial-scale=1.0">/i.test(code)) results.push("Viewport meta tag is incorrect.");
+                if (!/<title>.*<\/title>/i.test(code)) results.push("Title tag ontbreekt.");
+                return { success: results.length === 0, messages: results.length ? results : ["Correct!"] };
+            },
+            'h2-01': (code) => {
+                const results = [];
+                if (!/<header>[\s\S]*?<\/header>/i.test(code)) results.push("Header ontbreekt.");
+                if (!/<nav[\s\S]*?>[\s\S]*?<\/nav>/i.test(code)) results.push("Nav ontbreekt.");
+                if (!/<main>[\s\S]*?<\/main>/i.test(code)) results.push("Main ontbreekt.");
+                if (!/<article>[\s\S]*?<\/article>/i.test(code)) results.push("Article ontbreekt.");
+                if (!/<aside>[\s\S]*?<\/aside>/i.test(code)) results.push("Aside ontbreekt.");
+                if (!/<footer>[\s\S]*?<\/footer>/i.test(code)) results.push("Footer ontbreekt.");
+                return { success: results.length === 0, messages: results.length ? results : ["Correcte structuur!"] };
+            },
+            'h4-01': (code) => {
+                const results = [];
+                if (!/<caption>[\s\S]*?<\/caption>/i.test(code)) results.push("Caption ontbreekt.");
+                if ((code.match(/<th\s+scope="col"/gi) || []).length < 2) results.push("Minstens twee kolomkoppen (`th` met `scope=\"col\"`) zijn vereist.");
+                if ((code.match(/<th\s+scope="row"/gi) || []).length < 2) results.push("Minstens twee rijkoppen (`th` met `scope=\"row\"`) zijn vereist.");
+                return { success: results.length === 0, messages: results.length ? results : ["Correct!"] };
+            },
+            'h6-01': (code) => {
+                const results = [];
+                if (!/<label\s+for="email"/i.test(code)) results.push("Label voor e-mail ontbreekt of is incorrect gekoppeld.");
+                if (!/<input[^>]+id="email"/i.test(code)) results.push("Input voor e-mail heeft geen `id=\"email\"`.");
+                if (!/<label\s+for="password"/i.test(code)) results.push("Label voor wachtwoord ontbreekt.");
+                if (!/<input[^>]+id="password"/i.test(code)) results.push("Input voor wachtwoord heeft geen `id=\"password\"`.");
+                if (!/<input[^>]+type="email"[^>]+required/i.test(code)) results.push("E-mail input is niet `required`.");
+                return { success: results.length === 0, messages: results.length ? results : ["Correct!"] };
+            },
+            'c1-01': (code) => {
+                const results = [];
+                if (!/box-sizing:\s*border-box/i.test(code)) results.push("`box-sizing: border-box;` ontbreekt.");
+                if (!/width:\s*200px/i.test(code)) results.push("`width: 200px;` ontbreekt.");
+                return { success: results.length === 0, messages: results.length ? results : ["Correct!"] };
+            },
+            'c3-01': (code) => {
+                const results = [];
+                if (!/display:\s*grid/i.test(code)) results.push("`display: grid;` ontbreekt.");
+                if (!/grid-template-columns:\s*repeat\(\s*auto-fit,\s*minmax\(250px,\s*1fr\)\)/i.test(code.replace(/\s+/g, ' '))) results.push("De `grid-template-columns` regel is incorrect.");
+                return { success: results.length === 0, messages: results.length ? results : ["Correct!"] };
+            },
+            'c7-01': (code) => {
+                const results = [];
+                if (!/@media\s*\(\s*min-width:\s*600px\s*\)/i.test(code)) results.push("De media query conditie is incorrect.");
+                if (!/body\s*\{\s*background-color:\s*lightblue;\s*\}/i.test(code.replace(/\s+/g, ' '))) results.push("De stijlregel binnen de media query is incorrect.");
+                return { success: results.length === 0, messages: results.length ? results : ["Correct!"] };
+            },
+            'j5-01': (code) => {
+                try {
+                    // Reset UI for test
+                    const uiContainer = document.getElementById('ex-j5-01-ui');
+                    const originalHTML = uiContainer.innerHTML;
+                    
+                    const countSpan = uiContainer.querySelector('#clickCount');
+                    countSpan.textContent = '0';
+                    
+                    // Execute user code
+                    const userFunction = new Function(code);
+                    userFunction();
+                    
+                    const btn = uiContainer.querySelector('#counterBtn');
+                    btn.click();
+                    btn.click();
+                    
+                    const finalCount = parseInt(countSpan.textContent, 10);
+                    
+                    // Cleanup
+                    uiContainer.innerHTML = originalHTML;
+
+                    if (finalCount === 2) {
+                        return { success: true, messages: ["Test geslaagd! De teller werkt."] };
+                    } else {
+                        return { success: false, messages: [`Test mislukt. Verwachtte 2, kreeg ${finalCount}.`] };
+                    }
+                } catch (e) {
+                    return { success: false, messages: [`Runtime error: ${e.message}`] };
+                }
+            },
+            't4-01': (code) => {
+                // TypeScript can't be executed directly, so we do a simple string check
+                const results = [];
+                if (!/function\s+getFirstElement\s*<T>/.test(code)) results.push("Functie moet een generic type parameter `<T>` hebben.");
+                if (!/\(arr:\s*T\[\]\)/.test(code)) results.push("Argument `arr` moet van het type `T[]` zijn.");
+                if (!/:\s*T\s*\|\s*undefined/.test(code)) results.push("Return type moet `T | undefined` zijn.");
+                return { success: results.length === 0, messages: results.length ? results : ["Syntaxis ziet er correct uit!"] };
+            }
+        };
+
+        document.querySelectorAll('.check-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const exerciseId = button.dataset.exercise;
+                const textarea = document.getElementById(`ex-${exerciseId}`);
+                const resultDiv = button.nextElementSibling.nextElementSibling;
+                
+                const validator = validators[exerciseId];
+                if (validator && textarea) {
+                    const result = validator(textarea.value);
+                    resultDiv.innerHTML = result.messages.join('<br>');
+                    resultDiv.className = 'validator-result ' + (result.success ? 'success' : 'error');
+                } else {
+                    resultDiv.innerHTML = 'Validator niet gevonden voor deze oefening.';
+                    resultDiv.className = 'validator-result error';
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>

@@ -886,7 +886,7 @@
       &lt;th&gt;Q3&lt;/th&gt;
       &lt;th&gt;Q4&lt;/th&gt;
     &lt;/tr&gt;
-  &lt;/thead&gt;
+  &lt;/tbody&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
       &lt;th&gt;Laptop X&lt;/th&gt;
@@ -1046,7 +1046,7 @@ table.responsive-size th:not(:first-child) {
       &lt;th&gt;Score A&lt;/th&gt;
       &lt;th&gt;Score B&lt;/th&gt;
     &lt;/tr&gt;
-  &lt;/thead&gt;
+  &lt;/tbody&gt;
   &lt;tbody&gt;
     &lt;tr&gt;
       &lt;th&gt;Team 1&lt;/th&gt;
@@ -1273,35 +1273,305 @@ table.responsive-size th:not(:first-child) {
 
         <section id="html-forms">
             <h3>Formulieren</h3>
-            <p>Formulieren zijn essentieel voor gebruikersinteractie. Een correct gebruik van `label` en input-types is cruciaal.</p>
-            
-            <h4>Kern-elementen</h4>
-            <ul>
-                <li><code>&lt;form&gt;</code>: De container voor het formulier. Attributen: `action` (URL voor verzenden), `method` (`GET` of `POST`).</li>
-                <li><code>&lt;label for="..."&gt;</code>: Koppelt een label aan een formulierelement. De `for` waarde moet overeenkomen met de `id` van het input-element.</li>
-                <li><code>&lt;input&gt;</code>: Het meest veelzijdige element. Het `type` attribuut is essentieel.</li>
-                <li><code>&lt;textarea&gt;</code>: Voor tekstinvoer over meerdere regels.</li>
-                <li><code>&lt;select&gt;</code> & <code>&lt;option&gt;</code>: Voor een dropdown-menu.</li>
-                <li><code>&lt;button type="..."&gt;</code>: Een knop. `type` kan `submit`, `reset`, of `button` zijn.</li>
-                <li><code>&lt;fieldset&gt;</code> & <code>&lt;legend&gt;</code>: Groepeert gerelateerde velden, met een titel voor de groep.</li>
-            </ul>
+            <p>Formulieren zijn essentieel voor gebruikersinteractie, van inloggen tot het versturen van een contactbericht. Een goed gestructureerd formulier is toegankelijk en gebruiksvriendelijk.</p>
 
-            <h4>Input Types</h4>
-            <p>Enkele veelgebruikte `type` waarden voor `&lt;input&gt;`:</p>
-            <ul>
-                <li>`text`: Standaard tekstveld.</li>
-                <li>`password`: Verbergt de invoer.</li>
-                <li>`email`: Valideert op een e-mailformaat.</li>
-                <li>`number`: Voor numerieke invoer.</li>
-                <li>`date`: Een datumkiezer.</li>
-                <li>`checkbox`: Een aanvinkvakje (meerdere keuzes mogelijk).</li>
-                <li>`radio`: Een keuzerondje (één keuze binnen een groep met dezelfde `name`).</li>
-                <li>`submit`: Een knop om het formulier te verzenden.</li>
-            </ul>
+            <h4>Het <code>&lt;form&gt;</code> Element</h4>
+            <p>Alles wat met een formulier te maken heeft, staat binnen een <code>&lt;form&gt;</code>-tag. Dit element heeft zelf geen visuele weergave, maar fungeert als een container die de formulierelementen groepeert en bepaalt hoe de data wordt verstuurd.</p>
+            
+            <h5>Formulierattributen</h5>
+            <p>De belangrijkste attributen voor het <code>&lt;form&gt;</code>-element zijn:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Attribuut</th>
+                        <th>Beschrijving</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>action</code></td>
+                        <td>De URL waar de formuliergegevens naartoe worden gestuurd voor verwerking.</td>
+                    </tr>
+                    <tr>
+                        <td><code>method</code></td>
+                        <td>De HTTP-methode die wordt gebruikt: <code>GET</code> (data in URL) of <code>POST</code> (data in body).</td>
+                    </tr>
+                    <tr>
+                        <td><code>autocomplete</code></td>
+                        <td>Kan op <code>on</code> of <code>off</code> worden gezet om de browser te laten helpen bij het automatisch invullen.</td>
+                    </tr>
+                    <tr>
+                        <td><code>novalidate</code></td>
+                        <td>Schakelt de ingebouwde browser-validatie uit.</td>
+                    </tr>
+                    <tr>
+                        <td><code>enctype</code></td>
+                        <td>Specificeert hoe de formulierdata moet worden gecodeerd bij het versturen (belangrijk voor file uploads: <code>multipart/form-data</code>).</td>
+                    </tr>
+                    <tr>
+                        <td><code>target</code></td>
+                        <td>Geeft aan waar het antwoord na het versturen moet worden weergegeven (bv. <code>_blank</code> voor een nieuw tabblad).</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Code voorbeelden</h4>
+
+            <table>
+        <thead>
+            <tr>
+                <th>Attribuut</th>
+                <th>Waarde</th>
+                <th>Beschrijving</th>
+                <th>Voorbeeld</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code>action</code></td>
+                <td>URL</td>
+                <td>De URL waar de formuliergegevens naartoe worden gestuurd voor verwerking.</td>
+                <td><code>action="/submit.php"</code></td>
+            </tr>
+            <tr>
+                <td><code>method</code></td>
+                <td>GET/POST</td>
+                <td>De HTTP-methode die wordt gebruikt: <code>GET</code> (data in URL) of <code>POST</code> (data in body).</td>
+                <td><code>method="post"</code></td>
+            </tr>
+            <tr>
+                <td><code>autocomplete</code></td>
+                <td>on/off</td>
+                <td>Kan op <code>on</code> of <code>off</code> worden gezet om de browser te laten helpen bij het automatisch invullen.</td>
+                <td><code>autocomplete="off"</code></td>
+            </tr>
+            <tr>
+                <td><code>novalidate</code></td>
+                <td>(geen waarde)</td>
+                <td>Schakelt de ingebouwde browser-validatie uit.</td>
+                <td><code>novalidate</code></td>
+            </tr>
+            <tr>
+                <td><code>enctype</code></td>
+                <td>application/x-www-form-urlencoded<br>multipart/form-data<br>text/plain</td>
+                <td>Specificeert hoe de formulierdata moet worden gecodeerd bij het versturen (belangrijk voor file uploads: <code>multipart/form-data</code>).</td>
+                <td><code>enctype="multipart/form-data"</code></td>
+            </tr>
+            <tr>
+                <td><code>target</code></td>
+                <td>_blank<br>_self<br>_parent<br>_top</td>
+                <td>Geeft aan waar het antwoord na het versturen moet worden weergegeven (bv. <code>_blank</code> voor een nieuw tabblad).</td>
+                <td><code>target="_blank"</code></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="live-example">
+        <form action="#" method="get" target="_blank" style="border:1px solid #ccc;padding:10px;">
+            <label for="search">Zoeken:</label>
+            <input type="text" id="search" name="q">
+            <button type="submit">Versturen</button>
+        </form>
+    </div>
+
+            <h4>Formulierelementen</h4>
+            <p>Binnen een formulier gebruik je verschillende elementen om gebruikersinvoer te verzamelen:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Element</th>
+                        <th>Beschrijving</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>&lt;input&gt;</code></td>
+                        <td>Het meest veelzijdige element, met vele types (zie hieronder).</td>
+                    </tr>
+                    <tr>
+                        <td><code>&lt;label&gt;</code></td>
+                        <td>Een label dat een beschrijving geeft voor een formulierveld. Cruciaal voor toegankelijkheid.</td>
+                    </tr>
+                    <tr>
+                        <td><code>&lt;select&gt;</code></td>
+                        <td>Een dropdown-menu.</td>
+                    </tr>
+                    <tr>
+                        <td><code>&lt;textarea&gt;</code></td>
+                        <td>Een invoerveld voor meerdere regels tekst.</td>
+                    </tr>
+                    <tr>
+                        <td><code>&lt;button&gt;</code></td>
+                        <td>Een klikbare knop.</td>
+                    </tr>
+                    <tr>
+                        <td><code>&lt;fieldset&gt;</code> & <code>&lt;legend&gt;</code></td>
+                        <td>Groepeert gerelateerde velden, met <code>&lt;legend&gt;</code> als titel voor de groep.</td>
+                    </tr>
+                    <tr>
+                        <td><code>&lt;datalist&gt;</code></td>
+                        <td>Biedt een lijst met vooraf gedefinieerde opties voor een <code>&lt;input&gt;</code>-veld.</td>
+                    </tr>
+                    <tr>
+                        <td><code>&lt;output&gt;</code></td>
+                        <td>Toont het resultaat van een berekening.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h4>Code voorbeelden</h4>
+
+            <h4>Formulierelementen</h4>
+    <p>Binnen een formulier gebruik je verschillende elementen om gebruikersinvoer te verzamelen:</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Element</th>
+                <th>Beschrijving</th>
+                <th>Voorbeeld</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><code><input></code></td>
+                <td>Het meest veelzijdige element, met vele types (zie hieronder).</td>
+                <td><code><input type="text" name="username"></code></td>
+            </tr>
+            <tr>
+                <td><code><label></code></td>
+                <td>Een label dat een beschrijving geeft voor een formulierveld. Cruciaal voor toegankelijkheid.</td>
+                <td><code><label for="username">Gebruikersnaam:</label></code></td>
+            </tr>
+            <tr>
+                <td><code><select></code></td>
+                <td>Een dropdown-menu.</td>
+                <td><code><select name="country"><option>Nederland</option></select></code></td>
+            </tr>
+            <tr>
+                <td><code><textarea></code></td>
+                <td>Een invoerveld voor meerdere regels tekst.</td>
+                <td><code><textarea name="comment"></textarea></code></td>
+            </tr>
+            <tr>
+                <td><code><button></code></td>
+                <td>Een klikbare knop.</td>
+                <td><code><button type="submit">Versturen</button></code></td>
+            </tr>
+            <tr>
+                <td><code><fieldset></code> & <code><legend></code></td>
+                <td>Groepeert gerelateerde velden, met <code><legend></code> als titel voor de groep.</td>
+                <td><code><fieldset><legend>Persoonlijke gegevens</legend>...</fieldset></code></td>
+            </tr>
+            <tr>
+                <td><code><datalist></code></td>
+                <td>Biedt een lijst met vooraf gedefinieerde opties voor een <code><input></code>-veld.</td>
+                <td><code><input list="browsers"><datalist id="browsers"><option value="Chrome"></datalist></code></td>
+            </tr>
+            <tr>
+                <td><code><output></code></td>
+                <td>Toont het resultaat van een berekening.</td>
+                <td><code><output name="result" for="a b"></output></code></td>
+            </tr>
+        </tbody>
+    </table>
+
+            <h4>HTML <code>&lt;input&gt;</code> Types</h4>
+            <p>Het <code>type</code>-attribuut van het <code>&lt;input&gt;</code>-element is het belangrijkst, omdat het de functionaliteit van het veld volledig verandert. Hier zijn enkele veelvoorkomende types:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Beschrijving</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>text</code></td><td>Standaard eenregelig tekstveld.</td></tr>
+                    <tr><td><code>password</code></td><td>Verbergt de ingevoerde karakters.</td></tr>
+                    <tr><td><code>email</code></td><td>Valideert op een e-mailformaat.</td></tr>
+                    <tr><td><code>number</code></td><td>Voor numerieke invoer, toont vaak pijltjes.</td></tr>
+                    <tr><td><code>checkbox</code></td><td>Een aanvinkvakje (meerdere keuzes mogelijk).</td></tr>
+                    <tr><td><code>radio</code></td><td>Een keuzerondje (één keuze binnen een groep met dezelfde `name`).</td></tr>
+                    <tr><td><code>date</code></td><td>Een datumkiezer.</td></tr>
+                    <tr><td><code>file</code></td><td>Laat de gebruiker een bestand selecteren.</td></tr>
+                    <tr><td><code>range</code></td><td>Een schuifregelaar voor een numerieke waarde.</td></tr>
+                    <tr><td><code>color</code></td><td>Een kleurkiezer.</td></tr>
+                    <tr><td><code>submit</code></td><td>Een knop die het formulier verstuurt.</td></tr>
+                    <tr><td><code>reset</code></td><td>Een knop die alle velden naar hun beginwaarde herstelt.</td></tr>
+                </tbody>
+            </table>
+
+            <h4>Code voorbeelden</h4>
+
+            <h4>HTML <code><input></code> Types</h4>
+    <p>Het <code>type</code>-attribuut van het <code><input></code>-element is het belangrijkst, omdat het de functionaliteit van het veld volledig verandert. Hier zijn enkele veelvoorkomende types:</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Beschrijving</th>
+                <th>Voorbeeld</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><code>text</code></td><td>Standaard eenregelig tekstveld.</td><td><code><input type="text" name="naam"></code></td></tr>
+            <tr><td><code>password</code></td><td>Verbergt de ingevoerde karakters.</td><td><code><input type="password" name="wachtwoord"></code></td></tr>
+            <tr><td><code>email</code></td><td>Valideert op een e-mailformaat.</td><td><code><input type="email" name="email" required></code></td></tr>
+            <tr><td><code>number</code></td><td>Voor numerieke invoer, toont vaak pijltjes.</td><td><code><input type="number" name="leeftijd" min="0" max="120"></code></td></tr>
+            <tr><td><code>checkbox</code></td><td>Een aanvinkvakje (meerdere keuzes mogelijk).</td><td><code><input type="checkbox" name="hobby" value="sport"></code></td></tr>
+            <tr><td><code>radio</code></td><td>Een keuzerondje (één keuze binnen een groep met dezelfde `name`).</td><td><code><input type="radio" name="geslacht" value="man"></code></td></tr>
+            <tr><td><code>date</code></td><td>Een datumkiezer.</td><td><code><input type="date" name="geboortedatum"></code></td></tr>
+            <tr><td><code>file</code></td><td>Laat de gebruiker een bestand selecteren.</td><td><code><input type="file" name="cv" accept=".pdf,.doc"></code></td></tr>
+            <tr><td><code>range</code></td><td>Een schuifregelaar voor een numerieke waarde.</td><td><code><input type="range" name="volume" min="0" max="100"></code></td></tr>
+            <tr><td><code>color</code></td><td>Een kleurkiezer.</td><td><code><input type="color" name="favoriete_kleur"></code></td></tr>
+            <tr><td><code>submit</code></td><td>Een knop die het formulier verstuurt.</td><td><code><input type="submit" value="Versturen"></code></td></tr>
+            <tr><td><code>reset</code></td><td>Een knop die alle velden naar hun beginwaarde herstelt.</td><td><code><input type="reset" value="Resetten"></code></td></tr>
+        </tbody>
+    </table>
+
+            <h4>HTML Input Attributen</h4>
+            <p>Naast <code>type</code> zijn er vele andere attributen om het gedrag van een <code>&lt;input&gt;</code> te specificeren:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Attribuut</th>
+                        <th>Beschrijving</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>value</code></td>
+                        <td>De initiële waarde van het veld.</td>
+                    </tr>
+                    <tr>
+                        <td><code>required</code></td>
+                        <td>Geeft aan dat het veld verplicht ingevuld moet worden.</td>
+                    </tr>
+                    <tr>
+                        <td><code>placeholder</code></td>
+                        <td>Toont een hint in het veld die verdwijnt zodra de gebruiker begint te typen.</td>
+                    </tr>
+                    <tr>
+                        <td><code>pattern</code></td>
+                        <td>Een reguliere expressie waaraan de invoer moet voldoen.</td>
+                    </tr>
+                    <tr>
+                        <td><code>multiple</code></td>
+                        <td>Staat toe dat meerdere waarden worden geselecteerd (voor <code>email</code> en <code>file</code>).</td>
+                    </tr>
+                    <tr>
+                        <td><code>step</code></td>
+                        <td>Definieert de stapgrootte voor numerieke of datum-gebaseerde input types.</td>
+                    </tr>
+                    <tr>
+                        <td><code>maxlength</code></td>
+                        <td>De maximale lengte van de invoer.</td>
+                    </tr>
+                </tbody>
+            </table>
 
             <div class="exercise">
                 <h4>Oefening H6-01: Login formulier</h4>
-                <p>Maak een eenvoudig login-formulier met velden voor e-mail en wachtwoord. Zorg ervoor dat elk veld een correct gekoppeld `label` heeft en dat het e-mailveld `required` is.</p>
+                <p>Maak een eenvoudig login-formulier met velden voor e-mail en wachtwoord. Zorg ervoor dat elk veld een correct gekoppeld <code>label</code> heeft en dat het e-mailveld <code>required</code> is.</p>
                 <textarea id="ex-h6-01" placeholder="Plaats hier je formulier..."></textarea>
                 <button class="check-btn" data-exercise="h6-01">Controleer</button>
                 <button class="solution-btn secondary">Toon Oplossing</button>
@@ -1339,6 +1609,119 @@ table.responsive-size th:not(:first-child) {
   &lt;button onclick="document.getElementById('myDialog').close()"&gt;Sluiten&lt;/button&gt;
 &lt;/dialog&gt;
 &lt;button onclick="document.getElementById('myDialog').showModal()"&gt;Toon dialoog&lt;/button&gt;</code></pre>
+            
+            <h4><code>&lt;div&gt;</code>: De Content Container</h4>
+            <p>Het <code>&lt;div&gt;</code>-element is een van de meest gebruikte elementen in HTML. Het staat voor "division" (sectie) en fungeert als een generieke container zonder semantische betekenis. Zijn primaire doel is het groeperen van andere HTML-elementen, die je vervolgens als één blok kunt stijlen met CSS of manipuleren met JavaScript.</p>
+            <p>Standaard is een <code>&lt;div&gt;</code> een blok-element, wat betekent dat het de volledige beschikbare breedte inneemt en een regeleinde voor en na zichzelf creëert.</p>
+            
+            <h5><code>&lt;div&gt;</code> als container</h5>
+            <p>Je kunt een <code>&lt;div&gt;</code> gebruiken om gerelateerde content, zoals een titel en een paar paragrafen, te bundelen tot een logische sectie.</p>
+            <pre><code>&lt;div style="border: 1px solid #ccc; padding: 10px; border-radius: 5px;"&gt;
+  &lt;h2&gt;Londen&lt;/h2&gt;
+  &lt;p&gt;Londen is de hoofdstad van Engeland.&lt;/p&gt;
+  &lt;p&gt;Londen heeft meer dan 9 miljoen inwoners.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+            <div class="live-example">
+                <div style="border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
+                  <h2>Londen</h2>
+                  <p>Londen is de hoofdstad van Engeland.</p>
+                  <p>Londen heeft meer dan 9 miljoen inwoners.</p>
+                </div>
+            </div>
+
+            <h5>Een <code>&lt;div&gt;</code> centreren</h5>
+            <p>Als een <code>&lt;div&gt;</code> niet de volledige breedte inneemt en je deze wilt centreren, kun je de CSS-eigenschap <code>margin</code> op <code>auto</code> instellen.</p>
+            <pre><code>&lt;div style="width: 300px; margin: auto; border: 1px solid #ccc; padding: 10px;"&gt;
+  &lt;h2&gt;Gecentreerd&lt;/h2&gt;
+  &lt;p&gt;Deze div is gecentreerd.&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+            <div class="live-example">
+                <div style="width: 300px; max-width: 100%; margin: auto; border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
+                  <h2>Gecentreerd</h2>
+                  <p>Deze div is gecentreerd.</p>
+                </div>
+            </div>
+
+            <h5><code>&lt;div&gt;</code>-elementen naast elkaar plaatsen</h5>
+            <p>Omdat <code>&lt;div&gt;</code>-elementen blok-elementen zijn, verschijnen ze standaard onder elkaar. Om ze naast elkaar te plaatsen, heb je CSS nodig. De meest moderne en aanbevolen methoden hiervoor zijn Flexbox en Grid.</p>
+            
+            <h5>Flexbox-methode</h5>
+            <p>Plaats de <code>&lt;div&gt;</code>-elementen in een container en geef die container <code>display: flex;</code>.</p>
+            <pre><code>&lt;div class="flex-container"&gt;
+  &lt;div&gt;Londen&lt;/div&gt;
+  &lt;div&gt;Oslo&lt;/div&gt;
+  &lt;div&gt;Rome&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+.flex-container {
+  display: flex;
+  gap: 10px; /* Ruimte tussen de items */
+}
+.flex-container > div {
+  flex: 1; /* Verdeel de ruimte gelijkmatig */
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+&lt;/style&gt;</code></pre>
+            <div class="live-example">
+                <style>
+                .flex-container {
+                  display: flex;
+                  gap: 10px;
+                }
+                .flex-container > div {
+                  flex: 1;
+                  border: 1px solid #ccc;
+                  padding: 10px;
+                  border-radius: 5px;
+                }
+                </style>
+                <div class="flex-container">
+                  <div><b>Londen</b><p>Hoofdstad van Engeland.</p></div>
+                  <div><b>Oslo</b><p>Hoofdstad van Noorwegen.</p></div>
+                  <div><b>Rome</b><p>Hoofdstad van Italië.</p></div>
+                </div>
+            </div>
+
+            <h5>Grid-methode</h5>
+            <p>Plaats de <code>&lt;div&gt;</code>-elementen in een container en geef die container <code>display: grid;</code> en definieer de kolommen met <code>grid-template-columns</code>.</p>
+            <pre><code>&lt;div class="grid-container"&gt;
+  &lt;div&gt;Londen&lt;/div&gt;
+  &lt;div&gt;Oslo&lt;/div&gt;
+  &lt;div&gt;Rome&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr; /* Drie kolommen met gelijke breedte */
+  gap: 10px;
+}
+.grid-container > div {
+  border: 1px solid #ccc;
+  padding: 10px;
+}
+&lt;/style&gt;</code></pre>
+            <div class="live-example">
+                 <style>
+                .grid-container {
+                  display: grid;
+                  grid-template-columns: 1fr 1fr 1fr;
+                  gap: 10px;
+                }
+                .grid-container > div {
+                  border: 1px solid #ccc;
+                  padding: 10px;
+                  border-radius: 5px;
+                }
+                </style>
+                <div class="grid-container">
+                  <div><b>Londen</b><p>Hoofdstad van Engeland.</p></div>
+                  <div><b>Oslo</b><p>Hoofdstad van Noorwegen.</p></div>
+                  <div><b>Rome</b><p>Hoofdstad van Italië.</p></div>
+                </div>
+            </div>
         </section>
 
         <section id="html-layout-overview">
@@ -1640,7 +2023,7 @@ table.responsive-size th:not(:first-child) {
             </div>
 
             <h5><code>placeholder</code>, <code>required</code>, <code>disabled</code></h5>
-            <p>Deze attributen worden vaak gebruikt in formulieren. <code>placeholder</code> toont een hint in een invoerveld. <code>required</code> geeft aan dat een veld ingevuld moet worden. <code>disabled</code> schakelt een invoerveld uit.</p>
+            <p>Deze attributen worden vaak gebruikt in formulieren. <code>placeholder</code> toont een hint in een invoerveld. <code>required</code> geeft aan dat een veld ingeveld moet worden. <code>disabled</code> schakelt een invoerveld uit.</p>
             <pre><code>&lt;input type="email" placeholder="naam@voorbeeld.com" required&gt;
 &lt;button type="submit" disabled&gt;Verstuur (uitgeschakeld)&lt;/button&gt;</code></pre>
             <div class="live-example">

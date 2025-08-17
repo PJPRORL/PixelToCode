@@ -1,0 +1,211 @@
+:root {
+    --bg-color: #ffffff;
+    --text-color: #0f172a;
+    --primary-color: #3b82f6;
+    --border-color: #e2e8f0;
+    --header-bg: #ffffff;
+    --code-bg: #f1f5f9;
+    --sidebar-bg: #f8fafc;
+    --success-bg: #dcfce7;
+    --success-color: #166534;
+    --error-bg: #fee2e2;
+    --error-color: #991b1b;
+}
+
+html.dark {
+    --bg-color: #0b1120;
+    --text-color: #cbd5e1;
+    --primary-color: #60a5fa;
+    --border-color: #334155;
+    --header-bg: #1e293b;
+    --code-bg: #1e293b;
+    --sidebar-bg: #131b2c;
+    --success-bg: #14532d;
+    --success-color: #dcfce7;
+    --error-bg: #7f1d1d;
+    --error-color: #fee2e2;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.7;
+    margin: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.main-header {
+    background-color: var(--header-bg);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    height: 60px;
+}
+
+.nav-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-color);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+}
+
+.nav-links a.active, .nav-links a:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+#theme-toggle {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.hero {
+    text-align: center;
+    padding: 4rem 1rem;
+}
+
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    text-decoration: none;
+    border-radius: 8px;
+    background-color: var(--border-color);
+    color: var(--text-color);
+    font-weight: 500;
+    margin: 0.5rem;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.page-wrapper {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+.sidebar {
+    position: sticky;
+    top: 80px; /* header height + margin */
+    align-self: start;
+}
+
+.sidebar h3 {
+    margin-top: 0;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: var(--text-color);
+    display: block;
+    padding: 0.5rem 0;
+}
+
+.sidebar a:hover {
+    color: var(--primary-color);
+}
+
+.main-content section {
+    background-color: var(--header-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    scroll-margin-top: 80px;
+}
+
+pre {
+    background-color: var(--code-bg);
+    padding: 1rem;
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+code {
+    font-family: 'SFMono-Regular', Consolas, 'Menlo', monospace;
+    background-color: var(--code-bg);
+    padding: 0.2em 0.4em;
+    border-radius: 4px;
+}
+
+.exercise {
+    border: 1px dashed var(--primary-color);
+    padding: 1.5rem;
+    margin-top: 2rem;
+    border-radius: 8px;
+}
+
+.exercise textarea {
+    width: 100%;
+    min-height: 150px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0.5rem;
+    margin: 1rem 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'SFMono-Regular', Consolas, 'Menlo', monospace;
+}
+
+.exercise button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.result {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 6px;
+}
+
+.result.success {
+    background-color: var(--success-bg);
+    color: var(--success-color);
+}
+
+.result.error {
+    background-color: var(--error-bg);
+    color: var(--error-color);
+}

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Referentie - Studiegids</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <header class="main-header">
+        <nav class="navbar">
+            <a href="index.html" class="nav-brand">Studiegids</a>
+            <div class="nav-links">
+                <a href="html.html" class="active">HTML</a>
+                <a href="css.html">CSS</a>
+            </div>
+            <div class="nav-actions">
+                <button id="theme-toggle" aria-label="Toggle light/dark mode">🌙</button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-wrapper">
+        <aside class="sidebar">
+            <nav>
+                <h3>HTML Hoofdstukken</h3>
+                <ul>
+                    <li><a href="#doc-meta">1. Document & Metadata</a></li>
+                    <li><a href="#secties-semantiek">2. Secties & Semantiek</a></li>
+                    <li><a href="#tekstniveau-semantiek">3. Tekstniveau Semantiek</a></li>
+                    <li><a href="#lijsten-tabeldata">4. Lijsten & Tabeldata</a></li>
+                    <li><a href="#inbedding-media">5. Inbedding & Media</a></li>
+                    <li><a href="#formulieren">6. Formulieren</a></li>
+                    <li><a href="#interactieve-overige">7. Interactieve/Overige</a></li>
+                    <li><a href="#globale-attributen">8. Globale attributen</a></li>
+                    <li><a href="#events">9. Events</a></li>
+                    <li><a href="#aria">10. ARIA</a></li>
+                    <li><a href="#deprecated-obsolete">11. Deprecated & Obsolete</a></li>
+                    <li><a href="#best-practices">12. Best practices</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <h1>HTML Referentie</h1>
+            <p>De fundamentele bouwstenen van het web, van de basisstructuur tot geavanceerde toegankelijkheidspatronen.</p>
+
+            <section id="doc-meta">
+                <h2>1. Document & Metadata</h2>
+                <p>Elementen die de structuur en metadata van een HTML-document definiëren.</p>
+                
+                <h3><code>&lt;!DOCTYPE html&gt;</code></h3>
+                <p><strong>Beschrijving</strong>: Activeert standards mode (HTML5). Moet altijd de eerste regel van het document zijn.</p>
+                
+                <h3><code>&lt;html&gt;</code></h3>
+                <p><strong>Beschrijving</strong>: Het root-element van de pagina. Het <code>lang</code> attribuut is cruciaal voor toegankelijkheid (A11y) en SEO.</p>
+                <pre><code>&lt;html lang="nl" dir="ltr"&gt;...&lt;/html&gt;</code></pre>
+
+                <h3><code>&lt;head&gt;</code></h3>
+                <p><strong>Beschrijving</strong>: Bevat alle metadata die niet direct op de pagina zichtbaar is, zoals de titel, links naar stylesheets en scripts.</p>
+
+                <h3><code>&lt;title&gt;</code></h3>
+                <p><strong>Beschrijving</strong>: De titel van de pagina, zichtbaar in de browser-tab en zoekresultaten. Er moet precies één <code>&lt;title&gt;</code> per document zijn.</p>
+
+                <h3><code>&lt;link&gt;</code></h3>
+                <p><strong>Beschrijving</strong>: Linkt naar externe bronnen zoals CSS-stylesheets, iconen, en PWA-manifesten. Belangrijke <code>rel</code>-waarden zijn <code>stylesheet</code>, <code>icon</code>, <code>preload</code>, en <code>preconnect</code>.</p>
+                <pre><code>&lt;link rel="stylesheet" href="/styles.css"&gt;
+&lt;link rel="preload" as="image" href="/hero.webp"&gt;</code></pre>
+
+                <h3><code>&lt;meta&gt;</code></h3>
+                <p><strong>Beschrijving</strong>: Voor diverse metadata zoals tekenset (<code>charset</code>), viewport-instellingen, en paginabeschrijving (<code>description</code>).</p>
+                <pre><code>&lt;meta charset="utf-8"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></pre>
+
+                <h3><code>&lt;script&gt;</code> & <code>&lt;noscript&gt;</code></h3>
+                <p><strong>Beschrijving</strong>: Laadt en voert JavaScript uit. <code>defer</code> stelt de executie uit tot na het parsen van de HTML. <code>async</code> laadt en voert uit zodra mogelijk. <code>&lt;noscript&gt;</code> toont een fallback als JavaScript is uitgeschakeld.</p>
+            </section>
+
+            <section id="secties-semantiek">
+                <h2>2. Secties & Semantiek</h2>
+                <p>Gebruik semantische elementen om de structuur en betekenis van je content duidelijk te maken.</p>
+                <ul>
+                    <li><strong><code>&lt;body&gt;</code></strong>: Bevat alle zichtbare content.</li>
+                    <li><strong><code>&lt;header&gt;</code></strong>: Introductiecontent of navigatie.</li>
+                    <li><strong><code>&lt;nav&gt;</code></strong>: Een sectie met navigatielinks.</li>
+                    <li><strong><code>&lt;main&gt;</code></strong>: De unieke, centrale content van de pagina (één per pagina).</li>
+                    <li><strong><code>&lt;section&gt;</code></strong>: Een thematische groepering van content.</li>
+                    <li><strong><code>&lt;article&gt;</code></strong>: Zelfstandige, op zichzelf staande content (bv. een blogpost).</li>
+                    <li><strong><code>&lt;aside&gt;</code></strong>: Indirect gerelateerde content (bv. een sidebar).</li>
+                    <li><strong><code>&lt;footer&gt;</code></strong>: Voettekst voor een document of sectie.</li>
+                    <li><strong><code>&lt;h1&gt;</code> - <code>&lt;h6&gt;</code></strong>: Koppen voor het structureren van content.</li>
+                </ul>
+            </section>
+
+            <section id="tekstniveau-semantiek">
+                <h2>3. Tekstniveau Semantiek</h2>
+                <p>Elementen voor het structureren van tekst op een gedetailleerder niveau.</p>
+                <ul>
+                    <li><strong><code>&lt;a&gt;</code></strong>: Een hyperlink. Gebruik <code>rel="noopener"</code> voor links die in een nieuw tabblad openen.</li>
+                    <li><strong><code>&lt;em&gt;</code></strong>: Nadruk (emphasis), vaak cursief.</li>
+                    <li><strong><code>&lt;strong&gt;</code></strong>: Sterke belangrijkheid, vaak vet.</li>
+                    <li><strong><code>&lt;code&gt;</code></strong>: Een stukje computercode.</li>
+                    <li><strong><code>&lt;time&gt;</code></strong>: Een machine-leesbare datum/tijd met het <code>datetime</code> attribuut.</li>
+                </ul>
+            </section>
+
+            <section id="lijsten-tabeldata">
+                <h2>4. Lijsten & Tabeldata</h2>
+                <p>Voor het structureren van lijsten en tabeldata.</p>
+                <h3>Lijsten</h3>
+                <p><code>&lt;ul&gt;</code> (ongeordend), <code>&lt;ol&gt;</code> (geordend), en <code>&lt;li&gt;</code> (lijstitem).</p>
+                <h3>Tabellen</h3>
+                <p>Gebruik <code>&lt;table&gt;</code> voor tabeldata. Voor toegankelijkheid zijn <code>&lt;caption&gt;</code>, <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>, en het <code>scope</code> attribuut op <code>&lt;th&gt;</code>-elementen belangrijk.</p>
+            </section>
+
+            <section id="inbedding-media">
+                <h2>5. Inbedding & Media</h2>
+                <p>Elementen voor het insluiten van media en andere content.</p>
+                <ul>
+                    <li><strong><code>&lt;img&gt;</code></strong>: Toont een afbeelding. <code>alt</code> is verplicht. Gebruik <code>loading="lazy"</code> voor performance.</li>
+                    <li><strong><code>&lt;picture&gt;</code></strong>: Biedt meer controle voor responsive afbeeldingen.</li>
+                    <li><strong><code>&lt;video&gt;</code> & <code>&lt;audio&gt;</code></strong>: Voor video en audio. Gebruik het <code>controls</code> attribuut.</li>
+                    <li><strong><code>&lt;iframe&gt;</code></strong>: Sluit een andere webpagina in. Geef altijd een <code>title</code> attribuut.</li>
+                </ul>
+            </section>
+
+            <section id="formulieren">
+                <h2>6. Formulieren</h2>
+                <p>Essentieel voor gebruikersinteractie. Een correct gebruik van <code>&lt;label&gt;</code> en input-types is cruciaal.</p>
+                <ul>
+                    <li><strong><code>&lt;form&gt;</code></strong>: De container voor het formulier.</li>
+                    <li><strong><code>&lt;label for="..."&gt;</code></strong>: Koppelt een label aan een formulierelement.</li>
+                    <li><strong><code>&lt;input type="..."&gt;</code></strong>: Het meest veelzijdige element (types: <code>text</code>, <code>email</code>, <code>password</code>, <code>checkbox</code>, <code>radio</code>, <code>submit</code>, etc.).</li>
+                    <li><strong><code>&lt;textarea&gt;</code></strong>: Voor tekstinvoer over meerdere regels.</li>
+                    <li><strong><code>&lt;select&gt;</code></strong>: Voor een dropdown-menu.</li>
+                    <li><strong><code>&lt;button&gt;</code></strong>: Een knop.</li>
+                </ul>
+            </section>
+            
+            <section id="interactieve-overige">
+                <h2>7. Interactieve/Overige Elementen</h2>
+                 <ul>
+                    <li><strong><code>&lt;details&gt;</code> & <code>&lt;summary&gt;</code></strong>: Creëert een uitklapbaar "accordeon"-widget.</li>
+                    <li><strong><code>&lt;dialog&gt;</code></strong>: Een dialoogvenster of pop-up.</li>
+                    <li><strong><code>&lt;canvas&gt;</code></strong>: Een tekengebied voor JavaScript.</li>
+                </ul>
+            </section>
+
+            <section id="globale-attributen">
+                <h2>8. Globale Attributen</h2>
+                <p>Attributen die op bijna elk HTML-element kunnen worden toegepast.</p>
+                 <ul>
+                    <li><strong><code>id</code></strong>: Een unieke identifier.</li>
+                    <li><strong><code>class</code></strong>: Een of meer klassenamen voor styling.</li>
+                    <li><strong><code>style</code></strong>: Voor inline CSS (gebruik met mate).</li>
+                    <li><strong><code>title</code></strong>: Extra informatie (tooltip).</li>
+                    <li><strong><code>hidden</code></strong>: Verbergt een element.</li>
+                    <li><strong><code>tabindex</code></strong>: Beïnvloedt de tab-volgorde.</li>
+                    <li><strong><code>data-*</code></strong>: Custom data-attributen.</li>
+                </ul>
+            </section>
+
+            <section id="events">
+                <h2>9. Events</h2>
+                <p>Een overzicht van veelgebruikte events voor interactieve webpagina's.</p>
+                 <ul>
+                    <li><strong>Muis</strong>: <code>click</code>, <code>mousedown</code>, <code>mouseup</code>, <code>mousemove</code>, <code>mouseover</code>.</li>
+                    <li><strong>Toetsenbord</strong>: <code>keydown</code>, <code>keyup</code>.</li>
+                    <li><strong>Formulier</strong>: <code>submit</code>, <code>change</code>, <code>input</code>.</li>
+                    <li><strong>Focus</strong>: <code>focus</code>, <code>blur</code>.</li>
+                </ul>
+            </section>
+
+            <section id="aria">
+                <h2>10. ARIA (Accessible Rich Internet Applications)</h2>
+                <p>ARIA-attributen verbeteren de toegankelijkheid van dynamische webapplicaties.</p>
+                 <ul>
+                    <li><strong><code>role</code></strong>: Definieert de rol van een element (bv. <code>role="button"</code>).</li>
+                    <li><strong><code>aria-label</code></strong>: Geeft een toegankelijke naam aan een element.</li>
+                    <li><strong><code>aria-hidden="true"</code></strong>: Verbergt een element voor schermlezers.</li>
+                    <li><strong><code>aria-expanded="true/false"</code></strong>: Geeft aan of een uitklapbaar element open of gesloten is.</li>
+                </ul>
+            </section>
+
+            <section id="deprecated-obsolete">
+                <h2>11. Deprecated & Obsolete</h2>
+                <p>Elementen en attributen die verouderd zijn en niet meer gebruikt moeten worden.</p>
+                <ul>
+                    <li><strong>Elementen</strong>: <code>&lt;center&gt;</code>, <code>&lt;font&gt;</code>, <code>&lt;marquee&gt;</code>. Gebruik CSS voor styling.</li>
+                    <li><strong>Attributen</strong>: <code>bgcolor</code>, <code>align</code>. Gebruik CSS voor positionering en kleuren.</li>
+                </ul>
+            </section>
+
+            <section id="best-practices">
+                <h2>12. Best Practices</h2>
+                <p>Richtlijnen voor het schrijven van goede, moderne HTML.</p>
+                <ul>
+                    <li><strong>Semantiek eerst</strong>: Gebruik het juiste element voor de juiste taak.</li>
+                    <li><strong>Toegankelijkheid (A11y)</strong>: Zorg voor alt-teksten, labels en een logische structuur.</li>
+                    <li><strong>Performance</strong>: Laad afbeeldingen met <code>loading="lazy"</code> en gebruik <code>defer</code> voor scripts.</li>
+                    <li><strong>Veiligheid</strong>: Gebruik <code>rel="noopener"</code> op externe links die in een nieuw tabblad openen.</li>
+                </ul>
+            </section>
+
+        </main>
+    </div>
+
+    <script type="module" src="assets/js/main.js"></script>
+</body>
+</html>

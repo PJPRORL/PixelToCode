@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Referentie - Studiegids</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+    <header class="main-header">
+        <nav class="navbar">
+            <a href="index.html" class="nav-brand">Studiegids</a>
+            <div class="nav-links">
+                <a href="html.html">HTML</a>
+                <a href="css.html" class="active">CSS</a>
+            </div>
+            <div class="nav-actions">
+                <button id="theme-toggle" aria-label="Toggle light/dark mode">🌙</button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-wrapper">
+        <aside class="sidebar">
+            <nav>
+                <h3>CSS Hoofdstukken</h3>
+                <ul>
+                    <li><a href="#css-basis">1. Basis & Syntax</a></li>
+                    <li><a href="#selectors">2. Selectors</a></li>
+                    <li><a href="#waarden-eenheden">3. Waarden & Eenheden</a></li>
+                    <li><a href="#kleuren">4. Kleuren</a></li>
+                    <li><a href="#box-model">5. Box Model</a></li>
+                    <li><a href="#positionering">6. Positionering</a></li>
+                    <li><a href="#layout">7. Layout</a></li>
+                    <li><a href="#sizing-containment">8. Sizing & Containment</a></li>
+                    <li><a href="#achtergronden">9. Achtergronden & Effecten</a></li>
+                    <li><a href="#typografie">10. Typografie</a></li>
+                    <li><a href="#animaties">11. Transities & Animaties</a></li>
+                    <li><a href="#custom-properties">12. Custom Properties</a></li>
+                    <li><a href="#media-queries">13. Media Queries</a></li>
+                    <li><a href="#container-queries">14. Container Queries</a></li>
+                    <li><a href="#interactie">15. Scrolling & Interactie</a></li>
+                    <li><a href="#toegankelijkheid-ui">16. Toegankelijkheid & UI</a></li>
+                    <li><a href="#print">17. Print & Paged Media</a></li>
+                    <li><a href="#at-regels">18. @-regels</a></li>
+                    <li><a href="#performance-best-practices">19. Performance & Best Practices</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <h1>CSS Referentie</h1>
+            <p>De stylingtaal om je webpagina's vorm te geven, van basiskleuren tot complexe, responsive layouts.</p>
+
+            <section id="css-basis">
+                <h2>1. CSS Basis: Syntax, Cascade & Specificiteit</h2>
+                <p>Een CSS-regel bestaat uit een selector en een declaratieblok (<code>property: value;</code>). De <strong>cascade</strong> bepaalt welke stijlregel wint op basis van bron, specificiteit en volgorde. <strong>Inheritance</strong> laat sommige eigenschappen (zoals lettertype) overerven door kind-elementen.</p>
+                <p><strong>Specificiteit (van hoog naar laag)</strong>: Inline stijlen > ID > Class/Attribuut/Pseudo-class > Element/Pseudo-element. Gebruik <code>!important</code> met grote terughoudendheid.</p>
+            </section>
+
+            <section id="selectors">
+                <h2>2. Selectors</h2>
+                <p>Patronen om elementen te selecteren voor styling.</p>
+                <ul>
+                    <li><strong>Type, Class, ID</strong>: <code>p</code>, <code>.mijn-klasse</code>, <code>#mijn-id</code></li>
+                    <li><strong>Attribuut</strong>: <code>[type="email"]</code>, <code>[href^="https"]</code></li>
+                    <li><strong>Pseudo-classes</strong>: <code>:hover</code>, <code>:focus</code>, <code>:nth-child(n)</code>, <code>:has()</code></li>
+                    <li><strong>Pseudo-elements</strong>: <code>::before</code>, <code>::after</code>, <code>::first-letter</code></li>
+                    <li><strong>Combinators</strong>: <code>div p</code> (descendant), <code>div > p</code> (child), <code>h2 + p</code> (adjacent sibling)</li>
+                </ul>
+            </section>
+
+            <section id="waarden-eenheden">
+                <h2>3. Waarden & Eenheden</h2>
+                <p>De eenheden die je gebruikt om groottes en afstanden te definiëren.</p>
+                <ul>
+                    <li><strong>Absoluut</strong>: <code>px</code> (pixels)</li>
+                    <li><strong>Relatief</strong>: <code>%</code>, <code>em</code> (relatief t.o.v. parent font-size), <code>rem</code> (relatief t.o.v. root font-size)</li>
+                    <li><strong>Viewport</strong>: <code>vw</code> (viewport width), <code>vh</code> (viewport height)</li>
+                    <li><strong>Functies</strong>: <code>calc()</code>, <code>min()</code>, <code>max()</code>, <code>clamp()</code></li>
+                </ul>
+            </section>
+
+            <section id="kleuren">
+                <h2>4. Kleuren & Kleurruimtes</h2>
+                <p>Manieren om kleuren te specificeren in CSS.</p>
+                <ul>
+                    <li><strong>Hexadecimaal</strong>: <code>#ff0000</code>, <code>#f00</code></li>
+                    <li><strong>RGB/RGBA</strong>: <code>rgb(255, 0, 0)</code>, <code>rgba(255, 0, 0, 0.5)</code> (met transparantie)</li>
+                    <li><strong>HSL/HSLA</strong>: <code>hsl(0, 100%, 50%)</code> (Hue, Saturation, Lightness)</li>
+                    <li><strong>Moderne kleurruimtes</strong>: <code>lab()</code>, <code>lch()</code> voor meer perceptueel uniforme kleuren.</li>
+                </ul>
+            </section>
+
+            <section id="box-model">
+                <h2>5. Box Model, Sizing & Overflow</h2>
+                <p>Elk element is een doos, bestaande uit <code>content</code>, <code>padding</code>, <code>border</code>, en <code>margin</code>. Met <code>box-sizing: border-box;</code> zorg je ervoor dat de totale breedte en hoogte inclusief padding en border zijn, wat layouts vaak voorspelbaarder maakt.</p>
+            </section>
+
+            <section id="positionering">
+                <h2>6. Positionering & Z-index</h2>
+                <p>De <code>position</code>-eigenschap bepaalt hoe een element in het document wordt geplaatst.</p>
+                <ul>
+                    <li><strong><code>static</code></strong>: Normale flow (default).</li>
+                    <li><strong><code>relative</code></strong>: Verplaatsbaar t.o.v. zijn normale positie.</li>
+                    <li><strong><code>absolute</code></strong>: Verplaatsbaar t.o.v. het dichtstbijzijnde gepositioneerde voorouder-element.</li>
+                    <li><strong><code>fixed</code></strong>: Verplaatsbaar t.o.v. de viewport.</li>
+                    <li><strong><code>sticky</code></strong>: Een mix tussen <code>relative</code> en <code>fixed</code>, blijft "plakken" tijdens het scrollen.</li>
+                </ul>
+                <p><code>z-index</code> bepaalt de stapelvolgorde van gepositioneerde elementen.</p>
+            </section>
+
+            <section id="layout">
+                <h2>7. Weergave & Layout</h2>
+                <p>Moderne layout-technieken voor het bouwen van complexe en responsive interfaces.</p>
+                <h3>Flexbox</h3>
+                <p>Een eendimensionaal layoutsysteem, ideaal voor het uitlijnen van items in een rij of kolom. Gebruik <code>display: flex;</code> op een container. Belangrijke eigenschappen zijn <code>justify-content</code> (uitlijning op de hoofdas) en <code>align-items</code> (uitlijning op de kruisas).</p>
+                <h3>Grid</h3>
+                <p>Een tweedimensionaal layoutsysteem, perfect voor complexe layouts. Gebruik <code>display: grid;</code> op een container. Definieer kolommen en rijen met <code>grid-template-columns</code> en <code>grid-template-rows</code>.</p>
+            </section>
+            
+            <section id="sizing-containment">
+                <h2>8. Sizing & Containment</h2>
+                <p>Eigenschappen om de grootte en rendering performance te beheersen.</p>
+                <ul>
+                    <li><strong><code>aspect-ratio</code></strong>: Behoudt een vaste breedte-hoogteverhouding.</li>
+                    <li><strong><code>object-fit</code></strong>: Bepaalt hoe een <code>&lt;img&gt;</code> of <code>&lt;video&gt;</code> zijn container vult (<code>cover</code>, <code>contain</code>).</li>
+                    <li><strong><code>contain</code></strong>: Optimaliseert de rendering door de browser te vertellen dat een element onafhankelijk is van de rest van de pagina.</li>
+                </ul>
+            </section>
+
+            <section id="achtergronden">
+                <h2>9. Achtergronden, Borders & Effecten</h2>
+                <p>Visuele effecten om je ontwerp te verbeteren.</p>
+                <ul>
+                    <li><strong><code>background-image</code></strong>: Gebruik een afbeelding of een <code>linear-gradient()</code>.</li>
+                    <li><strong><code>border-radius</code></strong>: Ronde hoeken.</li>
+                    <li><strong><code>box-shadow</code></strong>: Een schaduw rondom een element.</li>
+                    <li><strong><code>filter</code></strong>: Visuele effecten zoals <code>blur()</code> of <code>grayscale()</code>.</li>
+                    <li><strong><code>backdrop-filter</code></strong>: Past een filter toe op het gebied achter een element (voor "glassmorphism"-effecten).</li>
+                </ul>
+            </section>
+
+            <section id="typografie">
+                <h2>10. Typografie & Tekst</h2>
+                <p>Styling van tekst en lettertypen.</p>
+                <ul>
+                    <li><strong><code>font-family</code></strong>: Specificeert het lettertype.</li>
+                    <li><strong><code>font-size</code></strong>: De grootte van de tekst (gebruik <code>rem</code>).</li>
+                    <li><strong><code>font-weight</code></strong>: De dikte van de letters (bv. <code>400</code> voor normaal, <code>700</code> voor vet).</li>
+                    <li><strong><code>line-height</code></strong>: De regelhoogte voor betere leesbaarheid.</li>
+                    <li><strong><code>color</code></strong>: De tekstkleur.</li>
+                </ul>
+            </section>
+
+            <section id="animaties">
+                <h2>11. Transities & Animaties</h2>
+                <h3>Transities</h3>
+                <p>Maakt een geleidelijke overgang tussen twee staten (bv. bij <code>:hover</code>). Gebruik de <code>transition</code>-eigenschap.</p>
+                <h3>Animaties</h3>
+                <p>Voor complexere, op keyframes gebaseerde animaties. Definieer de animatie met <code>@keyframes</code> en pas deze toe met de <code>animation</code>-eigenschap.</p>
+            </section>
+
+            <section id="custom-properties">
+                <h2>12. Custom Properties (CSS Variabelen)</h2>
+                <p>Hiermee kun je herbruikbare waarden definiëren in je stylesheet. Ze beginnen met <code>--</code>.</p>
+                <pre><code>:root {
+  --primary-color: #3b82f6;
+}
+
+button {
+  background-color: var(--primary-color);
+}</code></pre>
+            </section>
+
+            <section id="media-queries">
+                <h2>13. Media Queries</h2>
+                <p>De kern van responsive design. Hiermee pas je stijlen toe op basis van de eigenschappen van het apparaat, zoals de breedte van het scherm of gebruikersvoorkeuren.</p>
+                <pre><code>/* Stijlen voor schermen breder dan 768px */
+@media (min-width: 768px) {
+  .container { max-width: 720px; }
+}
+
+/* Stijlen voor donkere modus */
+@media (prefers-color-scheme: dark) {
+  body { background: #111; color: #eee; }
+}</code></pre>
+            </section>
+
+            <section id="container-queries">
+                <h2>14. Container Queries</h2>
+                <p>Een moderne techniek waarmee je stijlen kunt aanpassen op basis van de grootte van een container-element, in plaats van de hele viewport. Activeer dit op een element met <code>container-type</code>.</p>
+                <pre><code>.card-container {
+  container-type: inline-size;
+}
+
+@container (min-width: 500px) {
+  /* Stijlen voor als de container breder is dan 500px */
+}</code></pre>
+            </section>
+            
+            <section id="interactie">
+                <h2>15. Scrolling & Interactie</h2>
+                <p>Eigenschappen om de scroll-ervaring en gebruikersinteractie te verbeteren.</p>
+                <ul>
+                    <li><strong><code>scroll-behavior: smooth;</code></strong>: Zorgt voor een vloeiende scroll-animatie bij ankerlinks.</li>
+                    <li><strong><code>scroll-snap-type</code></strong>: Creëert "snap points" voor carrousels en scroll-interfaces.</li>
+                    <li><strong><code>pointer-events: none;</code></strong>: Zorgt ervoor dat een element geen muis-events meer ontvangt.</li>
+                </ul>
+            </section>
+            
+            <section id="toegankelijkheid-ui">
+                <h2>16. Toegankelijkheid & UI</h2>
+                <p>CSS-eigenschappen die direct bijdragen aan een betere gebruikerservaring en toegankelijkheid.</p>
+                <ul>
+                    <li><strong><code>:focus-visible</code></strong>: Stijlt de focus-ring alleen voor toetsenbordgebruikers, niet bij muisklikken.</li>
+                    <li><strong><code>accent-color</code></strong>: Stelt de kleur in van UI-elementen zoals checkboxes en radio buttons.</li>
+                    <li><strong><code>prefers-reduced-motion</code></strong>: Een media query om animaties te verminderen voor gebruikers die dit prefereren.</li>
+                </ul>
+            </section>
+            
+            <section id="print">
+                <h2>17. Print & Paged Media</h2>
+                <p>Met <code>@media print</code> kun je specifieke stijlen definiëren voor wanneer een pagina wordt afgedrukt, zoals het verbergen van navigatie-elementen.</p>
+            </section>
+            
+            <section id="at-regels">
+                <h2>18. @-regels</h2>
+                <p>Speciale regels in CSS die instructies geven aan de browser.</p>
+                <ul>
+                    <li><strong><code>@import</code></strong>: Importeert een ander stylesheet (minder performant dan <code>&lt;link&gt;</code>).</li>
+                    <li><strong><code>@media</code></strong>: Definieert een media query.</li>
+                    <li><strong><code>@keyframes</code></strong>: Definieert een animatie.</li>
+                    <li><strong><code>@font-face</code></strong>: Laadt een custom lettertype.</li>
+                    <li><strong><code>@layer</code></strong>: Definieert een cascade layer voor betere controle over specificiteit.</li>
+                </ul>
+            </section>
+            
+            <section id="performance-best-practices">
+                <h2>19. Performance & Best Practices</h2>
+                <p>Tips voor het schrijven van efficiënte en onderhoudbare CSS.</p>
+                <ul>
+                    <li>Houd de specificiteit zo laag mogelijk.</li>
+                    <li>Gebruik cascade layers om je stylesheet te structureren.</li>
+                    <li>Vermijd dure eigenschappen zoals <code>filter</code> en <code>box-shadow</code> in animaties waar mogelijk.</li>
+                    <li>Gebruik <code>will-change</code> spaarzaam om de browser te hinten over komende animaties.</li>
+                </ul>
+            </section>
+
+        </main>
+    </div>
+
+    <script type="module" src="assets/js/main.js"></script>
+</body>
+</html>

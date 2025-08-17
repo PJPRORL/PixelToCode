@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="nl" class="">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactieve Gids voor HTML & CSS</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- highlight.js for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        /* Custom scrollbar for a more modern look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #2d3748;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #4a5568;
+        }
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: #718096;
+        }
+        /* Style for highlighted code */
+        pre code.hljs {
+            display: block;
+            overflow-x: auto;
+            padding: 1.5em;
+            border-radius: 0.5rem;
+            font-size: 0.9em;
+        }
+        .dark .hljs {
+             background: #282c34; /* atom-one-dark background */
+        }
+        .light .hljs {
+            background: #f8f8f8; /* A light background for code */
+            color: #383a42; /* Default text color for light theme */
+        }
+        /* Specific styles for light theme highlighting */
+        .light .hljs-comment,
+        .light .hljs-quote {
+          color: #a0a1a7;
+        }
+        .light .hljs-variable,
+        .light .hljs-template-variable,
+        .light .hljs-strong,
+        .light .hljs-emphasis,
+        .light .hljs-quote {
+          color: #986801;
+        }
+        .light .hljs-keyword,
+        .light .hljs-selector-tag,
+        .light .hljs-type {
+          color: #a626a4;
+        }
+        .light .hljs-literal,
+        .light .hljs-symbol,
+        .light .hljs-bullet,
+        .light .hljs-attribute {
+          color: #50a14f;
+        }
+        .light .hljs-section,
+        .light .hljs-name {
+          color: #4078f2;
+        }
+        .light .hljs-tag {
+          color: #e45649;
+        }
+        .light .hljs-attr,
+        .light .hljs-selector-id,
+        .light .hljs-selector-class,
+        .light .hljs-selector-attr,
+        .light .hljs-selector-pseudo {
+          color: #c18401;
+        }
+        .light .hljs-string {
+          color: #50a14f;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+
+    <div id="app" class="flex flex-col min-h-screen">
+        <!-- Header & Navigation -->
+        <header class="bg-white dark:bg-gray-800 shadow-md sticky top-0 z-50">
+            <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between h-16">
+                    <div class="flex items-center">
+                        <span class="font-bold text-xl text-blue-600 dark:text-blue-400">Interactieve Gids</span>
+                    </div>
+                    <div class="hidden md:flex items-center space-x-4">
+                        <a href="#" id="nav-html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">HTML</a>
+                        <a href="#" id="nav-css" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">CSS & Bootstrap</a>
+                    </div>
+                    <div class="flex items-center">
+                        <button id="theme-toggle" class="p-2 rounded-md text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none">
+                            <!-- Sun icon -->
+                            <svg id="theme-icon-light" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                            <!-- Moon icon -->
+                            <svg id="theme-icon-dark" class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                            </svg>
+                        </button>
+                         <div class="md:hidden ml-2">
+                             <button id="mobile-menu-button" class="p-2 rounded-md text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none">
+                                <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                                </svg>
+                             </button>
+                        </div>
+                    </div>
+                </div>
+                 <!-- Mobile Menu -->
+                <div id="mobile-menu" class="md:hidden hidden pb-3">
+                    <a href="#" id="nav-mobile-html" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">HTML</a>
+                    <a href="#" id="nav-mobile-css" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">CSS & Bootstrap</a>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main id="main-content" class="container mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-grow">
+            <!-- Content will be injected here -->
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-white dark:bg-gray-800 shadow-inner mt-auto">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 text-center text-gray-600 dark:text-gray-400 text-sm">
+                &copy; 2024 Interactieve Gids. Gemaakt met ❤️.
+            </div>
+        </footer>
+    </div>
+    
+    <!-- Page Content Templates -->
+
+    <!-- ================================== -->
+    <!-- ========= HTML Page Content ======== -->
+    <!-- ================================== -->
+    <template id="page-html">
+        <div class="bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-lg shadow-lg">
+            <h1 class="text-3xl sm:text-4xl font-bold mb-2 text-blue-600 dark:text-blue-400">Deel 1: HTML</h1>
+            <p class="mb-8 text-lg text-gray-600 dark:text-gray-300">De fundamentele bouwsteen van het web.</p>
+            
+            <!-- Chapter: HTML: The Essentials -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-semibold mb-4 border-b-2 border-blue-500 pb-2">Hoofdstuk: HTML: The Essentials</h2>
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-medium">1. Welcome To The Course! & 21. Introduction to HTML</h3>
+                        <p>Welkom! HTML staat voor HyperText Markup Language. Het is geen programmeertaal, maar een 'opmaaktaal' die de structuur en inhoud van een webpagina definieert met behulp van elementen en tags.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-medium">22. Our Very First HTML Page</h3>
+                        <p>Laten we onze eerste pagina maken. Zelfs een eenvoudig tekstbestand kan door een browser worden weergegeven als een webpagina. De magie begint wanneer we HTML-tags toevoegen.</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Mijn Eerste Pagina&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    Hallo, Wereld!
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    </div>
+                     <div>
+                        <h3 class="text-xl font-medium">23. TIP: Mozilla Developer Network (MDN)</h3>
+                        <p>MDN Web Docs is de allerbelangrijkste bron voor elke webontwikkelaar. Het is een open-source, community-gedreven wiki met documentatie over webstandaarden zoals HTML, CSS en JavaScript.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-medium">24. Paragraph Elements</h3>
+                        <p>Het <code>&lt;p&gt;</code> element wordt gebruikt om een paragraaf tekst te definiëren.</p>
+<pre><code class="language-html">&lt;p&gt;Dit is een paragraaf met wat tekst.&lt;/p&gt;
+&lt;p&gt;Dit is nog een paragraaf. Browsers voegen automatisch wat ruimte toe tussen paragrafen.&lt;/p&gt;
+</code></pre>
+                    </div>
+                     <div>
+                        <h3 class="text-xl font-medium">25. Heading Elements</h3>
+                        <p>HTML biedt zes niveaus van koppen, van <code>&lt;h1&gt;</code> (de belangrijkste) tot <code>&lt;h6&gt;</code> (de minst belangrijke).</p>
+<pre><code class="language-html">&lt;h1&gt;Dit is een Hoofdkop 1&lt;/h1&gt;
+&lt;h2&gt;Dit is een Subkop 2&lt;/h2&gt;
+&lt;h3&gt;Dit is een Subkop 3&lt;/h3&gt;
+</code></pre>
+                    </div>
+                     <div>
+                        <h3 class="text-xl font-medium">27. HTML Boilerplate</h3>
+                        <p>De 'boilerplate' is de standaard startcode die je voor elke HTML-pagina nodig hebt. Het bevat de documenttype-declaratie, het <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code>, en <code>&lt;body&gt;</code> element.</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang="nl"&gt;
+  &lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;Pagina Titel&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;!-- Jouw content komt hier --&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+                    </div>
+                     <div>
+                        <h3 class="text-xl font-medium">29. List Elements</h3>
+                        <p>Er zijn twee hoofdtypen lijsten: ongeordende lijsten <code>&lt;ul&gt;</code> (met bolletjes) en geordende lijsten <code>&lt;ol&gt;</code> (met nummers). Elk item in de lijst wordt gedefinieerd met een <code>&lt;li&gt;</code> element.</p>
+<pre><code class="language-html">&lt;h4&gt;Mijn Boodschappenlijst&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;Melk&lt;/li&gt;
+  &lt;li&gt;Brood&lt;/li&gt;
+  &lt;li&gt;Kaas&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4&gt;Top 3 Films&lt;/h4&gt;
+&lt;ol&gt;
+  &lt;li&gt;Film 1&lt;/li&gt;
+  &lt;li&gt;Film 2&lt;/li&gt;
+  &lt;li&gt;Film 3&lt;/li&gt;
+&lt;/ol&gt;
+</code></pre>
+                    </div>
+                     <div>
+                        <h3 class="text-xl font-medium">30. Anchor Tags</h3>
+                        <p>Het <code>&lt;a&gt;</code> element (anchor) wordt gebruikt om hyperlinks te maken. Het <code>href</code> attribuut specificeert de URL van de pagina waar de link naartoe gaat.</p>
+<pre><code class="language-html">&lt;p&gt;Bezoek &lt;a href="https://www.google.com"&gt;Google&lt;/a&gt; om iets op te zoeken.&lt;/p&gt;
+&lt;p&gt;Je kunt ook linken naar een lokale pagina: &lt;a href="contact.html"&gt;Contacteer ons&lt;/a&gt;.&lt;/p&gt;
+</code></pre>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-medium">31. Images</h3>
+                        <p>Het <code>&lt;img&gt;</code> element wordt gebruikt om afbeeldingen in te sluiten. Het is een 'leeg' element, wat betekent dat het geen sluittag heeft. De attributen <code>src</code> (source) en <code>alt</code> (alternatieve tekst) zijn verplicht.</p>
+<pre><code class="language-html">&lt;img src="https://placehold.co/400x200/007bff/ffffff?text=Mooie+Afbeelding" alt="Een placeholder afbeelding"&gt;
+</code></pre>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-medium">32. Comments</h3>
+                        <p>Commentaar in HTML is niet zichtbaar op de webpagina zelf, maar kan helpen om je code te documenteren. Het is handig voor jezelf en voor andere ontwikkelaars.</p>
+<pre><code class="language-html">&lt;!-- Dit is een commentaar. Het wordt niet weergegeven. --&gt;
+&lt;p&gt;Deze paragraaf is wel zichtbaar.&lt;/p&gt;
+&lt;!-- TODO: Voeg hier later meer content toe --&gt;
+</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chapter: HTML 5 -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-semibold mb-4 border-b-2 border-blue-500 pb-2">Hoofdstuk: HTML5</h2>
+                 <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-medium">34. What Exactly Is HTML5?</h3>
+                        <p>HTML5 is de nieuwste evolutie van de HTML-standaard. Het introduceerde nieuwe elementen voor betere structuur (semantische elementen), nieuwe formulier-inputs, en API's voor complexe webapplicaties (zoals video, audio, en canvas).</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-medium">35. Block vs. Inline Elements - Divs and Spans</h3>
+                        <p><b>Block-level</b> elementen (zoals <code>&lt;div&gt;</code>, <code>&lt;p&gt;</code>, <code>&lt;h1&gt;</code>) beginnen altijd op een nieuwe regel en nemen de volledige beschikbare breedte in. <b>Inline</b> elementen (zoals <code>&lt;span&gt;</code>, <code>&lt;a&gt;</code>, <code>&lt;img&gt;</code>) beginnen niet op een nieuwe regel en nemen alleen de benodigde breedte in.</p>
+<pre><code class="language-html">&lt;!-- Div is een block-level container --&gt;
+&lt;div style="background-color: lightblue;"&gt;Dit is een div.&lt;/div&gt;
+
+&lt;!-- Span is een inline container --&gt;
+&lt;p&gt;Dit is een paragraaf met een &lt;span style="color: red;"&gt;span&lt;/span&gt; erin.&lt;/p&gt;
+</code></pre>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-medium">36. An Odd Assortment of Elements: HR, BR, Sup, & Sub</h3>
+                        <p><code>&lt;hr&gt;</code>: Thematische onderbreking (horizontale lijn). <code>&lt;br&gt;</code>: Line break (nieuwe regel). <code>&lt;sup&gt;</code>: Superscript tekst. <code>&lt;sub&gt;</code>: Subscript tekst.</p>
+<pre><code class="language-html">&lt;p&gt;Eerste deel van de tekst.&lt;br&gt;Dit komt op een nieuwe regel.&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;H&lt;sub&gt;2&lt;/sub&gt;O is water. 2&lt;sup&gt;10&lt;/sup&gt; is 1024.&lt;/p&gt;
+</code></pre>
+                    </div>
+                     <div>
+                        <h3 class="text-xl font-medium">37. Entity Codes</h3>
+                        <p>Soms wil je tekens weergeven die een speciale betekenis hebben in HTML, zoals <code>&lt;</code> of <code>&gt;</code>. Hiervoor gebruik je 'entity codes'.</p>
+<pre><code class="language-html">&lt;!-- &lt;p&gt; wordt letterlijk weergegeven als &lt;p&gt; --&gt;
+&lt;p&gt;De HTML-tag voor een paragraaf is &amp;lt;p&amp;gt;.&lt;/p&gt;
+&lt;p&gt;Het copyright-symbool is &amp;copy;.&lt;/p&gt;
+</code></pre>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-medium">38. Intro to Semantic Markup</h3>
+                        <p>Semantische elementen beschrijven duidelijk hun betekenis voor zowel de browser als de ontwikkelaar. Dit verbetert de leesbaarheid, toegankelijkheid (voor screenreaders) en SEO.</p>
+                    </div>
+                     <div>
+                        <h3 class="text-xl font-medium">39. Playing With Semantic Elements</h3>
+                        <p>HTML5 introduceerde elementen zoals <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;article&gt;</code>, <code>&lt;section&gt;</code>, en <code>&lt;footer&gt;</code> om de structuur van een pagina beter te definiëren.</p>
+<pre><code class="language-html">&lt;body&gt;
+  &lt;header&gt;
+    &lt;h1&gt;Mijn Blog&lt;/h1&gt;
+    &lt;nav&gt;... navigatie links ...&lt;/nav&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;article&gt;
+      &lt;h2&gt;Titel van blogpost&lt;/h2&gt;
+      &lt;p&gt;Inhoud van de post.&lt;/p&gt;
+    &lt;/article&gt;
+  &lt;/main&gt;
+
+  &lt;footer&gt;
+    &lt;p&gt;Copyright 2024&lt;/p&gt;
+  &lt;/footer&gt;
+&lt;/body&gt;
+</code></pre>
+                    </div>
+                </div>
+            </section>
+
+             <!-- Chapter: HTML Forms & Tables -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-semibold mb-4 border-b-2 border-blue-500 pb-2">Hoofdstuk: HTML Forms & Tables</h2>
+                 <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-medium">44. Introducing HTML Tables</h3>
+                        <p>Tabellen worden gebruikt om data in rijen en kolommen weer te geven. Het hoofdelement is <code>&lt;table&gt;</code>.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-medium">45. Tables: TR, TD, and TH Elements</h3>
+                        <p>Een tabel is opgebouwd uit: <code>&lt;tr&gt;</code> (table row), <code>&lt;th&gt;</code> (table header), en <code>&lt;td&gt;</code> (table data/cell).</p>
+<pre><code class="language-html">&lt;table border="1"&gt; &lt;!-- border attribuut is verouderd, gebruik CSS! --&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Naam&lt;/th&gt;
+    &lt;th&gt;Leeftijd&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Jan&lt;/td&gt;
+    &lt;td&gt;30&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Marie&lt;/td&gt;
+    &lt;td&gt;25&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-medium">46. Tables: Thead, Tbody, and Tfoot Elements</h3>
+                        <p>Voor betere structuur en toegankelijkheid kun je een tabel opdelen in <code>&lt;thead&gt;</code> (kop), <code>&lt;tbody&gt;</code> (body), en <code>&lt;tfoot&gt;</code> (voet).</p>
+<pre><code class="language-html">&lt;table border="1"&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;&lt;th&gt;Product&lt;/th&gt;&lt;th&gt;Prijs&lt;/th&gt;&lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;&lt;td&gt;Appels&lt;/td&gt;&lt;td&gt;€2.50&lt;/td&gt;&lt;/tr&gt;
+    &lt;tr&gt;&lt;td&gt;Peren&lt;/td&gt;&lt;td&gt;€3.00&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tbody&gt;
+  &lt;tfoot&gt;
+    &lt;tr&gt;&lt;td&gt;Totaal&lt;/td&gt;&lt;td&gt;€5.50&lt;/td&gt;&lt;/tr&gt;
+  &lt;/tfoot&gt;
+&lt;/table&gt;
+</code></pre>
+                    </div>
+                     <div>
+                        <h3 class="text-xl font-medium">47. Tables: Colspan & Rowspan</h3>
+                        <p>Met <code>colspan</code> kan een cel meerdere kolommen overspannen. Met <code>rowspan</code> kan een cel meerdere rijen overspannen.</p>
+<pre><code class="language-html">&lt;table border="1"&gt;
+  &lt;tr&gt;
+    &lt;th&gt;Naam&lt;/th&gt;
+    &lt;th colspan="2"&gt;Contact&lt;/th&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td rowspan="2"&gt;Jan Janssen&lt;/td&gt;
+    &lt;td&gt;Telefoon&lt;/td&gt;
+    &lt;td&gt;12345&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Email&lt;/td&gt;
+    &lt;td&gt;jan@test.nl&lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/table&gt;
+</code></pre>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-medium">48. The Form Element</h3>
+                        <p>Het <code>&lt;form&gt;</code> element is een container voor verschillende soorten invoerelementen, zoals tekstvelden, selectievakjes, keuzerondjes, verzendknoppen, enz.</p>
+                    </div>
+                     <div>
+                        <h3 class="text-xl font-medium">49. Common Input Types</h3>
+                        <p>Het <code>&lt;input&gt;</code> element is het meest gebruikte formulierelement. Het <code>type</code> attribuut kan verschillende waarden hebben, zoals <code>text</code>, <code>password</code>, <code>email</code>, <code>number</code>, <code>date</code>.</p>
+<pre><code class="language-html">&lt;form&gt;
+  &lt;p&gt;Naam: &lt;input type="text"&gt;&lt;/p&gt;
+  &lt;p&gt;Email: &lt;input type="email"&gt;&lt;/p&gt;
+  &lt;p&gt;Wachtwoord: &lt;input type="password"&gt;&lt;/p&gt;
+&lt;/form&gt;
+</code></pre>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-medium">50. The All-Important Label</h3>
+                        <p>Het <code>&lt;label&gt;</code> element verbetert de gebruiksvriendelijkheid en toegankelijkheid. Het koppelt een beschrijving aan een formulier-control. Klikken op het label activeert de control. De koppeling wordt gemaakt met het <code>for</code> attribuut, dat verwijst naar de <code>id</code> van de input.</p>
+<pre><code class="language-html">&lt;form&gt;
+  &lt;label for="username"&gt;Gebruikersnaam:&lt;/label&gt;
+  &lt;input type="text" id="username" name="username"&gt;
+&lt;/form&gt;
+</code></pre>
+                    </div>
+                     <div>
+                        <h3 class="text-xl font-medium">51. HTML Buttons & 52. The Name Attribute</h3>
+                        <p>Een <code>&lt;button&gt;</code> wordt gebruikt om een klikbare knop te maken. Het <code>&lt;input type="submit"&gt;</code> doet iets vergelijkbaars. Het <code>name</code> attribuut op een input is essentieel; het wordt gebruikt als de 'sleutel' wanneer de formulierdata wordt verzonden.</p>
+<pre><code class="language-html">&lt;form action="/search" method="GET"&gt;
+  &lt;label for="query"&gt;Zoekopdracht:&lt;/label&gt;
+  &lt;!-- 'q' is de naam die de server zal ontvangen --&gt;
+  &lt;input type="text" id="query" name="q"&gt;
+  &lt;button type="submit"&gt;Zoeken&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+                    </div>
+                     <div>
+                        <h3 class="text-xl font-medium">54. Radio Buttons, Checkboxes, & Selects</h3>
+                        <p><b>Radioknoppen</b> (<code>type="radio"</code>) worden gebruikt als je de gebruiker maar één keuze uit een lijst wilt laten maken. <b>Selectievakjes</b> (<code>type="checkbox"</code>) laten meerdere keuzes toe. Een <b>dropdown-lijst</b> (<code>&lt;select&gt;</code>) biedt een compacte manier om een optie te kiezen.</p>
+<pre><code class="language-html">&lt;p&gt;Kies een optie:&lt;/p&gt;
+&lt;input type="radio" id="opt1" name="keuze" value="a"&gt;
+&lt;label for="opt1"&gt;Optie A&lt;/label&gt;&lt;br&gt;
+&lt;input type="radio" id="opt2" name="keuze" value="b"&gt;
+&lt;label for="opt2"&gt;Optie B&lt;/label&gt;
+
+&lt;p&gt;Kies toppings:&lt;/p&gt;
+&lt;input type="checkbox" id="cb1" name="toppings" value="kaas"&gt;
+&lt;label for="cb1"&gt;Extra kaas&lt;/label&gt;&lt;br&gt;
+&lt;input type="checkbox" id="cb2" name="toppings" value="salami"&gt;
+&lt;label for="cb2"&gt;Salami&lt;/label&gt;
+
+&lt;p&gt;Kies een land:&lt;/p&gt;
+&lt;select name="land"&gt;
+  &lt;option value="nl"&gt;Nederland&lt;/option&gt;
+  &lt;option value="be"&gt;België&lt;/option&gt;
+&lt;/select&gt;
+</code></pre>
+                    </div>
+                     <div>
+                        <h3 class="text-xl font-medium">55. Range & Text Area</h3>
+                        <p>Een <b>range slider</b> (<code>type="range"</code>) laat de gebruiker een waarde binnen een bepaald bereik selecteren. Een <code>&lt;textarea&gt;</code> is voor invoer van meerdere regels tekst.</p>
+<pre><code class="language-html">&lt;label for="volume"&gt;Volume:&lt;/label&gt;
+&lt;input type="range" id="volume" name="volume" min="0" max="100"&gt;
+
+&lt;label for="opmerking"&gt;Opmerking:&lt;/label&gt;
+&lt;textarea id="opmerking" name="opmerking" rows="4" cols="50"&gt;&lt;/textarea&gt;
+</code></pre>
+                    </div>
+                     <div>
+                        <h3 class="text-xl font-medium">56. HTML5 Form Validations</h3>
+                        <p>Moderne browsers kunnen basisvalidatie uitvoeren zonder JavaScript. Gebruik attributen zoals <code>required</code>, <code>minlength</code>, <code>maxlength</code>, <code>min</code>, <code>max</code>, en <code>pattern</code>.</p>
+<pre><code class="language-html">&lt;form&gt;
+  &lt;label for="email"&gt;Email:&lt;/label&gt;
+  &lt;!-- Dit veld is verplicht en moet een geldig emailadres zijn --&gt;
+  &lt;input type="email" id="email" name="email" required&gt;
+
+  &lt;label for="postcode"&gt;Postcode (NL):&lt;/label&gt;
+  &lt;!-- Patroon: 4 cijfers, optionele spatie, 2 hoofdletters --&gt;
+  &lt;input type="text" id="postcode" name="postcode" pattern="[1-9][0-9]{3}\s?[A-Z]{2}" required&gt;
+  
+  &lt;button type="submit"&gt;Verstuur&lt;/button&gt;
+&lt;/form&gt;
+</code></pre>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </template>
+
+    <!-- ================================== -->
+    <!-- ==== CSS & Bootstrap Page Content ==== -->
+    <!-- ================================== -->
+    <template id="page-css">
+        <div class="bg-white dark:bg-gray-800 p-6 sm:p-8 rounded-lg shadow-lg">
+            <h1 class="text-3xl sm:text-4xl font-bold mb-2 text-green-600 dark:text-green-400">Deel 2: CSS & Bootstrap</h1>
+            <p class="mb-8 text-lg text-gray-600 dark:text-gray-300">De kunst van het stijlen en opmaken van webpagina's.</p>
+
+            <!-- Chapter: Begin van CSS -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-semibold mb-4 border-b-2 border-green-500 pb-2">Hoofdstuk: Begin van CSS</h2>
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-medium">60. What is CSS?</h3>
+                        <p>CSS staat voor Cascading Style Sheets. Het is de taal die we gebruiken om de presentatie en layout van een webpagina te stijlen. Met CSS bepaal je kleuren, lettertypen, afstanden, afmetingen en nog veel meer.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-medium">62. Including Styles Correctly</h3>
+                        <p>Er zijn drie manieren om CSS aan een HTML-document toe te voegen:</p>
+                        <ul class="list-disc list-inside ml-4 space-y-2">
+                            <li><b>External CSS:</b> Een apart <code>.css</code>-bestand, gelinkt via de <code>&lt;link&gt;</code>-tag in de <code>&lt;head&gt;</code>. Dit is de aanbevolen methode.</li>
+                            <li><b>Internal CSS:</b> CSS-regels binnen een <code>&lt;style&gt;</code>-tag in de <code>&lt;head&gt;</code> van het HTML-document.</li>
+                            <li><b>Inline CSS:</b> Stijlen direct toegepast op een HTML-element met het <code>style</code>-attribuut. Dit wordt meestal afgeraden.</li>
+                        </ul>
+<pre><code class="language-html">&lt;!-- 1. External CSS --&gt;
+&lt;link rel="stylesheet" href="styles.css"&gt;
+
+&lt;!-- 2. Internal CSS --&gt;
+&lt;style&gt;
+  body {
+    background-color: #f0f0f0;
+  }
+&lt;/style&gt;
+
+&lt;!-- 3. Inline CSS --&gt;
+&lt;p style="color: blue;"&gt;Deze tekst is blauw.&lt;/p&gt;
+</code></pre>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-medium">63-65. Color Systems: Named, RGB, & Hexadecimal</h3>
+                        <p>Kleuren in CSS kunnen op verschillende manieren worden gedefinieerd:</p>
+<pre><code class="language-css">/* Named Color */
+h1 {
+  color: dodgerblue;
+}
+
+/* RGB (Red, Green, Blue) */
+p {
+  color: rgb(100, 150, 200);
+}
+
+/* Hexadecimal */
+body {
+  background-color: #333333; /* #333 is een shorthand */
+}
+</code></pre>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-medium">67-69. Common Text & Font Properties</h3>
+                        <p>Met CSS heb je volledige controle over de typografie van je pagina.</p>
+<pre><code class="language-css">.my-text {
+  font-family: "Arial", sans-serif; /* Fallback lettertype */
+  font-size: 16px; /* Grootte in pixels */
+  font-weight: bold; /* bold, normal, 700, etc. */
+  text-align: center; /* left, right, justify */
+  text-decoration: underline; /* none, overline, line-through */
+  line-height: 1.6; /* Regelafstand */
+}
+</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chapter: The world of CSS Selectors -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-semibold mb-4 border-b-2 border-green-500 pb-2">Hoofdstuk: The world of CSS Selectors</h2>
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-medium">71-73. Basic Selectors (Universal, Element, ID, Class)</h3>
+                        <p>Selectors worden gebruikt om de HTML-elementen te 'selecteren' die je wilt stijlen.</p>
+<pre><code class="language-css">/* Universal Selector (selecteert alles) */
+* {
+  box-sizing: border-box;
+}
+
+/* Element Selector (selecteert alle &lt;p&gt; tags) */
+p {
+  color: #555;
+}
+
+/* ID Selector (selecteert het element met id="logo") */
+#logo {
+  border: 1px solid black;
+}
+
+/* Class Selector (selecteert alle elementen met class="highlight") */
+.highlight {
+  background-color: yellow;
+}
+</code></pre>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-medium">74-76. Combinator & Attribute Selectors</h3>
+                        <p>Combineer selectors om specifieker te zijn, of selecteer op basis van attributen.</p>
+<pre><code class="language-css">/* Descendant Selector (selecteert alle &lt;p&gt; binnen een &lt;article&gt;) */
+article p {
+  font-style: italic;
+}
+
+/* Direct Child Selector (selecteert &lt;li&gt; die een direct kind is van &lt;ul&gt;) */
+ul > li {
+  list-style-type: square;
+}
+
+/* Adjacent Sibling Selector (selecteert de &lt;p&gt; direct na een &lt;h1&gt;) */
+h1 + p {
+  margin-top: 0;
+}
+
+/* Attribute Selector (selecteert alle &lt;input&gt; met type="text") */
+input[type="text"] {
+  border: 1px solid gray;
+}
+</code></pre>
+                    </div>
+                     <div>
+                        <h3 class="text-xl font-medium">77-78. Pseudo-Classes & Pseudo-Elements</h3>
+                        <p>Pseudo-classes selecteren elementen in een speciale staat (zoals bij een hover). Pseudo-elementen stijlen een specifiek deel van een element.</p>
+<pre><code class="language-css">/* Pseudo-class: stijl een link als de muis eroverheen is */
+a:hover {
+  color: red;
+}
+
+/* Pseudo-class: stijl elk tweede kind-element in een lijst */
+li:nth-child(even) {
+  background-color: #eee;
+}
+
+/* Pseudo-element: stijl de eerste letter van elke paragraaf */
+p::first-letter {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+/* Pseudo-element: voeg content toe vóór een element */
+.important::before {
+  content: "⚠️ ";
+}
+</code></pre>
+                    </div>
+                     <div>
+                        <h3 class="text-xl font-medium">79-83. Cascade, Specificity & Inheritance</h3>
+                        <p>De <b>Cascade</b> bepaalt welke CSS-regel wordt toegepast als er conflicten zijn. <b>Specificity</b> is een weging die de browser toekent aan een CSS-regel om te beslissen welke regel voorrang krijgt. <b>Inheritance</b> betekent dat sommige CSS-eigenschappen van een parent-element worden doorgegeven aan de child-elementen (bv. <code>color</code> en <code>font-family</code>).</p>
+                        <p class="mt-2">Specificity Hiërarchie (van laag naar hoog): Element Selectors < Class Selectors < ID Selectors < Inline Styles < <code>!important</code>. Een <code>!important</code> verklaring overschrijft alle andere regels, maar moet met zorg worden gebruikt.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Chapter: The CSS box model -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-semibold mb-4 border-b-2 border-green-500 pb-2">Hoofdstuk: The CSS Box Model</h2>
+                 <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-medium">85-88. Box Model Properties</h3>
+                        <p>Elk HTML-element kan worden gezien als een doos. Het box model beschrijft de opbouw van deze doos: Content, Padding, Border, en Margin.</p>
+<pre><code class="language-css">.box {
+  width: 300px; /* Breedte van de content area */
+  height: 150px; /* Hoogte van de content area */
+  
+  padding: 20px; /* Ruimte binnen de border */
+  
+  border: 5px solid navy; /* De rand zelf */
+  border-radius: 10px; /* Afgeronde hoeken */
+  
+  margin: 25px; /* Ruimte buiten de border */
+}
+</code></pre>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-medium">89. The Display Property</h3>
+                        <p>De <code>display</code> eigenschap bepaalt hoe een element wordt weergegeven.</p>
+                        <ul class="list-disc list-inside ml-4">
+                            <li><code>block</code>: Begint op een nieuwe regel, neemt de volledige breedte in.</li>
+                            <li><code>inline</code>: Begint niet op een nieuwe regel, neemt alleen de benodigde breedte in. <code>width</code> en <code>height</code> werken niet.</li>
+                            <li><code>inline-block</code>: Zoals inline, maar <code>width</code>, <code>height</code>, <code>margin</code> en <code>padding</code> werken wel.</li>
+                            <li><code>none</code>: Het element wordt helemaal niet weergegeven.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-medium">91-92. CSS Units: em & rem</h3>
+                        <p><b>px (pixels)</b> zijn absoluut. <b>em</b> en <b>rem</b> zijn relatieve eenheden, wat beter is voor schaalbaarheid en toegankelijkheid.</p>
+                        <ul class="list-disc list-inside ml-4">
+                           <li><code>em</code>: Relatief aan de font-size van het <b>directe parent</b> element.</li>
+                           <li><code>rem</code> (root em): Relatief aan de font-size van het <b>root</b> (<code>&lt;html&gt;</code>) element. <code>rem</code> wordt vaker gebruikt omdat het voorspelbaarder is.</li>
+                        </ul>
+<pre><code class="language-css">html {
+  font-size: 16px;
+}
+
+.parent {
+  font-size: 20px;
+}
+
+.child-em {
+  font-size: 1.5em; /* 1.5 * 20px = 30px */
+}
+
+.child-rem {
+  font-size: 1.5rem; /* 1.5 * 16px = 24px */
+}
+</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Chapter: Other assorted useful CSS properties -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-semibold mb-4 border-b-2 border-green-500 pb-2">Hoofdstuk: Other assorted useful CSS properties</h2>
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-medium">94. Opacity & The Alpha Channel</h3>
+                        <p><code>opacity</code> maakt een heel element doorzichtig (inclusief content). Het alpha-kanaal in <code>rgba()</code> maakt alleen de kleur zelf doorzichtig.</p>
+<pre><code class="language-css">.transparent-box {
+  opacity: 0.5; /* Element is 50% doorzichtig */
+}
+
+.semi-transparent-background {
+  /* Alleen de achtergrond is 50% doorzichtig, tekst niet */
+  background-color: rgba(0, 0, 255, 0.5); /* Blauw met 50% alpha */
+}
+</code></pre>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-medium">95. The Position Property</h3>
+                        <p>Hiermee kun je de standaard positionering van een element doorbreken.</p>
+                        <ul class="list-disc list-inside ml-4">
+                           <li><code>relative</code>: Het element is positioneerbaar t.o.v. zijn normale positie.</li>
+                           <li><code>absolute</code>: Het element wordt uit de normale flow gehaald en gepositioneerd t.o.v. zijn dichtstbijzijnde gepositioneerde voorouder.</li>
+                           <li><code>fixed</code>: Gepositioneerd t.o.v. de viewport (het browservenster). Scrolt niet mee.</li>
+                           <li><code>sticky</code>: Een mix van relative en fixed. Gedraagt zich als relative totdat het een bepaalde scrollpositie bereikt, dan wordt het fixed.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-medium">96-98. Transitions & Transforms</h3>
+                        <p><code>transition</code> zorgt voor een geleidelijke animatie van een eigenschap. <code>transform</code> verandert de vorm, grootte of positie van een element.</p>
+<pre><code class="language-css">.fancy-button {
+  background-color: blue;
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.fancy-button:hover {
+  background-color: darkblue;
+  transform: translateY(-5px) scale(1.05); /* Beweeg omhoog en maak groter */
+}
+</code></pre>
+                    </div>
+                     <div>
+                        <h3 class="text-xl font-medium">100. Google Fonts</h3>
+                        <p>Voeg eenvoudig honderden gratis lettertypen toe aan je site.</p>
+<pre><code class="language-css">/* Stap 1: Importeer het lettertype in je CSS */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* Stap 2: Gebruik het in je CSS */
+body {
+  font-family: 'Roboto', sans-serif;
+}
+</code></pre>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Chapter: Responsive CSS & flexbox -->
+            <section class="mb-12">
+                <h2 class="text-2xl font-semibold mb-4 border-b-2 border-green-500 pb-2">Hoofdstuk: Responsive CSS & Flexbox</h2>
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-medium">105. What on Earth Is Flexbox?</h3>
+                        <p>Flexbox is een eendimensionaal layout-model dat een efficiënte manier biedt om items in een container uit te lijnen en te verdelen, zelfs als hun grootte onbekend is. Activeer het met <code>display: flex;</code> op de container.</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-medium">106-110. Core Flexbox Properties</h3>
+                        <p>De belangrijkste eigenschappen worden op de <b>flex container</b> gezet:</p>
+                        <ul class="list-disc list-inside ml-4">
+                           <li><code>flex-direction</code>: Bepaalt de hoofd-as (<code>row</code> | <code>column</code>).</li>
+                           <li><code>justify-content</code>: Uitlijning op de hoofd-as (bv. <code>flex-start</code>, <code>center</code>, <code>space-between</code>).</li>
+                           <li><code>align-items</code>: Uitlijning op de dwars-as (bv. <code>flex-start</code>, <code>center</code>, <code>stretch</code>).</li>
+                           <li><code>flex-wrap</code>: Bepaalt of items naar een volgende regel mogen springen (<code>nowrap</code> | <code>wrap</code>).</li>
+                        </ul>
+<pre><code class="language-css">.flex-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center; /* Items horizontaal centreren */
+  align-items: center; /* Items verticaal centreren */
+  height: 200px;
+  background-color: #ddd;
+}
+</code></pre>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-medium">113-114. Responsive Design & Media Queries</h3>
+                        <p>Responsive design zorgt ervoor dat je layout er goed uitziet op alle apparaten. Media Queries zijn hier de sleutel toe. Ze passen CSS-regels toe op basis van bepaalde voorwaarden, zoals de breedte van de viewport.</p>
+<pre><code class="language-css">.container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+/* Voor schermen die 768px of breder zijn */
+@media (min-width: 768px) {
+  .container {
+    width: 80%;
+  }
+
+  body {
+    font-size: 18px;
+  }
+}
+</code></pre>
+                    </div>
+                </div>
+            </section>
+
+             <!-- Chapter: Bootstrap -->
+            <section>
+                <h2 class="text-2xl font-semibold mb-4 border-b-2 border-green-500 pb-2">Hoofdstuk: Bootstrap</h2>
+                 <div class="space-y-6">
+                    <div>
+                        <h3 class="text-xl font-medium">124-125. What Is Bootstrap & Including It</h3>
+                        <p>Bootstrap is het populairste CSS-framework ter wereld. Het geeft je een verzameling van vooraf gestijlde componenten (knoppen, formulieren, navbars) en een krachtig responsive grid-systeem, zodat je snel mooie, responsive websites kunt bouwen.</p>
+<pre><code class="language-html">&lt;!-- Voeg Bootstrap CSS toe in de &lt;head&gt; --&gt;
+&lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"&gt;
+
+&lt;!-- Voeg Bootstrap JS (optioneel, voor interactieve componenten) toe voor de &lt;/body&gt; --&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+</code></pre>
+                    </div>
+                     <div>
+                        <h3 class="text-xl font-medium">126-128. Bootstrap Components (Buttons, Alerts)</h3>
+                        <p>Gebruik de voorgedefinieerde klassen van Bootstrap om snel componenten te stijlen.</p>
+<pre><code class="language-html">&lt;!-- Knoppen --&gt;
+&lt;button type="button" class="btn btn-primary"&gt;Primary&lt;/button&gt;
+&lt;button type="button" class="btn btn-success"&gt;Success&lt;/button&gt;
+
+&lt;!-- Alert --&gt;
+&lt;div class="alert alert-warning" role="alert"&gt;
+  Een waarschuwing!
+&lt;/div&gt;
+</code></pre>
+                    </div>
+                     <div>
+                        <h3 class="text-xl font-medium">129-131. The Bootstrap Grid System</h3>
+                        <p>Bootstrap heeft een krachtig 12-koloms flexbox grid-systeem. Definieer een rij (<code>.row</code>) en plaats daarin kolommen (<code>.col-*</code>). De som van de kolommen in een rij moet idealiter 12 zijn.</p>
+<pre><code class="language-html">&lt;div class="container"&gt;
+  &lt;div class="row"&gt;
+    &lt;!-- Neemt 8 van de 12 kolommen op medium schermen en groter --&gt;
+    &lt;div class="col-md-8"&gt;
+      Hoofdcontent
+    &lt;/div&gt;
+    &lt;!-- Neemt 4 van de 12 kolommen op medium schermen en groter --&gt;
+    &lt;div class="col-md-4"&gt;
+      Zijbalk
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="row"&gt;
+    &lt;!-- Drie gelijke kolommen --&gt;
+    &lt;div class="col"&gt;Kolom 1&lt;/div&gt;
+    &lt;div class="col"&gt;Kolom 2&lt;/div&gt;
+    &lt;div class="col"&gt;Kolom 3&lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+                    </div>
+                     <div>
+                        <h3 class="text-xl font-medium">132-135. Bootstrap Forms, Navbars & Utilities</h3>
+                        <p>Bootstrap maakt ook het stijlen van formulieren en navigatiebalken zeer eenvoudig. Daarnaast biedt het een schat aan "utility classes" voor zaken als spacing (<code>m-2</code>, <code>p-3</code>), borders (<code>border-top</code>), en kleuren (<code>text-danger</code>).</p>
+<pre><code class="language-html">&lt;!-- Simpel Formulier Veld --&gt;
+&lt;div class="mb-3"&gt;
+  &lt;label for="exampleInputEmail1" class="form-label"&gt;Email address&lt;/label&gt;
+  &lt;input type="email" class="form-control" id="exampleInputEmail1"&gt;
+&lt;/div&gt;
+
+&lt;!-- Tekst met margin onderaan --&gt;
+&lt;p class="mb-4"&gt;Deze paragraaf heeft extra ruimte aan de onderkant.&lt;/p&gt;
+</code></pre>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </template>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // --- Elements ---
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeIconLight = document.getElementById('theme-icon-light');
+        const themeIconDark = document.getElementById('theme-icon-dark');
+        const mainContent = document.getElementById('main-content');
+        const navHtml = document.getElementById('nav-html');
+        const navCss = document.getElementById('nav-css');
+        const navMobileHtml = document.getElementById('nav-mobile-html');
+        const navMobileCss = document.getElementById('nav-mobile-css');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // --- Theme Switcher Logic ---
+        const applyTheme = (theme) => {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+                document.documentElement.classList.remove('light');
+                themeIconLight.classList.add('hidden');
+                themeIconDark.classList.remove('hidden');
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.documentElement.classList.add('light');
+                themeIconLight.classList.remove('hidden');
+                themeIconDark.classList.add('hidden');
+            }
+        };
+
+        const toggleTheme = () => {
+            const currentTheme = localStorage.getItem('theme') || 'light';
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            localStorage.setItem('theme', newTheme);
+            applyTheme(newTheme);
+        };
+
+        themeToggleBtn.addEventListener('click', toggleTheme);
+
+        // --- Page Loader Logic ---
+        const setActiveLink = (pageId) => {
+            const links = [navHtml, navCss, navMobileHtml, navMobileCss];
+            links.forEach(link => {
+                link.classList.remove('bg-gray-200', 'dark:bg-gray-700', 'text-blue-600', 'dark:text-blue-400', 'text-green-600', 'dark:text-green-400');
+            });
+            
+            if (pageId === 'html') {
+                navHtml.classList.add('bg-gray-200', 'dark:bg-gray-700', 'text-blue-600', 'dark:text-blue-400');
+                navMobileHtml.classList.add('bg-gray-200', 'dark:bg-gray-700');
+            } else if (pageId === 'css') {
+                navCss.classList.add('bg-gray-200', 'dark:bg-gray-700', 'text-green-600', 'dark:text-green-400');
+                navMobileCss.classList.add('bg-gray-200', 'dark:bg-gray-700');
+            }
+        };
+        
+        const loadPage = (pageId) => {
+            const template = document.getElementById(`page-${pageId}`);
+            if (template) {
+                mainContent.innerHTML = ''; // Clear previous content
+                const content = template.content.cloneNode(true);
+                mainContent.appendChild(content);
+                // After content is loaded, apply syntax highlighting
+                hljs.highlightAll();
+                setActiveLink(pageId);
+                window.scrollTo(0, 0); // Scroll to top
+                
+                // Close mobile menu after navigation
+                mobileMenu.classList.add('hidden');
+            }
+        };
+
+        navHtml.addEventListener('click', (e) => { e.preventDefault(); loadPage('html'); });
+        navCss.addEventListener('click', (e) => { e.preventDefault(); loadPage('css'); });
+        navMobileHtml.addEventListener('click', (e) => { e.preventDefault(); loadPage('html'); });
+        navMobileCss.addEventListener('click', (e) => { e.preventDefault(); loadPage('css'); });
+
+        // --- Mobile Menu Toggle ---
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // --- Initial Load ---
+        const initialTheme = localStorage.getItem('theme');
+        if (initialTheme) {
+            applyTheme(initialTheme);
+        } else {
+            // Check system preference if no theme is set
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                applyTheme('dark');
+            } else {
+                applyTheme('light');
+            }
+        }
+        
+        loadPage('html'); // Load HTML page by default
+    });
+    </script>
+</body>
+</html>

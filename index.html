@@ -5186,6 +5186,325 @@ dialog::backdrop {
                     <li><code>filter</code>: Visuele effecten zoals `blur()` of `grayscale()`.</li>
                     <li><code>opacity</code>: De transparantie van een element.</li>
                 </ul>
+
+                <h4>CSS Achtergronden &amp; Effecten: Uitgebreide Gids</h4>
+                <p><strong>Inleiding:</strong> In CSS kun je de presentatie van webpagina’s sterk verfraaien met achtergrond‑eigenschappen en visuele effecten. Achtergrondeigenschappen bepalen hoe de achtergrondkleur en ‑afbeeldingen van elementen worden weergegeven, terwijl effect‑eigenschappen zorgen voor schaduwen, filters, overgangen, enzovoort. In deze gids bespreken we alle moderne CSS‑eigenschappen voor achtergronden en visuele effecten (dus geen verouderde of niet‑ondersteunde features). We geven per eigenschap een korte uitleg in begrijpelijke taal, voorbeelden van gebruik, en codefragmenten zodat je als beginnende CSS‑developer direct kunt zien wat ze doen en hoe je ze toepast.</p>
+                <p>We verdelen het onderwerp in twee hoofddelen: eerst de CSS‑achtergrondeigenschappen en daarna de CSS‑effecteigenschappen. Laten we beginnen met de achtergrondeigenschappen.</p>
+
+                <h4>CSS Achtergrondeigenschappen</h4>
+                <p>CSS biedt meerdere properties om de achtergrond van een element te stylen, bijvoorbeeld het instellen van een effen kleur, één of meerdere achtergrondafbeeldingen, de positie en herhaling daarvan, etc. Hieronder behandelen we alle belangrijke achtergrond‑properties en hun gebruik.</p>
+
+                <h5>background-color – Achtergrondkleur instellen</h5>
+                <p>De <code>background-color</code> property bepaalt de achtergrondkleur van een HTML‑element. Je kunt elke geldige kleurnotatie gebruiken, zoals een kleurnaam, hex‑code, <code>rgb()</code> of <code>hsl()</code>. Standaard is de achtergrondkleur transparant (geen kleur).</p>
+                <p><strong>Gebruik:</strong> Stel een kleur in om het element een gekleurde achtergrond te geven.</p>
+                <p><strong>Voorbeeld:</strong></p>
+                <pre><code>/* De hele pagina een lichtblauwe achtergrond geven */
+body {
+  background-color: #8CDCFF; /* een hexadecimale kleurcode */
+}
+
+/* Een &lt;div&gt; een semitransparante rode achtergrond geven */
+div.highlight {
+  background-color: rgba(255, 0, 0, 0.5); /* 50% doorzichtig rood */
+}
+</code></pre>
+                <p>In bovenstaand voorbeeld krijgt de <code>&lt;body&gt;</code> een effen lichtblauwe achtergrond en alle elementen met class <code>.highlight</code> een half‑doorzichtige rode achtergrond.</p>
+
+                <h5>background-image – Achtergrondafbeelding toevoegen</h5>
+                <p>Met <code>background-image</code> kun je één of meerdere afbeeldingen als achtergrond instellen voor een element. Je geeft de URL(s) op van de afbeelding(en) die als achtergrond moeten dienen. Standaard worden achtergrondafbeeldingen herhaald om de ruimte te vullen (daarover meer bij <code>background-repeat</code>).</p>
+                <p><strong>Gebruik:</strong> Voeg een afbeelding toe als achtergrond, bijvoorbeeld een patroon of foto.</p>
+                <p><strong>Voorbeeld:</strong></p>
+                <pre><code>/* Een achtergrondafbeelding aan de pagina toevoegen */
+body {
+  background-image: url("achtergrond.jpg");
+}
+
+/* Een patroonafbeelding als achtergrond van alinea's */
+p {
+  background-image: url("images/pattern.png");
+}
+</code></pre>
+                <p>Hier wordt bij het <code>&lt;body&gt;</code>‑element het bestand <code>achtergrond.jpg</code> als achtergrondafbeelding ingesteld. Voor alle <code>&lt;p&gt;</code> elementen wordt een patroonafbeelding <code>pattern.png</code> gebruikt. Je kunt dit toepassen op vrijwel elk element. Merk op dat de afbeelding standaard zowel horizontaal als verticaal herhaald wordt om de hele achtergrond te vullen.</p>
+                <p><strong>Meerdere achtergrondafbeeldingen:</strong> Je kunt meerdere afbeeldingen in één keer instellen door URLs te scheiden met een komma. CSS zal ze als lagen bovenop elkaar leggen (de eerste is bovenaan). Bijvoorbeeld:</p>
+                <pre><code>/* Twee achtergronden: een patroon en daarboven een half-doorzichtige texture */
+div.banner {
+  background-image: url("pattern.png"), url("texture.png");
+}
+</code></pre>
+
+                <h5>background-repeat – Herhalen van de achtergrondafbeelding</h5>
+                <p>Met <code>background-repeat</code> regel je of en hoe een achtergrondafbeelding wordt herhaald. Standaard wordt een achtergrond zowel horizontaal als verticaal herhaald (<code>repeat</code>). Je kunt dit eigenschap instellen op onder andere: <code>no-repeat</code> (niet herhalen), <code>repeat-x</code> (alleen horizontaal herhalen), <code>repeat-y</code> (alleen verticaal), of <code>space</code>/<code>round</code> voor geavanceerdere verdeel‑methodes.</p>
+                <p><strong>Gebruik:</strong> Voorkom ongewenste herhaling van een afbeelding of pas de herhaling aan één richting aan.</p>
+                <p><strong>Voorbeeld:</strong></p>
+                <pre><code>/* Afbeelding éénmaal plaatsen en niet herhalen */
+body {
+  background-image: url("logo.png");
+  background-repeat: no-repeat;
+}
+
+/* Afbeelding alleen horizontaal herhalen (bijv. een brede streep) */
+header {
+  background-image: url("stripes.png");
+  background-repeat: repeat-x;
+}
+</code></pre>
+                <p>In het eerste voorbeeld wordt de afbeelding <code>logo.png</code> slechts één keer getoond (standaard linksboven). In het tweede voorbeeld wordt <code>stripes.png</code> herhaald over de gehele breedte, maar niet verticaal.</p>
+
+                <h5>background-position – Positie van de achtergrondafbeelding</h5>
+                <p>De <code>background-position</code> eigenschap bepaalt waar de achtergrondafbeelding binnen het element wordt geplaatst. Zonder specifieke positie begint de achtergrondafbeelding linksboven (coördinaat (0,0)). Je kunt waarden opgeven als keywords (zoals <em>top</em>, <em>right</em>, <em>center</em>, <em>bottom</em>, <em>left</em>), percentages, of lengte‑eenheden voor X‑ en Y‑positie. Twee waarden geven respectievelijk de horizontale en verticale positie.</p>
+                <p><strong>Gebruik:</strong> Verschuif of centreer de achtergrondafbeelding binnen het element.</p>
+                <p><strong>Voorbeeld:</strong></p>
+                <pre><code>/* Achtergrondafbeelding rechtsonder in het element plaatsen */
+div.thumb {
+  background-image: url("foto.jpg");
+  background-repeat: no-repeat;
+  background-position: right bottom;
+}
+
+/* Achtergrondafbeelding 20px naar rechts en 10px naar beneden verschuiven */
+div.icon {
+  background-image: url("icon.png");
+  background-repeat: no-repeat;
+  background-position: 20px 10px;
+}
+</code></pre>
+                <p>In het eerste voorbeeld wordt <code>foto.jpg</code> rechtsonder in het element <code>.thumb</code> geplaatst. In het tweede voorbeeld wordt <code>icon.png</code> op een specifieke offset vanaf de linkerbovenhoek getoond (20px van links, 10px van boven). Je kunt ook één waarde geven; bij één waarde wordt de andere als <em>center</em> aangenomen.</p>
+                <p><strong>Tip:</strong> Gebruik keywords als <code>center</code> om gemakkelijk te centreren. Bijvoorbeeld <code>background-position: center center;</code> centreert een afbeelding zowel horizontaal als verticaal.</p>
+
+                <h5>background-size – Formaat van de achtergrondafbeelding</h5>
+                <p>Met <code>background-size</code> kun je instellen hoe de achtergrondafbeelding wordt geschaald. Standaard behoudt de afbeelding haar eigen grootte. Je kunt absolute maten geven (bijv. <code>100px 50px</code> voor breedte en hoogte), percentages (relatief aan het element), of speciale keywords: <code>cover</code> laat de afbeelding de hele elementruimte vullen (zodat niets onbedekt blijft, vaak met uitsnede), <code>contain</code> zorgt dat de hele afbeelding zichtbaar is binnen het element.</p>
+                <p><strong>Gebruik:</strong> Schaal een achtergrondafbeelding passend in je design, bijvoorbeeld full‑screen achtergrond.</p>
+                <p><strong>Voorbeeld:</strong></p>
+                <pre><code>/* Achtergrondafbeelding op volledige grootte van element uitrekken */
+hero {
+  background-image: url("landschap.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Achtergrondafbeelding 50% van elementbreedte maken, hoogte auto */
+figure {
+  background-image: url("thumbnail.png");
+  background-repeat: no-repeat;
+  background-size: 50% auto;
+}
+</code></pre>
+                <p>In het eerste voorbeeld wordt <code>landschap.jpg</code> zodanig geschaald dat de hele <code>&lt;hero&gt;</code>‑sectie gevuld is (de afbeelding vult de ruimte, eventueel bijgesneden). In het tweede voorbeeld krijgt <code>thumbnail.png</code> een breedte gelijk aan de helft van het element; de hoogte wordt automatisch naar verhouding berekend.</p>
+
+                <h5>background-attachment – Scrollgedrag van de achtergrond</h5>
+                <p>De property <code>background-attachment</code> bepaalt of de achtergrondafbeelding meebeweegt met de inhoud bij scrollen, of vaststaat ten opzichte van het viewport. Mogelijke waarden zijn: <code>scroll</code> (standaard), <code>fixed</code> (blijft staan), of <code>local</code> (scrolt mee binnen het element).</p>
+                <p><strong>Gebruik:</strong> Maak een vaste achtergrond voor een parallax‑effect of zorg dat een achtergrond binnen een scrollbaar element meebeweegt.</p>
+                <p><strong>Voorbeeld:</strong></p>
+                <pre><code>/* Vaste achtergrondafbeelding die niet meescrollt met de pagina */
+body {
+  background-image: url("bg.jpg");
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+/* Achtergrondafbeelding scrolt mee (standaardgedrag) */
+section {
+  background-image: url("pattern.png");
+  background-attachment: scroll;
+}
+</code></pre>
+                <p>In het eerste voorbeeld blijft <code>bg.jpg</code> altijd op dezelfde positie in het browservenster staan wanneer je scrollt. In het tweede voorbeeld wordt <code>pattern.png</code> gewoon scrollend weergegeven.</p>
+
+                <h5>background-origin en background-clip – Achtergrondpositie en ‑clipgebied</h5>
+                <p>Deze twee eigenschappen hangen samen met het box‑model van het element.</p>
+                <p><code>background-origin</code> bepaalt vanaf welk deel van het element de achtergrondpositie wordt berekend. Waarden: <code>padding-box</code> (standaard), <code>border-box</code> of <code>content-box</code>.</p>
+                <p><code>background-clip</code> bepaalt tot hoever de achtergrondkleur of ‑afbeelding doortekent binnen het element. Waarden: <code>padding-box</code>, <code>border-box</code>, <code>content-box</code> en speciaal <code>text</code> voor clippen tot de tekstvorm.</p>
+                <p><strong>Voorbeeld background-origin:</strong> Stel je hebt een element met een dikke border en padding, en je wilt dat een achtergrondpatroon pas begint na de border en padding: dan gebruik je <code>background-origin: content-box;</code>.</p>
+                <p><strong>Voorbeeld background-clip:</strong> Als je een semi‑transparante border hebt en je wilt dat de achtergrond eronder doorloopt tot achter de border, zet je <code>background-clip: border-box;</code>. Omgekeerd, als de border een eigen achtergrondkleur moet behouden, kies je <code>padding-box</code>.</p>
+                <p>Een speciaal geval is <code>background-clip: text</code>. Hierbij wordt de achtergrond alleen zichtbaar binnen de tekstvorm. Let op: om dit effect te laten werken moet de tekst zelf transparant gemaakt worden (bijv. met <code>color: transparent</code> en eventueel <code>-webkit-text-fill-color: transparent</code>).</p>
+                <p><strong>Voorbeeld (background-clip: text):</strong></p>
+                <pre><code>h1.cliptext {
+  background: url("beach.jpg") no-repeat center;
+  background-size: cover;
+  background-clip: text;
+  /* Zorg dat de tekstletters de achtergrond tonen: */
+  color: transparent;
+  -webkit-text-fill-color: transparent; /* voor oudere WebKit-browsers */
+}
+</code></pre>
+
+                <h5>background-blend-mode – Mengen van achtergrondlagen</h5>
+                <p>Als een element meerdere achtergrondlagen heeft (bijv. een achtergrondkleur én een afbeelding), bepaalt <code>background-blend-mode</code> hoe die lagen in elkaar overvloeien qua kleur. Dit werkt vergelijkbaar met laag‑blend‑modi in grafische software. Voorbeelden: <code>multiply</code>, <code>screen</code>, <code>overlay</code>, <code>darken</code>, <code>lighten</code>, enz.</p>
+                <p><strong>Gebruik:</strong> Creëer creatieve kleurmeng‑effecten tussen achtergrondlagen.</p>
+                <p><strong>Voorbeeld:</strong></p>
+                <pre><code>/* Een blauwe overlay mengen met een foto voor een donkerder effect */
+div.banner {
+  background-color: steelblue;
+  background-image: url("landschap.jpg");
+  background-blend-mode: multiply;
+}
+</code></pre>
+                <p>Volgens de specificatie geeft <code>background-blend-mode</code> aan hoe de achtergrondbeelden onderling en met de achtergrondkleur moeten mengen. Je kunt per laag een modus opgeven; minder modi dan lagen betekent dat de lijst wordt herhaald.</p>
+
+                <h5>Shorthand background – Alle achtergrondproperties in één regel</h5>
+                <p>CSS biedt de shorthand property <code>background</code> om veel van bovenstaande in één keer te zetten. In één regel kun je kleur, afbeelding, herhaling, positie, <code>/</code> grootte, <code>attachment</code> en <code>origin/clip</code> combineren.</p>
+                <pre><code>element {
+  background: [kleur] url(afbeelding) [herhaling] [positie] / [grootte] [attachment] [origin/clip];
+}
+
+/* Voorbeeld van shorthand gebruik */
+body {
+  background: #222 url("stars.png") no-repeat center center / cover fixed;
+}
+</code></pre>
+                <p>Let erop dat niet‑gespecificeerde onderdelen op de default terugvallen (bijv. herhalen). Als je geen herhaling wilt, zet expliciet <code>no-repeat</code>.</p>
+
+                <h4>CSS Visuele Effecten</h4>
+                <p>Nu we de achtergrondeigenschappen hebben behandeld, gaan we over op visuele effecten in CSS: schaduwen, filters, blend‑modi, clipping/masking, transformaties en overgangen/animaties.</p>
+
+                <h5>Schaduw‑effecten: box-shadow en text-shadow</h5>
+                <p><strong>box-shadow</strong> voegt schaduw toe rond een element (<em>outside</em> of met <code>inset</code> binnenin). De volgorde: X‑offset, Y‑offset, blur, (optioneel) spread, kleur, en optioneel <code>inset</code>. Meerdere schaduwen scheid je met komma’s.</p>
+                <pre><code>/* Een subtiele grijze slagschaduw onder een kaart */
+div.card {
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Een gloei-effect om een knop (meerdere schaduws) */
+button.glow {
+  box-shadow: 0 0 5px red, 0 0 15px red;
+}
+</code></pre>
+                <p><strong>text-shadow</strong> werkt op tekst en heeft geen <em>spread</em>. Syntax: X‑offset, Y‑offset, (optioneel) blur, kleur.</p>
+                <pre><code>/* Zwarte schaduw 2px rechts en 2px onder de tekst */
+h2.title {
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+/* Lichtgevende tekst (bijv. neon effect) */
+h1.neon {
+  color: #0ff;
+  text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
+}
+</code></pre>
+
+                <h5>CSS Filters: Visuele filtereffecten met filter</h5>
+                <p>Met <code>filter</code> pas je beeldeffecten toe zoals <code>blur()</code>, <code>grayscale()</code>, <code>brightness()</code>, <code>contrast()</code>, <code>sepia()</code>, <code>saturate()</code>, <code>hue-rotate()</code>, <code>invert()</code>, <code>opacity()</code>, <code>drop-shadow()</code> en <code>url()</code> (SVG filter). Meerdere filters kun je combineren; ze worden in volgorde toegepast.</p>
+                <pre><code>/* Maak een afbeelding 40% zwart-wit en geef 5px blur */
+img.photo {
+  filter: grayscale(40%) blur(5px);
+}
+
+/* Miniatuur afbeeldingen in grijstinten tonen, en vol kleur op hover */
+img.avatar {
+  filter: grayscale(100%);
+  transition: filter 0.5s;
+}
+img.avatar:hover {
+  filter: none;
+}
+
+/* Icoon iets donkerder en contrastrijker */
+.icon {
+  filter: brightness(80%) contrast(120%);
+}
+</code></pre>
+
+                <h5>backdrop-filter – Filteren van achtergrondelementen</h5>
+                <p><code>backdrop-filter</code> werkt op de pixels achter een (semi‑)transparant element. Veelgebruikt voor “frosted glass”.</p>
+                <pre><code>/* Wazig glas-effect op een overlay */
+div.overlay {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(5px);
+}
+</code></pre>
+
+                <h5>Transparantie en meng‑effecten: opacity, mix-blend-mode</h5>
+                <p><strong>opacity</strong> zet de doorzichtigheid van een element (en zijn kinderen): 0 = transparant, 1 = opaak.</p>
+                <pre><code>/* Iets transparante knop */
+button.disabled {
+  opacity: 0.5;
+}
+
+/* Oplichten bij hover */
+button:hover {
+  opacity: 0.8;
+  transition: opacity 0.3s;
+}
+</code></pre>
+                <p><strong>mix-blend-mode</strong> mengt de pixels van een element met wat eronder ligt (vergelijk Photoshop‑modi).</p>
+                <pre><code>/* Witte tekst die met de achtergrondafbeelding blend */
+h1.overlay-text {
+  color: white;
+  mix-blend-mode: overlay;
+}
+
+/* Gekleurde div die zich multiplicatief mengt */
+div.colorPatch {
+  background-color: purple;
+  mix-blend-mode: multiply;
+}
+</code></pre>
+
+                <h5>Clip en Masker: clip-path en CSS Masking (mask-image e.a.)</h5>
+                <p><strong>clip-path</strong> knipt een element in een vorm; <strong>mask-image</strong> gebruikt een maskerafbeelding/gradient.</p>
+                <pre><code>/* Afbeelding rond uitknippen (cirkel) */
+img.avatar {
+  clip-path: circle(50% at 50% 50%);
+}
+
+/* Div in een driehoek knippen */
+div.triangle {
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  background: orange;
+}
+
+/* Afbeelding naar onderen laten vervagen met masker */
+img.fadeout {
+  mask-image: linear-gradient(black 60%, transparent 100%);
+  mask-mode: alpha;
+}
+</code></pre>
+
+                <h5>Transformaties: elementen roteren, schalen, verplaatsen (transform)</h5>
+                <p>Belangrijke 2D functies: <code>translate()</code>, <code>rotate()</code>, <code>scale()</code>, <code>skewX()</code>/<code>skewY()</code>. Combineerbaar in één <code>transform</code>.</p>
+                <pre><code>/* Icoon 45 graden gedraaid */
+.icon.rotate {
+  transform: rotate(45deg);
+}
+
+/* Knop groter op hover */
+button:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s;
+}
+
+/* Verplaatsen en schuintrekken */
+div.move-skew {
+  transform: translate(100px, 50px) skewX(20deg);
+}
+</code></pre>
+
+                <h5>Overgangen (Transitions) – Soepele veranderingen</h5>
+                <p>Met transitions maak je stijlveranderingen vloeiend: <code>transition: &lt;property&gt; &lt;duration&gt; &lt;timing&gt; &lt;delay&gt;</code>.</p>
+                <pre><code>/* Verloop een achtergrondkleur verandering soepel */
+button {
+  background-color: blue;
+  transition: background-color 0.5s ease;
+}
+button:hover {
+  background-color: green;
+}
+</code></pre>
+
+                <h5>Animaties (CSS Animations) – Keyframe‑gestuurd</h5>
+                <p>Gebruik <code>@keyframes</code> en <code>animation</code> voor complexere of automatische animaties.</p>
+                <pre><code>@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+img.spinner {
+  animation: spin 2s linear infinite;
+}
+</code></pre>
+
+                <h5>Conclusie</h5>
+                <p>In deze uitgebreide gids hebben we alle belangrijke CSS‑achtergrond‑ en effecteigenschappen doorgenomen. Experimenteer met de voorbeeldcodes: geef een element schaduw, maak een afbeelding cirkelvormig met <code>clip-path</code>, of laat een knop van kleur veranderen bij hover. CSS biedt een schat aan mogelijkheden voor achtergronden en effecten – en nu heb je een volledig overzicht om mee aan de slag te gaan.</p>
             </section>
 
             <section id="css-motion">
